@@ -1,0 +1,31 @@
+@import "../../../../styles/variables";
+
+.app-header {	
+	justify-content: space-between;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 64px;	
+	background-color: $black;
+	border-bottom: 1px solid $border-dark;
+}
+
+.app-header .logo-wrapper {
+	text-align: right;
+}
+
+.app-header .logo {
+	background-image: url('/assets/exadel-logo-light.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 28px;
+    width: 128px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.app-header .menu-button {
+	vertical-align: middle;
+	background-color: $black;
+}

@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.app-page {
+	text-align: center;
+	.form-container {
+		display: inline-block;
+		width: 50%;
+		background-color: #34373C;
+		.form {
+			
+			>.header {
+				color: $white;
+				text-decoration: none;
+			}
+
+			.input {
+				color: $white;
+				input {
+					background-color: $black;
+					color: $white;
+				}
+			}
+			
+		}
+	}
+	
+}

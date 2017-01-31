@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "./variables";
+
+body {
+	background-color: $black;
+
+	&.pushable {
+		background-color: $black !important;
+
+		>.pusher {
+			background-color: $black !important;
+		}
+	}
+
+
+}
+
+.app-header {
+	* {
+		text-transform: uppercase;
+		font-weight: 600;		
+		color: $white;	
+	}
+}
+
+.app-page {
+	position: absolute;
+	top: 64px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.app-header.ui.menu::after {
+	content: none;
+}
+
+.ui.inverted.menu .item.no-divider::before {
+	content: none;
+}

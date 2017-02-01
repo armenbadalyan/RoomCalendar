@@ -1,0 +1,15 @@
+@import "../../styles/variables";
+
+.settings-page {
+    &__form-container {
+      margin: 0 auto;
+      width: 50%;
+      background-color: #34373C;
+    }
+    &__form {
+    }
+    &__title {
+      color: $white;
+      text-align: center;
+    }
+}

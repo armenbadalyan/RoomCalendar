@@ -5,15 +5,15 @@
                 <h4 class="ui dividing settings-page__title">Welcome to room calendar. Please login.</h4>
                 <div class="field">
                     <label>Select a calendar</label>
-                    <select name="room" type="text">
-                        <option *ngFor="let calendar of calendars" [value]="calendar.id">{{calendar.name}}</option>
+                    <select name="room" [(ngModel)]="settings.selectedCalendar">
+                        <option *ngFor="let calendar of settings.calendarList" [value]="calendar">{{calendar.title}}</option>
                     </select>
                 </div>
                 <div class="field">
                     <label>Maximum events</label>
-                    <input name="maxEvents" type="number" [(ngModel)]="maxEvents">
+                    <input name="maxEvents" type="number" [(ngModel)]="settings.maxEvents">
                 </div>
-                <button type="button" class="ui fluid red button" (click)="onLogout()"><i class="sign out icon"></i>Logout</button> 
+                <button type="button" class="ui fluid red button" (click)="onLogout()"><i class="sign out icon"></i>Logout</button>
             </form>
         </div>
     </div>

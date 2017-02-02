@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared';
+import { SettingsService } from '../shared';
 
 @Component({
   selector: 'app-settings',
@@ -9,14 +10,13 @@ import { UserService } from '../shared';
 })
 export class SettingsComponent implements OnInit {
 
-  maxEvents = 10;
-
-  constructor(private userService:UserService, private router:Router) { }
+  constructor(private userService:UserService, private router:Router, private settings:SettingsService) { }
 
   ngOnInit() {
+    this.settings.update();
   }
 
-  onLogout() {
+  onLogout(): void {
   	this.userService.logout()
   	.subscribe(
   		success => {

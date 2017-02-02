@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 const gapiUrl = "https://apis.google.com/js/api.js?onload=_gapiOnLoad";
 const params = {
@@ -8,61 +9,67 @@ const params = {
 
 @Injectable()
 export class GapiService {
-    constructor(){}
+    constructor() {}
 
-    getApi():Promise<boolean> {
-      let promise = new Promise((resolve, reject) => {
-        window['_gapiOnLoad'] = (ev) => {
-            window['gapi'].load('client', () => {
-                window['gapi'].client.init(params)
-                     .then(
-                       (success) => resolve(true),
-                       (error) => reject(false)
-                     );
-            });
-        }
-        this.loadScript()
-      });
-
-      this.getApi = () => promise;
-
-      return promise;
-    }
-
-    loadScript(): void{
+    private loadScript(url: string): void{
       let node = document.createElement('script');
-      node.src = gapiUrl;
+      node.src = url;
       node.type = 'text/javascript';
       document.getElementsByTagName('head')[0].appendChild(node);
     }
 
-    login(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.getApi()
-                .then(function() {
-                    var GoogleAuth = window['gapi'].auth2.getAuthInstance();
-
-                    return GoogleAuth.isSignedIn.get()
-                            ? resolve()
-                            : GoogleAuth.signIn();
-                }, reject);
+    private loadClient(): Observable<any> {
+        return Observable.create((observer) => {
+              window['gapi'].load('client', () => {
+                  observer.next(true);
+                  observer.complete();
+              });
         });
     }
 
-    loadCalendars(): Promise<any> {
-         return new Promise((resolve, reject) => {
-             this.getApi()
-                 .then(this.login.bind(this))
-                 .then(() => {
-                     return window['gapi'].client.load('calendar', 'v3');
-                 }, reject)
-                 .then(() =>  {
-                     return window['gapi'].client.calendar.calendarList.list();
-                 }, reject)
-                 .then(function(resp) {
-                     resolve(resp.result.items);
-                 }, reject);
-         });
-       }
+    private initClient(): Observable<any> {
+      return Observable.fromPromise(window['gapi'].client.init(params));
+    }
+
+    private loadCalendarApi(): Observable<any> {
+      return Observable.fromPromise(window['gapi'].client.load('calendar', 'v3'));
+    }
+
+    private loadCalendaList(): Observable<any> {
+      return Observable.fromPromise(window['gapi'].client.calendar.calendarList.list());
+    }
+
+    getApi():Observable<any> {
+      var observer = Observable.create((observer) => {
+          window['_gapiOnLoad'] = (ev) => {
+            observer.next(true);
+            observer.complete();
+          }
+
+          this.loadScript(gapiUrl);
+      });
+
+      this.getApi = () => observer
+        .flatMap(() => this.loadClient())
+        .flatMap(() => this.initClient());
+
+      return this.getApi();
+    }
+
+    login(): Observable<any> {
+        let GoogleAuth = window['gapi'].auth2.getAuthInstance();
+
+        return GoogleAuth.isSignedIn.get()
+                ? Observable.create((observer) => { observer.next(true); observer.complete(); })
+                : Observable.fromPromise(GoogleAuth.signIn());
+    }
+
+    loadCalendars(): Observable<any> {
+      return this.getApi()
+              .flatMap(() => this.login())
+              .flatMap(() => this.loadCalendarApi())
+              .flatMap(() => this.loadCalendaList())
+              .map((resp:any) => resp.result.items)
+     }
 
 }

@@ -16,7 +16,7 @@ export class CalendarService {
 	constructor(private gapi:GapiService) {}
 
   getCalendars(): void {
-      this.gapi.loadCalendars().then((jsonList) => {
+      this.gapi.loadCalendars().subscribe((jsonList) => {
         this._calendars.next(jsonList);
       });
   }

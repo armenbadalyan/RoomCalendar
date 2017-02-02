@@ -10,7 +10,7 @@ const params = {
 export class GapiService {
     constructor(){}
 
-    getApi():Promise<Boolean> {
+    getApi():Promise<boolean> {
       let promise = new Promise((resolve, reject) => {
         window['_gapiOnLoad'] = (ev) => {
             window['gapi'].load('client', () => {
@@ -52,7 +52,7 @@ export class GapiService {
     loadCalendars(): Promise<any> {
          return new Promise((resolve, reject) => {
              this.getApi()
-                 .then(this.login)
+                 .then(this.login.bind(this))
                  .then(() => {
                      return window['gapi'].client.load('calendar', 'v3');
                  }, reject)

@@ -10,9 +10,19 @@ export class EventService {
 
   private _events: BehaviorSubject<Event[]> = new BehaviorSubject([]);
 
-  public events: Observable<Event[]> = this._events.map(this.processEvents);
+  private _currentEvent: BehaviorSubject<Event> = new BehaviorSubject(null);
 
-	constructor(private gapi:GapiService, private settings:SettingsService) {}
+  private _laterEvents: BehaviorSubject<Event[]> = new BehaviorSubject([]);
+
+  public currentEvent: Observable<Event> = this._currentEvent.asObservable();
+
+  public laterEvents: Observable<Event[]> =  this._laterEvents.asObservable();
+
+  constructor(private gapi:GapiService, private settings:SettingsService) {
+       this._events
+          .map(this.processEvents)
+          .subscribe(this.handleEvents.bind(this));
+  }
 
   getEvents(): void {
       if(this.settings.isEventLoadAllowed()) {
@@ -25,6 +35,27 @@ export class EventService {
   processEvents(events:any): Event[] {
     return events
               .map((eventData) => (new Event()).fromJSON(eventData));
+  }
+
+  handleEvents(events: Event[]): void {
+      let currentTime: Date = new Date();
+
+      let splitEvents = events.reduce((output, event: Event) => {
+          let startTime: Date = event.startDate,
+              endTime: Date =  event.endDate;
+          if(startTime > currentTime || endTime < currentTime) {
+              output.laterEvents.push(event);
+          } else {
+              output.currentEvent = event;
+          }
+          return output;
+      }, {
+          currentEvent: null,
+          laterEvents: []
+      });
+
+      this._currentEvent.next(splitEvents.currentEvent);
+      this._laterEvents.next(splitEvents.laterEvents);
   }
 
 }

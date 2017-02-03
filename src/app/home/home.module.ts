@@ -4,6 +4,7 @@ import { SharedModule } from '../shared';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { RoomGuard } from '../shared';
+import { PipesModule } from '../pipes/pipes.module';
 
 const pageRouting: ModuleWithProviders = RouterModule.forChild([
 	{
@@ -17,6 +18,7 @@ const pageRouting: ModuleWithProviders = RouterModule.forChild([
 	imports: [
 		CommonModule,
 		SharedModule,
+		PipesModule,
 		pageRouting
 	],
 	declarations: [ HomeComponent ]

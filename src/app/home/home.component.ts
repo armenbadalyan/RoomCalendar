@@ -9,15 +9,25 @@ import { Event } from '../shared/models/event.model';
 })
 export class HomeComponent implements OnInit {
 
-  public eventList: Event[];
+  public laterEventsList: Event[];
+
+  public currentEvent: Event;
 
   constructor(private eventService: EventService) { }
 
   ngOnInit() {
-    this.eventService.events
+    this.eventService.laterEvents
       .subscribe(
         events => {
-          this.eventList = events;
+          this.laterEventsList = events;
+        },
+        error => {
+        });
+
+    this.eventService.currentEvent
+      .subscribe(
+        event => {
+          this.currentEvent = event;
         },
         error => {
         });

@@ -1,23 +1,39 @@
-<div class="app-page">
-    <div class="ui padded grid current-event">
+<div class="app-page event-page">
+    <div class="ui padded grid event-page__current-event">
         <div class="six wide column olive"></div>
-        <div class="ten wide column olive"></div>
+        <div class="ten wide column olive">
+            <div *ngIf="currentEvent">
+              <h3 class="">{{currentEvent.title}}</h3>
+              <div class="">Booked by {{currentEvent.author}}</div>
+              <div class="">{{currentEvent.startDate | date:'EEE, MMM dd'}} {{currentEvent.endDate | timeFilter}}</div>
+            </div>
+            <div *ngIf="!currentEvent">
+                <div class="ui header">The meeting room is available</div>
+            </div>
+        </div>
     </div>
-    <div class="ui padded grid mini-header">
+    <div class="ui padded grid event-page__mini-header">
         <div class="six wide column green">Book the room</div>
         <div class="ten wide column green">Upcoming events</div>
     </div>
-    <div class="ui padded grid event-list">
+    <div class="ui padded grid event-page__list-wrapper">
         <div class="six wide column black"></div>
         <div class="ten wide column black">
-          <section>
+          <div class="event-page__list-scroll">
 
-            <article *ngFor="let event of eventList">
-              <div class="">{{event.title}}</div>
-              <div class="">{{event.author}}</div>
-            </article>
+              <section class="ui relaxed divided list inverted big event-page__list">
 
-          </section>
+                <article *ngFor="let event of laterEventsList" class="item event-page__list-item">
+                    <div class="content">
+                      <h3 class="">{{event.title}}</h3>
+                      <div class="">Booked by {{event.author}}</div>
+                      <div class="">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>
+                    </div>
+                </article>
+
+              </section>
+
+          </div>
         </div>
     </div>
 </div>

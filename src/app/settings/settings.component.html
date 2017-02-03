@@ -5,8 +5,8 @@
                 <h4 class="ui dividing settings-page__title">Welcome to room calendar. Please login.</h4>
                 <div class="field">
                     <label>Select a calendar</label>
-                    <button *ngIf = "!settings.calendarList.length" disabled class="ui button fluid loading">&nbsp;</button>
-                    <select *ngIf = "settings.calendarList.length" name="room" [(ngModel)]="settings.selectedCalendar">
+                    <button *ngIf = "!settings.isReady()" disabled class="ui button fluid loading">&nbsp;</button>
+                    <select *ngIf = "settings.isReady()" name="room" (change)="onCalendarSelect()" [(ngModel)]="settings.selectedCalendar">
                         <option *ngFor="let calendar of settings.calendarList" [value]="calendar">{{calendar.title}}</option>
                     </select>
                 </div>

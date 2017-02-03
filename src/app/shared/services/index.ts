@@ -4,3 +4,4 @@ export * from './user.service';
 export * from './settings.service';
 export * from './calendar.service';
 export * from './gapi.service';
+export * from './page.service';

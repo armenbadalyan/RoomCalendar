@@ -8,8 +8,8 @@ import { AuthGuard } from '../shared'
 const pageRouting: ModuleWithProviders = RouterModule.forChild([
 	{
 		path: 'settings',
-		component: SettingsComponent//,
-    //canActivate: [ AuthGuard ]
+		component: SettingsComponent,
+    canActivate: [ AuthGuard ]
 	}
 ]);
 

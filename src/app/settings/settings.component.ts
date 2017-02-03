@@ -16,6 +16,10 @@ export class SettingsComponent implements OnInit {
     this.settings.update();
   }
 
+  onCalendarSelect() {
+    this.settings.storeCurrentCalendar();
+  }
+
   onLogout(): void {
   	this.userService.logout()
   	.subscribe(

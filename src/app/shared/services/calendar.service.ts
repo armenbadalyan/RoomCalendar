@@ -11,7 +11,7 @@ export class CalendarService {
 
   private _calendars: BehaviorSubject<Calendar[]> = new BehaviorSubject([]);
 
-  public calendars: Observable<Calendar[]> = this._calendars.asObservable().map(this.processCalendars);
+  public calendars: Observable<Calendar[]> = this._calendars.map(this.processCalendars);
 
 	constructor(private gapi:GapiService) {}
 

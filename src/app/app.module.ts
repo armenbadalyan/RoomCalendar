@@ -12,7 +12,10 @@ import {
   SharedModule,
   RoomGuard,
   AuthGuard,
-  UserService
+  UserService,
+  SettingsService,
+  CalendarService,
+  GapiService
 } from './shared';
 import './shared/rxjs-extensions';
 
@@ -33,7 +36,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   declarations: [
     AppComponent
   ],
-  providers: [ RoomGuard, AuthGuard, UserService ],
+  providers: [ RoomGuard, AuthGuard, UserService, SettingsService, CalendarService, GapiService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

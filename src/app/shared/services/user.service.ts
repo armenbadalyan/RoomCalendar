@@ -31,7 +31,7 @@ export class UserService {
 	logout(): Observable<any> {
 		return this.http.post(logoutURL,
 			{
-				token: this.currentUser
+				token: this.currentUser.sessionToken
 			},
 			{
 				headers: new Headers({
@@ -39,7 +39,7 @@ export class UserService {
 					'Accept': 'application/json'
 				})
 			})
-			.map(this.processLogin);			
+			.map(this.processLogin);
 	}
 
 	isLoggedIn() {
@@ -47,11 +47,10 @@ export class UserService {
 	}
 
 	processLogin = (response: Response):User => {
-		let data:any = response.json();		
+		let data:any = response.json();
 
 		this.currentUser = (new User()).fromJSON(data);
 		return this.currentUser;
-		
 	}
 
 	/*private handleError(error: Response | any) {

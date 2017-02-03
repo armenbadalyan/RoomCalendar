@@ -1,3 +1,21 @@
-<p>
-  settings works!
-</p>
+<div class="ui grid padded app-page settings-page">
+    <div class="ui column sixteen middle aligned">
+        <div class="ui segment inverted settings-page__form-container">
+            <form novalidate #settingsForm="ngForm" class="ui inverted form settings-page__form">
+                <h4 class="ui dividing settings-page__title">Welcome to room calendar. Please login.</h4>
+                <div class="field">
+                    <label>Select a calendar</label>
+                    <button *ngIf = "!settings.isReady()" disabled class="ui button fluid loading">&nbsp;</button>
+                    <select *ngIf = "settings.isReady()" name="room" (change)="onCalendarSelect()" [(ngModel)]="settings.selectedCalendar">
+                        <option *ngFor="let calendar of settings.calendarList" [value]="calendar">{{calendar.title}}</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Maximum events</label>
+                    <input name="maxEvents" type="number" [(ngModel)]="settings.maxEvents">
+                </div>
+                <button type="button" class="ui fluid red button" (click)="onLogout()"><i class="sign out icon"></i>Logout</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -39,6 +39,10 @@ export class GapiService {
       return Observable.fromPromise(window['gapi'].client.calendar.calendarList.list());
     }
 
+    private loadEventList(params:{}):Observable<any> {
+      return Observable.fromPromise(window['gapi'].client.calendar.events.list(params));
+    }
+
     getApi():Observable<any> {
       var observer = Observable.create((observer) => {
           window['_gapiOnLoad'] = (ev) => {
@@ -70,6 +74,22 @@ export class GapiService {
               .flatMap(() => this.loadCalendarApi())
               .flatMap(() => this.loadCalendaList())
               .map((resp:any) => resp.result.items)
-     }
+    }
 
+    loadEvents(calendarId: string, timeMin: string, limit: number, orderby='startTime'): Observable<any> {
+      let params = {
+          'calendarId': calendarId,
+          'timeMin': timeMin,
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': limit,
+          'orderBy': orderby
+      };
+
+      return this.getApi()
+              .flatMap(() => this.login())
+              .flatMap(() => this.loadCalendarApi())
+              .flatMap(() => this.loadEventList(params))
+              .map((resp:any) => resp.result.items)
+    }
 }

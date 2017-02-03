@@ -9,6 +9,15 @@
     </div>
     <div class="ui padded grid event-list">
         <div class="six wide column black"></div>
-        <div class="ten wide column black"></div>
+        <div class="ten wide column black">
+          <section>
+
+            <article *ngFor="let event of eventList">
+              <div class="">{{event.title}}</div>
+              <div class="">{{event.author}}</div>
+            </article>
+
+          </section>
+        </div>
     </div>
 </div>

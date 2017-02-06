@@ -1,5 +1,6 @@
 import { OnInit } from '@angular/core';
 import { PageService } from '../services/page.service';
+import { Observable } from 'rxjs/Rx';
 
 export abstract class Page implements OnInit {
 
@@ -8,7 +9,7 @@ export abstract class Page implements OnInit {
 	}
 
 	abstract get hasBack():boolean;
-	abstract get title():string;
+	abstract get title():Observable<string> | string;
 	abstract get hasMenu():boolean;
 
 	ngOnInit() {

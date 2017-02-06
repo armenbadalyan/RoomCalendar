@@ -10,7 +10,6 @@ import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import {
   SharedModule,
-  RoomGuard,
   AuthGuard,
   UserService,
   SettingsService,
@@ -39,7 +38,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     AppComponent
   ],
 
-  providers: [ RoomGuard, AuthGuard, UserService, SettingsService, CalendarService, EventService, GapiService, PageService], 
+  providers: [ AuthGuard, UserService, SettingsService, CalendarService, EventService, GapiService, PageService], 
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

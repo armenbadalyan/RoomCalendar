@@ -5,12 +5,15 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { RoomGuard } from '../shared';
 import { EventListComponent } from './event-list/event-list.component';
+import { CurrentEventResolver } from './current-event-resolver.service';
 
 const pageRouting: ModuleWithProviders = RouterModule.forChild([
 	{
 		path: '',
 		component: HomeComponent,
-		canActivate: [ RoomGuard ],
+		resolve: {
+			calendar: CurrentEventResolver
+		}
 	}
 ]);
 
@@ -20,6 +23,7 @@ const pageRouting: ModuleWithProviders = RouterModule.forChild([
 		SharedModule,		
 		pageRouting
 	],
-	declarations: [ HomeComponent, EventListComponent ]
+	declarations: [ HomeComponent, EventListComponent ],
+	providers: [ CurrentEventResolver ]
 })
 export class HomeModule { }

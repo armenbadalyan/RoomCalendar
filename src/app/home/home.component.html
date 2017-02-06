@@ -19,21 +19,6 @@
     <div class="ui padded grid event-page__list-wrapper">
         <div class="six wide column black"></div>
         <div class="ten wide column black">
-          <div class="event-page__list-scroll">
-
-              <section class="ui relaxed divided list inverted big event-page__list">
-
-                <article *ngFor="let event of laterEventsList" class="item event-page__list-item">
-                    <div class="content">
-                      <h3 class="">{{event.title}}</h3>
-                      <div class="">Booked by {{event.author}}</div>
-                      <div class="">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>
-                    </div>
-                </article>
-
-              </section>
-
-          </div>
-        </div>
+          <event-list [events]="laterEventsList"></event-list>
     </div>
 </div>

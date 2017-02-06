@@ -1,0 +1,30 @@
+.event-page {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+
+	&__current-event {
+		min-height: 200px;
+	}
+
+	&__mini-header {
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+	&__list-wrapper {
+		flex: 1 0;
+		position: relative;
+	}
+
+	&__list-scroll {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		padding: 1rem;
+	}
+}

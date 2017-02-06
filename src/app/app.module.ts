@@ -16,7 +16,8 @@ import {
   SettingsService,
   CalendarService,
   EventService,
-  GapiService
+  GapiService,
+  PageService
 } from './shared';
 import './shared/rxjs-extensions';
 
@@ -37,7 +38,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   declarations: [
     AppComponent
   ],
-  providers: [ RoomGuard, AuthGuard, UserService, SettingsService, CalendarService, EventService, GapiService],
+
+  providers: [ RoomGuard, AuthGuard, UserService, SettingsService, CalendarService, EventService, GapiService, PageService], 
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

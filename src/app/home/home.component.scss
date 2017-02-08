@@ -16,15 +16,4 @@
 		flex: 1 0;
 		position: relative;
 	}
-
-	&__list-scroll {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
-		padding: 1rem;
-	}
 }

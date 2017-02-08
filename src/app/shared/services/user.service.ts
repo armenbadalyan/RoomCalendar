@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { User } from '../models/user.model';
+import { environment } from '../../../environments/environment';
 
-const loginURL = 'https://api.appery.io/rest/1/code/room_calendar_login_dev/exec';
-const logoutURL = 'https://api.appery.io/rest/1/code/room_calendar_logout_dev/exec';
-//const DB_ID = '5874c181e4b07690afedf74a';
-
+const loginURL = `${environment.appery_base_url}room_calendar_login_${environment.production ? 'prod' : 'dev'}/exec`;
+const logoutURL = `${environment.appery_base_url}room_calendar_logout_${environment.production ? 'prod' : 'dev'}/exec`;
 @Injectable()
 export class UserService {
 
@@ -25,7 +24,7 @@ export class UserService {
 				})
 			})
 			.map(this.processLogin)
-			//.catch(this.handleError)
+		//.catch(this.handleError)
 	}
 
 	logout(): Observable<any> {
@@ -46,8 +45,8 @@ export class UserService {
 		return this.currentUser !== null;
 	}
 
-	processLogin = (response: Response):User => {
-		let data:any = response.json();
+	processLogin = (response: Response): User => {
+		let data: any = response.json();
 
 		this.currentUser = (new User()).fromJSON(data);
 		return this.currentUser;

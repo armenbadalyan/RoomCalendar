@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { PageService, Page } from '../../../shared';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
 	selector: 'layout-header',
@@ -9,7 +10,7 @@ import { PageService, Page } from '../../../shared';
 })
 export class HeaderComponent implements OnInit {
 
-	public title: string;
+	public title: Observable<string>;
 	public hasBack: boolean;
 	public hasMenu: boolean;
 
@@ -19,7 +20,19 @@ export class HeaderComponent implements OnInit {
 	ngOnInit() {
 
 		this.pageService.pageInitialized.subscribe(page => {
-			this.title = page.title;
+
+			if (page.title instanceof Observable) {
+				this.title = page.title;
+				
+			}
+			else {
+				this.title = Observable.create(function (observer) {
+					observer.next(page.title);
+					observer.complete();
+				});
+			}
+
+			
 			this.hasBack = page.hasBack;
 			this.hasMenu = page.hasMenu;
 		});

@@ -14,7 +14,7 @@
                     <label>Maximum events</label>
                     <input name="maxEvents" type="number" [(ngModel)]="settings.maxEvents">
                 </div>
-                <button type="button" class="ui fluid red button" (click)="onLogout()"><i class="sign out icon"></i>Logout</button>
+                <button type="button" class="ui fluid red button" [class.loading]="isLoggingOut" (click)="onLogout()"><i class="sign out icon"></i>Logout</button>
             </form>
         </div>
     </div>

@@ -13,7 +13,7 @@ export class UserService {
 
 	constructor(private http: Http) { }
 
-	login(username, password): Observable<any> {
+	login(username, password): Observable<User> {
 		return this.http.post(loginURL, {
 			username: username,
 			password: password
@@ -23,11 +23,10 @@ export class UserService {
 					'Accept': 'application/json'
 				})
 			})
-			.map(this.processLogin)
-		//.catch(this.handleError)
+			.map(this.processLogin);
 	}
 
-	logout(): Observable<any> {
+	logout(): Observable<boolean> {
 		return this.http.post(logoutURL,
 			{
 				token: this.currentUser.sessionToken
@@ -38,7 +37,7 @@ export class UserService {
 					'Accept': 'application/json'
 				})
 			})
-			.map(this.processLogin);
+			.map(this.processLogout);
 	}
 
 	isLoggedIn() {
@@ -50,6 +49,10 @@ export class UserService {
 
 		this.currentUser = (new User()).fromJSON(data);
 		return this.currentUser;
+	}
+
+	processLogout(response: Response) {
+		return true;
 	}
 
 	/*private handleError(error: Response | any) {

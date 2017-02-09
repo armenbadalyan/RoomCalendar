@@ -9,11 +9,13 @@ import { UserService, SettingsService, PageService, Page } from '../shared';
 })
 export class SettingsComponent extends Page {
 
+  isLoggingOut: boolean = false;
+
   constructor(
-              pageService:PageService,
-              private userService:UserService,
-              private router:Router,
-              private settings:SettingsService) {
+    pageService: PageService,
+    private userService: UserService,
+    private router: Router,
+    private settings: SettingsService) {
 
     super(pageService);
   }
@@ -40,16 +42,20 @@ export class SettingsComponent extends Page {
   }
 
   onLogout(): void {
-  	this.userService.logout()
-  	.subscribe(
-  		success => {
-  			// navigate to login
-  			this.router.navigate(['/login']);
-  		},
-  		error => {
+    this.isLoggingOut = true;
+    this.userService.logout()
+      .finally(
+      () => {
+        this.isLoggingOut = false;
+      })
+      .subscribe(
+      success => {
+        // navigate to login
+        this.router.navigate(['/']);
+      },
+      error => {
 
-  		});
+      });
   }
-
 
 }

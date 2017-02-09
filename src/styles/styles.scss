@@ -3,7 +3,9 @@
 @import "./variables";
 
 body {
-	background-color: $black;
+	font-size: 1rem;
+	letter-spacing: 1px;
+	background-color: $black;	
 
 	&.pushable {
 		background-color: $black !important;
@@ -19,7 +21,7 @@ body {
 .app-header {
 	* {
 		text-transform: uppercase;
-		font-weight: 600;		
+		font-weight: 500;			
 		color: $white;	
 	}
 }

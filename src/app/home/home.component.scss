@@ -1,7 +1,10 @@
+@import "../../styles/variables";
+
 .event-page {
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
+	color: $white;
 
 	&__current-event {
 		min-height: 200px;

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { CurrentEventResolver } from './current-event-resolver.service';
+import { RoomStatusComponent } from './room-status/room-status.component';
 
 const pageRouting: ModuleWithProviders = RouterModule.forChild([
 	{
@@ -22,7 +23,7 @@ const pageRouting: ModuleWithProviders = RouterModule.forChild([
 		SharedModule,		
 		pageRouting
 	],
-	declarations: [ HomeComponent, EventListComponent ],
+	declarations: [ HomeComponent, EventListComponent, RoomStatusComponent ],
 	providers: [ CurrentEventResolver ]
 })
 export class HomeModule { }

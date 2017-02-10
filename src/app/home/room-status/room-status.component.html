@@ -1,0 +1,17 @@
+<div class="ui padded grid room-status">
+    <div class="six wide column">
+    	<div class="room-status__first-column">
+    		<div class="room-status__icon" [ngClass]="iconClasses"></div>
+    	</div>    	
+    </div>
+    <div class="ten wide column">
+        <div *ngIf="event">
+            <h3 class="">{{event.title}}</h3>
+            <div class="">Booked by {{event.author}}</div>
+            <div class="">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>
+        </div>
+        <div *ngIf="!event">
+            <div class="ui header">The meeting room is available</div>
+        </div>
+    </div>
+</div>

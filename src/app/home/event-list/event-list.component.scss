@@ -2,13 +2,6 @@
 
 .event-list {
 	&__scroll {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
 		padding: 1rem;
 	}
 
@@ -26,10 +19,8 @@
 		}
 	}
 
-	&__property--title {		
-		font-size: 1.5rem;	
+	&__property--title {
+		font-size: 1.5rem;
 		color: $white;
 	}
 }
-
-

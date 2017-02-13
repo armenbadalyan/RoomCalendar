@@ -1,0 +1,48 @@
+.custom-scroll {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 90px;
+    z-index: 10;
+    opacity: 1;
+    transition: all .3s ease;
+    pointer-events: none;
+  }
+  &:after {
+    bottom: 0;
+    background: linear-gradient(to top, #232323 0%, rgba(35, 35, 35, 0) 100%);
+  }
+  &:before {
+    top: 0;
+    background: linear-gradient(to top, rgba(35, 35, 35, 0) 0%, #232323 100%);
+  }
+
+  &--topped {
+    &:before {
+      opacity: 0;
+    }
+  }
+
+  &--bottomed {
+    &:after {
+      opacity: 0;
+    }
+  }
+
+  &__inner {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+		-webkit-overflow-scrolling: touch;
+  }
+}

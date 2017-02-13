@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { CurrentEventResolver } from './current-event-resolver.service';
+import { CoreModule } from '../core/core.module';
 
 const pageRouting: ModuleWithProviders = RouterModule.forChild([
 	{
@@ -19,10 +20,11 @@ const pageRouting: ModuleWithProviders = RouterModule.forChild([
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule,		
+		SharedModule,
+		CoreModule,
 		pageRouting
 	],
-	declarations: [ HomeComponent, EventListComponent ],
+	declarations: [ HomeComponent, EventListComponent],
 	providers: [ CurrentEventResolver ]
 })
 export class HomeModule { }

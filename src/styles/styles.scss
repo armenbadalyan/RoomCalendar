@@ -2,10 +2,15 @@
 
 @import "./variables";
 
+html,
+body {
+	overflow: hidden;
+}
+
 body {
 	font-size: 1rem;
 	letter-spacing: 1px;
-	background-color: $black;	
+	background-color: $black;
 
 	&.pushable {
 		background-color: $black !important;
@@ -21,8 +26,8 @@ body {
 .app-header {
 	* {
 		text-transform: uppercase;
-		font-weight: 500;			
-		color: $white;	
+		font-weight: 500;
+		color: $white;
 	}
 }
 

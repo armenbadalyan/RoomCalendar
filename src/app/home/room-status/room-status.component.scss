@@ -1,15 +1,31 @@
 @import "../../../styles/variables";
 
 .room-status {
-    min-height: 230px;
-    background-color: $green;
+    min-height: 230px;    
 
-    &__first-column {
-    	display: flex;
-    	justify-content: flex-end;
+    &--free {
+    	background: #a7f170;
+        background: linear-gradient(to bottom, #adf776 0%, #95de5e 100%);		 
+    }
+
+    &--busy {
+    	background: #f47272;
+        background: linear-gradient(to bottom, #f77676 0%, #df5e5e 100%); 
+    }
+
+    &__column {
+		display: flex;    	
     	align-items: center;
     	width: 100%;
     	height: 100%;
+
+    	&--first {
+    		justify-content: flex-end;
+    	}
+
+		&--second {
+    		justify-content: flex-start;
+    	}    	
     }
 
 	&__icon {		
@@ -20,9 +36,19 @@
 			background-image: url("assets/check-circled.png");
 		}
 		&--busy {			
-			width: 110;
+			width: 110px;
 			height: 154px;
 			background-image: url("assets/sand-watch.png")
 		}
+	}
+
+	&__available {
+		text-transform: uppercase;
+		color: $darkGreen;		
+	}
+
+	&__available-status {
+		margin: 0.5rem 0;
+		font-size: 2.75rem;
 	}
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Event } from '../../shared/models/event.model';
+import { Observable } from 'rxjs/Rx';
+import { Event, EventService } from '../../shared';
 
 @Component({
 	selector: 'room-status',
@@ -8,26 +9,33 @@ import { Event } from '../../shared/models/event.model';
 })
 export class RoomStatusComponent implements OnInit {
 
-	private _event:Event = null;
-
-	@Input()
-	public set event(value) {
-		if (this._event !== value) {
-			this._event = value;
-			this.updateProperties()
-		}		
-	}
-
-	public get event():Event {
-		return this._event;
-	}
+	public event:Event = null;	
+	public nextEventTime:Date = null;
 
 	public iconClasses = {}
 
-	constructor() { }
+	constructor(private eventService: EventService) { }
 
 	ngOnInit() {
-		this.updateProperties();
+		
+		this.eventService.laterEvents.subscribe(events => {
+			let now = new Date();
+			var todaysEvents = events.filter(event => {
+				return event.startDate.toDateString() === now.toDateString();
+			});
+
+			if (todaysEvents.length) {
+				this.nextEventTime = todaysEvents[0].startDate;
+			}
+			else {
+				this.nextEventTime = null;
+			}
+		});
+		this.eventService.currentEvent.subscribe(event => {
+			this.event = event;
+			this.updateProperties();
+		});
+		
 	}
 
 	private updateProperties() {

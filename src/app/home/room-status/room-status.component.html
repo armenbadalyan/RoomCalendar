@@ -1,17 +1,21 @@
-<div class="ui padded grid room-status">
+<div class="ui padded grid room-status" [ngClass]="{'room-status--busy': event, 'room-status--free': !event}">
     <div class="six wide column">
-    	<div class="room-status__first-column">
+    	<div class="room-status__column room-status__column--first">
     		<div class="room-status__icon" [ngClass]="iconClasses"></div>
     	</div>    	
     </div>
     <div class="ten wide column">
-        <div *ngIf="event">
-            <h3 class="">{{event.title}}</h3>
-            <div class="">Booked by {{event.author}}</div>
-            <div class="">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>
-        </div>
-        <div *ngIf="!event">
-            <div class="ui header">The meeting room is available</div>
+    	<div class="room-status__column room-status__column--second">
+	        <div *ngIf="event">
+	            <h3 class="">{{event.title}}</h3>
+	            <div class="">Booked by {{event.author}}</div>
+	            <div class="">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>
+	        </div>
+	        <div *ngIf="!event" class="room-status__available">
+	            <div class="room-status__available-label">Meeting room is</div>
+	            <div class="room-status__available-status">Available</div>
+	            <div class="room-status__available-next">{{ nextEventTime ? 'today until ' + (nextEventTime | timeFilter) : 'all day long' }}</div>
+	        </div>
         </div>
     </div>
 </div>

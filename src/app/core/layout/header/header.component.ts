@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { PageService, Page } from '../../../shared';
 import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'layout-header',
@@ -13,9 +14,10 @@ export class HeaderComponent implements OnInit {
 	public title: Observable<string>;
 	public hasBack: boolean;
 	public hasMenu: boolean;
+	public hasClock: boolean;
 
 
-	constructor(private location: Location, private pageService:PageService) { }
+	constructor(private location: Location, private pageService:PageService, private router: Router) { }
 
 	ngOnInit() {
 
@@ -23,7 +25,7 @@ export class HeaderComponent implements OnInit {
 
 			if (page.title instanceof Observable) {
 				this.title = page.title;
-				
+
 			}
 			else {
 				this.title = Observable.create(function (observer) {
@@ -32,9 +34,10 @@ export class HeaderComponent implements OnInit {
 				});
 			}
 
-			
+
 			this.hasBack = page.hasBack;
 			this.hasMenu = page.hasMenu;
+			this.hasClock = page.hasClock;
 		});
 
 		/*this.router.events.subscribe(event => {
@@ -63,6 +66,10 @@ export class HeaderComponent implements OnInit {
 
 	goBack() {
 		this.location.back()
+	}
+
+	goToSettings() {
+		this.router.navigate(['/settings']);
 	}
 
 }

@@ -1,6 +1,6 @@
 <div class="ui padded grid app-header">
     <div class="six wide column middle aligned">
-        <clock class="no-divider"></clock>
+        <clock *ngIf="hasClock" class="no-divider"></clock>
         <button (click)="goBack()" *ngIf="hasBack" class="ui icon button secondary app-header__button app-header__button--back back-button" >
             <i class="arrow left vertical icon"></i>
         </button>
@@ -10,7 +10,7 @@
     </div>
     <div class="five wide column middle aligned app-header__right-block logo-wrapper">
         <div class="logo app-header__logo"></div>
-        <button *ngIf="hasMenu" class="ui icon button secondary app-header__button app-header__button--menu menu-button">
+        <button (click)="goToSettings()" *ngIf="hasMenu" class="ui icon button secondary app-header__button app-header__button--menu menu-button">
             <i class="ellipsis vertical icon"></i>
         </button>
     </div>

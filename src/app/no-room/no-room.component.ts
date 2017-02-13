@@ -24,6 +24,10 @@ export class NoRoomComponent extends Page {
 		return true;
 	}
 
+	get hasClock() {
+		return true;
+	}
+
 	ngOnInit() {
 		super.ngOnInit();
 	}

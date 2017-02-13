@@ -39,10 +39,14 @@ export class LoginComponent extends Page {
     return false;
   }
 
+  get hasClock() {
+    return false;
+  }
+
   onSubmit() {
   	this.hasError = false;
   	this.isAuthenticating = true;
-  	
+
 
   	this.userService.login(this.username, this.password)
   	.finally(

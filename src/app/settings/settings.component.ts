@@ -37,6 +37,10 @@ export class SettingsComponent extends Page {
     return true;
   }
 
+  get hasClock() {
+    return false;
+  }
+
   onCalendarSelect() {
     this.settings.storeCurrentCalendar();
   }

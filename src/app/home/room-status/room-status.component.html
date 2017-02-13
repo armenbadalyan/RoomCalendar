@@ -1,15 +1,16 @@
 <div class="ui padded grid room-status" [ngClass]="{'room-status--busy': event, 'room-status--free': !event}">
     <div class="six wide column">
     	<div class="room-status__column room-status__column--first">
-    		<div class="room-status__icon" [ngClass]="iconClasses"></div>
+    		<div class="room-status__icon" [ngClass]="{'room-status__icon--busy': event, 'room-status__icon--free': !event}"></div>
     	</div>    	
     </div>
     <div class="ten wide column">
     	<div class="room-status__column room-status__column--second">
-	        <div *ngIf="event">
-	            <h3 class="">{{event.title}}</h3>
-	            <div class="">Booked by {{event.author}}</div>
-	            <div class="">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>
+	        <div *ngIf="event" class="room-status__busy">
+	            <div class="room-status__busy-title room-status__busy--large">{{event.title}}</div>
+	            <div class="room-status__busy-author">Booked by {{event.author}}</div>
+	            <div class="room-status__busy-inprogress">IN PROGRESS</div>
+	            <div class="room-status__busy-date room-status__busy--large">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>
 	        </div>
 	        <div *ngIf="!event" class="room-status__available">
 	            <div class="room-status__available-label">Meeting room is</div>

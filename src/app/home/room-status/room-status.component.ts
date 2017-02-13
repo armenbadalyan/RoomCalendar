@@ -22,7 +22,7 @@ export class RoomStatusComponent implements OnInit {
 			let now = new Date();
 			var todaysEvents = events.filter(event => {
 				return event.startDate.toDateString() === now.toDateString();
-			});
+			});			
 
 			if (todaysEvents.length) {
 				this.nextEventTime = todaysEvents[0].startDate;
@@ -32,19 +32,7 @@ export class RoomStatusComponent implements OnInit {
 			}
 		});
 		this.eventService.currentEvent.subscribe(event => {
-			this.event = event;
-			this.updateProperties();
-		});
-		
+			this.event = event;			
+		});		
 	}
-
-	private updateProperties() {
-		this.updateIconClasses();
-	}
-
-	private updateIconClasses() {
-		this.iconClasses['room-status__icon--busy'] = !!this.event;
-		this.iconClasses['room-status__icon--free'] = !this.event;
-	}
-
 }

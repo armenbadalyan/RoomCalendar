@@ -9,7 +9,15 @@
 	&__mini-header {
 		text-transform: uppercase;
 		font-weight: 600;
-		background-color: $darkGreen;
+		
+
+		&--free {
+			background-color: $darkGreen;
+		}
+
+		&--busy {
+			background-color: $darkRed;
+		}
 	}
 
 	&__list-wrapper {

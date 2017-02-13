@@ -51,4 +51,26 @@
 		margin: 0.5rem 0;
 		font-size: 2.75rem;
 	}
+
+	&__busy {		
+		color: $darkRed;
+
+		&--large {
+			font-size: 1.7rem;
+			font-weight: 400;
+			color: $white;
+		}
+	}
+
+	&__busy-title {
+		margin-bottom: 0.5rem;
+	}
+
+	&__busy-inprogress {
+		font-weight: 500;
+	}
+
+	&__busy-date {
+		margin-top: 0.5rem;
+	}
 }

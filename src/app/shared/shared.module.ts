@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgSemanticModule } from 'ng-semantic/ng-semantic';
 import { TimeFilterPipe } from './pipes';
-import { QrCodeDirective } from './directives/qr-code.directive';
 
 @NgModule({
   imports: [
@@ -18,9 +17,8 @@ import { QrCodeDirective } from './directives/qr-code.directive';
   	NgSemanticModule,
   	FormsModule,
   	HttpModule,
-    TimeFilterPipe,
-    QrCodeDirective  
+    TimeFilterPipe 
   ],
-  declarations: [ TimeFilterPipe, QrCodeDirective ]
+  declarations: [ TimeFilterPipe]
 })
 export class SharedModule { }

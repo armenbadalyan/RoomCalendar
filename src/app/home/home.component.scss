@@ -1,18 +1,28 @@
-.app-page {
+@import "../../styles/variables";
+
+.event-page {
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-}
+	color: $white;
 
-.current-event {
-	min-height: 200px;
-}
+	&__current-event {
+		min-height: 200px;
+	}
 
-.mini-header {
-	text-transform: uppercase;
-	font-weight: 600;
-}
+	&__mini-header {
+		text-transform: uppercase;
+		font-weight: 600;
+	}
 
-.event-list {
-	flex: 1 0;
+	&__list-wrapper {
+		flex: 1 0;
+		position: relative;
+	}
+
+	&__qrcode {
+		margin: 10px 0;
+		max-width: 100%;
+		overflow: hidden;
+	}
 }

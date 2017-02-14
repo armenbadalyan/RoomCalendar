@@ -1,0 +1,9 @@
+<div class="event-list">
+    <section class="ui relaxed divided list inverted big event-list__scroll">
+        <div *ngFor="let event of events" class="item event-list__item">            
+                <div class="event-list__property event-list__property--title">{{event.title}}</div>
+                <div class="event-list__property">Booked by {{event.author}}</div>
+                <div class="event-list__property">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>            
+        </div>
+    </section>
+</div>

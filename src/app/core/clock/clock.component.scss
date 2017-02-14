@@ -1,7 +1,11 @@
-.clock .time {	
-	font-size: 2rem;
-}
-
-.clock>span {
+.clock {
+	display: inline-block;;
 	vertical-align: middle;
+	
+	&__time {
+		font-size: 1.5rem;
+	}
+	&__span {
+		vertical-align: middle;
+	}
 }

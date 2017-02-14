@@ -1,6 +1,6 @@
 <div class="clock">
-    <span class="time">{{ time | date:'hh:mm' }}</span>
-    <span class="am-pm">{{ time | date:'a' }}</span>
-     &nbsp; 
-     <span class="date">{{ time | date:'EEE, MMM dd'}}</span> 
+    <span class="clock__span clock__time">{{ time | date:'hh:mm' }}</span>
+    <span class="clock__span clock__am-pm">{{ time | date:'a' }}</span>
+     &nbsp;
+     <span class="clock__span clock__date">{{ time | date:'EEE, MMM dd'}}</span>
 </div>

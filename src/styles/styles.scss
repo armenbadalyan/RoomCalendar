@@ -3,6 +3,8 @@
 @import "./variables";
 
 body {
+	font-size: 1rem;
+	letter-spacing: 1px;
 	background-color: $black;
 
 	&.pushable {
@@ -19,8 +21,8 @@ body {
 .app-header {
 	* {
 		text-transform: uppercase;
-		font-weight: 600;		
-		color: $white;	
+		font-weight: 500;
+		color: $white;
 	}
 }
 
@@ -38,4 +40,10 @@ body {
 
 .ui.inverted.menu .item.no-divider::before {
 	content: none;
+}
+
+img {
+	display: inline-block;
+	max-width: 100%;
+	height: auto;
 }

@@ -5,16 +5,20 @@
                 <h4 class="ui dividing settings-page__title">Welcome to room calendar. Please login.</h4>
                 <div class="field">
                     <label>Select a calendar</label>
-                    <button *ngIf = "!settings.isReady()" disabled class="ui button fluid loading">&nbsp;</button>
-                    <select *ngIf = "settings.isReady()" name="room" (change)="onCalendarSelect()" [(ngModel)]="settings.selectedCalendar">
-                        <option *ngFor="let calendar of settings.calendarList" [value]="calendar">{{calendar.title}}</option>
+                    <button *ngIf = "!isReady" disabled class="ui button fluid loading">&nbsp;</button>
+                    <select *ngIf = "isReady" name="room" [(ngModel)]="settings.selectedCalendarId" >
+                        <option *ngFor="let calendar of calendarList"  [ngValue]="calendar.id">{{calendar.title}}</option>
                     </select>
                 </div>
                 <div class="field">
                     <label>Maximum events</label>
                     <input name="maxEvents" type="number" [(ngModel)]="settings.maxEvents">
                 </div>
-                <button type="button" class="ui fluid red button" [class.loading]="isLoggingOut" (click)="onLogout()"><i class="sign out icon"></i>Logout</button>
+                <div class="ui three buttons small blue">
+                  <button type="button" class="ui button attached" (click)="goToEvents()">Show Events</button>
+                  <button type="button" class="ui button attached" (click)="save()">Save</button>
+                  <button type="button" class="ui button attached" [class.loading]="isLoggingOut" (click)="onLogout()">Save And Logout</button>
+                </div>
             </form>
         </div>
     </div>

@@ -12,4 +12,8 @@
       color: $white;
       text-align: center;
     }
+    & select {
+      appearance: none;
+      line-height: 1em;
+    }
 }

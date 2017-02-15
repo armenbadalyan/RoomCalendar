@@ -17,8 +17,8 @@ import { TimeFilterPipe } from './pipes';
   	NgSemanticModule,
   	FormsModule,
   	HttpModule,
-    TimeFilterPipe
+    TimeFilterPipe 
   ],
-  declarations: [ TimeFilterPipe ]
+  declarations: [ TimeFilterPipe]
 })
 export class SharedModule { }

@@ -10,7 +10,7 @@
 	            <div class="room-status__busy-title room-status__busy--large">{{event.title}}</div>
 	            <div class="room-status__busy-author">Booked by {{event.author}}</div>
 	            <div class="room-status__busy-inprogress">IN PROGRESS</div>
-	            <div class="room-status__busy-date room-status__busy--large">{{event.startDate | date:'EEE, MMM dd'}} {{event.endDate | timeFilter}}</div>
+	            <div class="room-status__busy-date room-status__busy--large">{{event.startDate | timeFilter }} - {{event.endDate | timeFilter}}</div>
 	        </div>
 	        <div *ngIf="!event" class="room-status__available">
 	            <div class="room-status__available-label">Meeting room is</div>

@@ -42,12 +42,15 @@
   &__inner {
     height: 100%;
     width: 100%;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
     transform: translateZ(0);
+    z-index: 20;
   }
 
   &__content {
     transform: translateZ(0);
+    height: calc(100% + 1px);
   }
 }

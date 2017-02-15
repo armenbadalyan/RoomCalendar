@@ -1,7 +1,9 @@
 <div class="custom-scroll" [class.custom-scroll--topped]="isTopped" [class.custom-scroll--bottomed]="isBottomed" >
   <div #scroll (scroll)="onScroll()" class="custom-scroll__inner">
-    <div #scrollChild class="custom-scroll__content">
-      <ng-content></ng-content>
+    <div class="custom-scroll__content">
+      <div #scrollChild>
+        <ng-content></ng-content> 
+      </div>
     </div>
   </div>
 </div>

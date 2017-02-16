@@ -22,10 +22,16 @@
     width: 128px;
     display: inline-block;
     vertical-align: middle;
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+		right: 3.6rem;
+		max-width: 18vw;
 
 		@include phone {
-			height: 21px;
-			width:  96px;
+			height: 14px;
+			width:  64px;
+			right: 3rem;
 		}
 	}
 
@@ -39,5 +45,14 @@
 	& .app-header__button {
 		vertical-align: middle;
 		background-color: $black;
+
+		&--menu {
+			margin-right: 0;
+
+			@include phone {
+				padding-left: .4em;
+				padding-right: 0em;
+			}
+		}
 	}
 }

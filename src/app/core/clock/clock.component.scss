@@ -4,6 +4,9 @@
 	display: inline-block;;
 	vertical-align: middle;
 
+	&__span {
+		vertical-align: middle;
+	}
 	&__time {
 		font-size: 1.5rem;
 
@@ -11,7 +14,12 @@
 			font-size: 1.2rem;
 		}
 	}
-	&__span {
-		vertical-align: middle;
+	&__am-pm {
+		margin-right: 0.4rem;
+	}
+	&__date {
+		@include phone {
+			display: block;
+		}
 	}
 }

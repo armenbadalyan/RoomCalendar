@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 
@@ -9,7 +9,12 @@ const params = {
 
 @Injectable()
 export class GapiService {
-  constructor() { }
+
+  private zone: NgZone;
+
+  constructor() {
+    this.zone = new NgZone({enableLongStackTrace: false});
+  }
 
   private loadScript(url: string): void {
     let node = document.createElement('script');
@@ -21,33 +26,46 @@ export class GapiService {
   private loadClient(): Observable<any> {
     return Observable.create((observer) => {
       window['gapi'].load('client', () => {
-        observer.next(true);
-        observer.complete();
+        this.zone.run(()=> {
+          observer.next(true);
+          observer.complete();
+        });
+      });
+    });
+  }
+
+  private fromPromiseToObservableWithZone(promise: Promise<any>): Observable<any>{
+    return new Observable(observer => {
+      Observable.fromPromise(promise).subscribe(result => {
+        this.zone.run(() => {
+          observer.next(result);
+          observer.complete();
+        });
       });
     });
   }
 
   private initClient(): Observable<any> {
-    return Observable.fromPromise(window['gapi'].client.init(params));
+    return this.fromPromiseToObservableWithZone(window['gapi'].client.init(params));
   }
 
   private loadCalendarApi(): Observable<any> {
-    return Observable.fromPromise(window['gapi'].client.load('calendar', 'v3'));
+    return this.fromPromiseToObservableWithZone(window['gapi'].client.load('calendar', 'v3'));
   }
 
   private loadCalendaList(): Observable<any> {
-    return Observable.fromPromise(window['gapi'].client.calendar.calendarList.list());
+    return this.fromPromiseToObservableWithZone(window['gapi'].client.calendar.calendarList.list());
   }
 
   private loadEventList(params: {}): Observable<any> {
-    return Observable.fromPromise(window['gapi'].client.calendar.events.list(params));
+    return this.fromPromiseToObservableWithZone(window['gapi'].client.calendar.events.list(params));
   }
 
   getApi(): Observable<any> {
     var observer = Observable.create((observer) => {
       window['_gapiOnLoad'] = (ev) => {
-        observer.next(true);
-        observer.complete();
+          observer.next(true);
+          observer.complete();
       }
 
       this.loadScript(environment.gapi_url);
@@ -65,7 +83,7 @@ export class GapiService {
 
     return GoogleAuth.isSignedIn.get()
       ? Observable.create((observer) => { observer.next(true); observer.complete(); })
-      : Observable.fromPromise(GoogleAuth.signIn());
+      : this.fromPromiseToObservableWithZone(GoogleAuth.signIn());
   }
 
   loadCalendars(): Observable<any> {

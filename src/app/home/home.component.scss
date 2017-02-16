@@ -4,15 +4,20 @@
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	color: $white;
-
-	&__current-event {
-		min-height: 200px;
-	}
+	color: $white;	
 
 	&__mini-header {
 		text-transform: uppercase;
 		font-weight: 600;
+		
+
+		&--free {
+			background-color: $darkGreen;
+		}
+
+		&--busy {
+			background-color: $darkRed;
+		}
 	}
 
 	&__list-wrapper {

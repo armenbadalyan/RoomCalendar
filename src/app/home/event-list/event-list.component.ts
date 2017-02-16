@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EventService } from '../../shared';
 import { Event } from '../../shared/models/event.model';
 
 @Component({

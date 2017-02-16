@@ -44,8 +44,6 @@ export class HomeComponent extends Page {
       },
       error => {
       });
-
-    this.eventService.getEvents();
   }
 
   get title() {

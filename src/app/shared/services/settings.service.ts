@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { CalendarService } from './calendar.service';
-import { Calendar } from '../models/calendar.model';
 import { environment } from '../../../environments/environment';
+import { Calendar, Settings } from '../models';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Rx';
+
 
 const localStorageKey = 'room_calendar_selected_calendar';
 
 @Injectable()
 export class SettingsService {
 
-  public maxEvents = 10;
-  public selectedCalendar: Calendar = null;
-
+  private _maxEvents = 10;
+  private _selectedCalendar: Calendar = null;
   private _calendarList: Calendar[] = [];
 
 	constructor(private calendarService:CalendarService) {
@@ -18,18 +20,45 @@ export class SettingsService {
     this.calendarService.calendars
     .subscribe(
       calendars => {
-        this._calendarList = calendars;
+          this._calendarList = calendars;
       },
       error => {
       });
   }
 
-  get calendarList(): Calendar[] {
-    return this._calendarList;
+  get settings() {
+    return new Settings({
+      maxEvents: this._maxEvents,
+      selectedCalendarId: this.selectedCalendarId
+    });
+  }
+
+  set settings(settingsObj: Settings) {
+    this._maxEvents = settingsObj.maxEvents;
+    this._selectedCalendar = this.getCalendarById(settingsObj.selectedCalendarId);
+    this.storeCurrentCalendar();
+  }
+
+  get maxEvents() {
+    return this._maxEvents;
+  }
+
+  get selectedCalendar() {
+    return this._selectedCalendar;
   }
 
   get selectedCalendarId(): string {
-    return this.selectedCalendar ? this.selectedCalendar.id : "";
+    return this._selectedCalendar ? this._selectedCalendar.id : "";
+  }
+
+  private getCalendarById(id: string): Calendar {
+    for(let i=0, l=this._calendarList.length; i<l; i++) {
+      let calendar = this._calendarList[i];
+      if(calendar.id == id) {
+        return calendar;
+      }
+    }
+    return null;
   }
 
   get selectedCalendarUrl(): string {
@@ -42,17 +71,17 @@ export class SettingsService {
         try {
             let calendarJSON = localStorage.getItem(localStorageKey);
             if(calendarJSON) {
-              this.selectedCalendar = new Calendar();
-              this.selectedCalendar.fromJSON(JSON.parse(calendarJSON));
+              this._selectedCalendar = new Calendar();
+              this._selectedCalendar.fromJSON(JSON.parse(calendarJSON));
             }
         } catch(ex) {}
     }
   }
 
   public storeCurrentCalendar(): void {
-    if(typeof localStorage != 'undefined' && !!this.selectedCalendar) {
+    if(typeof localStorage != 'undefined' && !!this.selectedCalendar) { 
           try {
-              localStorage.setItem(localStorageKey, this.selectedCalendar.toString());
+              localStorage.setItem(localStorageKey, this._selectedCalendar.toString());
           } catch(ex) { }
     }
   }
@@ -67,6 +96,11 @@ export class SettingsService {
 
   public update(): void {
       this.calendarService.getCalendars();
+  }
+
+  public getCalendars(): Observable<Calendar[]> {
+    return this.calendarService.calendars;
+
   }
 
 }

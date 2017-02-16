@@ -4,12 +4,11 @@
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	color: $white;	
+	color: $white;
 
 	&__mini-header {
 		text-transform: uppercase;
-		font-weight: 600;
-		
+		font-weight: 500;
 
 		&--free {
 			background-color: $darkGreen;

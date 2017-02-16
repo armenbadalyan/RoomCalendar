@@ -29,6 +29,13 @@
 		}
 	}
 
+	&__title {
+		display: block;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
 	& .app-header__button {
 		vertical-align: middle;
 		background-color: $black;

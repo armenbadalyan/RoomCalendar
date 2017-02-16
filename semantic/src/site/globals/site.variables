@@ -10,3 +10,5 @@
 
 @fontSize: 18px;
 @emSize: 18px;
+
+@headerFontWeight  : 500

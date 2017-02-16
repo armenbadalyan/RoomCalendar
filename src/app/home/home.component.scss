@@ -9,6 +9,8 @@
 	&__mini-header {
 		text-transform: uppercase;
 		font-weight: 500;
+		display: flex;
+		align-items: center;
 
 		&--free {
 			background-color: $darkGreen;

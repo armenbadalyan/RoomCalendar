@@ -50,6 +50,13 @@
 		vertical-align: middle;
 		background-color: $black;
 
+		&--back {
+			@include phone {
+				padding-left: .4em;
+				padding-right: .4em;
+			}
+		}
+
 		&--menu {
 			margin-right: 0;
 

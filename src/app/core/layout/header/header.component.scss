@@ -40,6 +40,10 @@
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+
+		&--centered {
+			text-align: center;
+		}
 	}
 
 	& .app-header__button {

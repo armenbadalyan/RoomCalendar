@@ -3,6 +3,11 @@
 .login-page {
 	text-align: center;
 
+	&__header {
+		color: $white;
+		text-decoration: none;
+	}
+
 	&__form-container {
 		display: block;
 		margin: 0 auto;
@@ -17,12 +22,7 @@
 	}
 
 	& &__form-container {
-		background-color: #34373C;
-	}
-
-	& &__header {
-		color: $white;
-		text-decoration: none;
+		background-color: $form-bg;
 	}
 
 	& &__input-wrapper {
@@ -31,6 +31,16 @@
 		.login-page__input {
 			background-color: $black;
 			color: $white;
+		}
+	}
+
+	& &__button {
+		background-color: $green;
+
+		&:hover,
+		&:focus {
+			background-color: $darkGreen;
+			color: $green;
 		}
 	}
 

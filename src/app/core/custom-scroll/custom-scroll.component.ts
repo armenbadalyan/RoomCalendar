@@ -17,15 +17,20 @@ export class CustomScrollComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.onScroll();
+    this.update();
   }
 
-  onScroll(): void {
+  private onScroll(): void {
     let target:HTMLElement = this.scrollEl.nativeElement,
         targetInner:HTMLElement = this.scrollChildEl.nativeElement;
 
     this.isTopped = target.scrollTop <= 0;
     this.isBottomed = target.scrollTop + target.clientHeight >= targetInner.offsetHeight;
+  }
+
+  public update(): void {
+		console.log('update 11'); 
+    this.onScroll();
   }
 
 }

@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { EventService } from '../../shared';
-import { Event } from '../../shared/models/event.model';
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChange  } from '@angular/core';
+import { EventService, Event } from '../../shared';
+import { CustomScrollComponent } from '../../core/custom-scroll/custom-scroll.component';
 
 @Component({
 	selector: 'event-list',
@@ -12,10 +12,19 @@ export class EventListComponent implements OnInit {
 	@Input()
 	public events: Event[];
 
+	@ViewChild(CustomScrollComponent)
+  private customScrollComponent: CustomScrollComponent;
+
 	constructor() { }
 
 	ngOnInit() {
-		
+
+	}
+
+	ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+		setTimeout(() => {
+			this.customScrollComponent.update();
+		});
 	}
 
 }

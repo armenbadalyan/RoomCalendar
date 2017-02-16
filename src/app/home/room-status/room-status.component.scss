@@ -1,0 +1,76 @@
+@import "../../../styles/variables";
+
+.room-status {
+    min-height: 230px;    
+
+    &--free {
+    	background: #a7f170;
+        background: linear-gradient(to bottom, #adf776 0%, #95de5e 100%);		 
+    }
+
+    &--busy {
+    	background: #f47272;
+        background: linear-gradient(to bottom, #f77676 0%, #df5e5e 100%); 
+    }
+
+    &__column {
+		display: flex;    	
+    	align-items: center;
+    	width: 100%;
+    	height: 100%;
+
+    	&--first {
+    		justify-content: flex-end;
+    	}
+
+		&--second {
+    		justify-content: flex-start;
+    	}    	
+    }
+
+	&__icon {		
+
+		&--free {			
+			width: 154px;
+			height: 154px;
+			background-image: url("assets/check-circled.png");
+		}
+		&--busy {			
+			width: 110px;
+			height: 154px;
+			background-image: url("assets/sand-watch.png")
+		}
+	}
+
+	&__available {
+		text-transform: uppercase;
+		color: $darkGreen;		
+	}
+
+	&__available-status {
+		margin: 0.5rem 0;
+		font-size: 2.75rem;
+	}
+
+	&__busy {		
+		color: $darkRed;
+
+		&--large {
+			font-size: 1.7rem;
+			font-weight: 400;
+			color: $white;
+		}
+	}
+
+	&__busy-title {
+		margin-bottom: 0.5rem;
+	}
+
+	&__busy-inprogress {
+		font-weight: 500;
+	}
+
+	&__busy-date {
+		margin-top: 0.5rem;
+	}
+}

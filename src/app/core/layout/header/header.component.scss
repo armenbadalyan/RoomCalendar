@@ -1,4 +1,4 @@
-@import "../../../../styles/variables";
+@import "~styles/settings";
 
 .app-header {
 	justify-content: space-between;
@@ -22,6 +22,11 @@
     width: 128px;
     display: inline-block;
     vertical-align: middle;
+
+		@include phone {
+			height: 21px;
+			width:  96px;
+		}
 	}
 
 	& .app-header__button {

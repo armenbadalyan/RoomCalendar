@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "./variables";
+@import "./settings";
 
 body {
 	font-size: 1rem;
@@ -15,6 +15,9 @@ body {
 		}
 	}
 
+	@include phone {
+		font-size: 0.77rem;
+	}
 
 }
 

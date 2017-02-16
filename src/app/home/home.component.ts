@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventService, Event, PageService, Page, Calendar } from '../shared';
+import { EventService, Event, PageService, SettingsService, Page, Calendar } from '../shared';
 import { BehaviorSubject } from 'rxjs/Rx';
 @Component({
   selector: 'app-home',
@@ -16,6 +16,7 @@ export class HomeComponent extends Page {
 
 
   constructor(pageService: PageService,
+    private settingsService: SettingsService,
     private eventService: EventService,
     private route: ActivatedRoute) {
     super(pageService);
@@ -64,6 +65,10 @@ export class HomeComponent extends Page {
 
   get hasClock() {
     return true;
+  }
+
+  get calendarUrl() {
+    return this.settingsService.selectedCalendarUrl;
   }
 
 }

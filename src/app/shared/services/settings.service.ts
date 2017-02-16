@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CalendarService } from './calendar.service';
 import { Calendar } from '../models/calendar.model';
+import { environment } from '../../../environments/environment';
 
 const localStorageKey = 'room_calendar_selected_calendar';
 
@@ -31,6 +32,11 @@ export class SettingsService {
     return this.selectedCalendar ? this.selectedCalendar.id : "";
   }
 
+  get selectedCalendarUrl(): string {
+    let url = this.selectedCalendar ? environment.google_base_calendar_url + this.selectedCalendar.id : "";
+    return encodeURI(url);
+  }
+
   private extractCurrentCalendar(): void {
     if(typeof localStorage != 'undefined') {
         try {
@@ -43,7 +49,7 @@ export class SettingsService {
     }
   }
 
-  storeCurrentCalendar(): void {
+  public storeCurrentCalendar(): void {
     if(typeof localStorage != 'undefined' && !!this.selectedCalendar) {
           try {
               localStorage.setItem(localStorageKey, this.selectedCalendar.toString());
@@ -51,15 +57,15 @@ export class SettingsService {
     }
   }
 
-  isReady(): boolean {
+  public isReady(): boolean {
     return !!this._calendarList.length;
   }
 
-  isEventLoadAllowed(): boolean {
+  public isEventLoadAllowed(): boolean {
     return !!this.selectedCalendar;
   }
 
-  update(): void {
+  public update(): void {
       this.calendarService.getCalendars();
   }
 

@@ -51,3 +51,9 @@ body {
 .ui.inverted.menu .item.no-divider::before {
 	content: none;
 }
+
+img {
+	display: inline-block;
+	max-width: 100%;
+	height: auto;
+}

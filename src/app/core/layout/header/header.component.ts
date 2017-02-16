@@ -40,8 +40,6 @@ export class HeaderComponent implements OnInit {
 			this.hasMenu = page.hasMenu;
 			this.hasClock = page.hasClock;
 			this.isTitleCentered = page.isTitleCentered;
-
-			console.log(this.isTitleCentered);
 		});
 
 		/*this.router.events.subscribe(event => {

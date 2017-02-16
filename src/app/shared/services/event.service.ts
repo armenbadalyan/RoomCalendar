@@ -39,7 +39,6 @@ export class EventService {
           );
 
       this.pollingStream.subscribe((jsonList) => {
-        console.log('new events');
         this._events.next(jsonList);
       });
     }

@@ -35,10 +35,11 @@ export class EventService {
           .map(() => this.settings.selectedCalendarId)
           .filter(id => !!id)
           .switchMap(id => this.gapi.loadEvents(id, (new Date()).toISOString(), this.settings.maxEvents))
-          .repeatWhen(stream => stream.delay(5000)
-          );
+          .catch(err => Observable.of(null))
+          .filter(result => !!result)
+          .repeatWhen(stream => stream.delay(5000));
 
-      this.pollingStream.subscribe((jsonList) => {
+      this.pollingStream.subscribe(jsonList => {
         this._events.next(jsonList);
       });
     }

@@ -35,12 +35,15 @@ export class GapiService {
   }
 
   private fromPromiseToObservableWithZone(promise: Promise<any>): Observable<any>{
-    return new Observable(observer => {
+    return Observable.create(observer => {
       Observable.fromPromise(promise).subscribe(result => {
         this.zone.run(() => {
           observer.next(result);
           observer.complete();
         });
+      },
+      err => {
+        observer.error();
       });
     });
   }
@@ -68,11 +71,18 @@ export class GapiService {
           observer.complete();
       }
 
-      this.loadScript(environment.gapi_url);
+      try {
+        this.loadScript(environment.gapi_url);
+      }
+      catch(err) {
+        observer.error();
+      }
+      
     });
 
-    this.getApi = () => observer
+    this.getApi = () => observer      
       .flatMap(() => this.loadClient())
+      .timeout(5000)
       .flatMap(() => this.initClient());
 
     return this.getApi();

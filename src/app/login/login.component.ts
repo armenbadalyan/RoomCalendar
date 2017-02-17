@@ -31,6 +31,10 @@ export class LoginComponent extends Page {
     return 'Login';
   }
 
+  get isTitleCentered() {
+    return true;
+  }
+
   get hasBack() {
     return true;
   }

@@ -9,7 +9,7 @@ import { Event, EventService } from '../../shared';
 })
 export class RoomStatusComponent implements OnInit {
 
-	public event:Event = null;	
+	public event:Event = null;
 	public nextEventTime:Date = null;
 
 	public iconClasses = {}
@@ -17,22 +17,22 @@ export class RoomStatusComponent implements OnInit {
 	constructor(private eventService: EventService) { }
 
 	ngOnInit() {
-		
+
 		this.eventService.laterEvents.subscribe(events => {
 			let now = new Date();
-			var todaysEvents = events.filter(event => {
+			let todaysEvents = events.filter(event => {
 				return event.startDate.toDateString() === now.toDateString();
-			});			
+			});
 
 			if (todaysEvents.length) {
-				this.nextEventTime = todaysEvents[0].startDate;
+				this.nextEventTime = todaysEvents[0].startTime || null;
 			}
 			else {
 				this.nextEventTime = null;
 			}
 		});
 		this.eventService.currentEvent.subscribe(event => {
-			this.event = event;			
-		});		
+			this.event = event;
+		});
 	}
 }

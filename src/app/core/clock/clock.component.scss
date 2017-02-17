@@ -1,11 +1,25 @@
+@import '~styles/settings';
+
 .clock {
 	display: inline-block;;
 	vertical-align: middle;
-	
-	&__time {
-		font-size: 1.5rem;
-	}
+
 	&__span {
 		vertical-align: middle;
+	}
+	&__time {
+		font-size: 1.5rem;
+
+		@include phone {
+			font-size: 1.2rem;
+		}
+	}
+	&__am-pm {
+		margin-right: 0.4rem;
+	}
+	&__date {
+		@include phone {
+			display: block;
+		}
 	}
 }

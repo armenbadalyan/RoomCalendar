@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
 	public hasBack: boolean;
 	public hasMenu: boolean;
 	public hasClock: boolean;
+	public isTitleCentered: boolean;
 
 
 	constructor(private location: Location, private pageService:PageService, private router: Router) { }
@@ -38,6 +39,7 @@ export class HeaderComponent implements OnInit {
 			this.hasBack = page.hasBack;
 			this.hasMenu = page.hasMenu;
 			this.hasClock = page.hasClock;
+			this.isTitleCentered = page.isTitleCentered;
 		});
 
 		/*this.router.events.subscribe(event => {

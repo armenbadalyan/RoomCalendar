@@ -53,6 +53,10 @@ export class HomeComponent extends Page {
       });
   }
 
+  get isTitleCentered() {
+    return false;
+  }
+
   get hasBack() {
     return false;
   }

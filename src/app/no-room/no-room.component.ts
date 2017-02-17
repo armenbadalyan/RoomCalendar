@@ -16,6 +16,10 @@ export class NoRoomComponent extends Page {
 		return 'Please select a room';
 	}
 
+  get isTitleCentered() {
+    return true;
+  }
+
 	get hasBack() {
 		return false;
 	}

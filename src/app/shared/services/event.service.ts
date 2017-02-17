@@ -39,7 +39,6 @@ export class EventService {
           );
 
       this.pollingStream.subscribe((jsonList) => {
-        console.log('new events');
         this._events.next(jsonList);
       });
     }
@@ -54,9 +53,9 @@ export class EventService {
     let currentTime: Date = new Date();
 
     let splitEvents = events.reduce((output, event: Event) => {
-      let startTime: Date = event.startDate,
+    let startTime: Date = event.startDate,
         endTime: Date = event.endDate;
-      if (startTime > currentTime || endTime < currentTime) {
+      if (output.currentEvent || startTime > currentTime || endTime < currentTime) {
         output.laterEvents.push(event);
       } else {
         output.currentEvent = event;

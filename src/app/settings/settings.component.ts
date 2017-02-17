@@ -34,16 +34,6 @@ export class SettingsComponent extends Page {
     this.settingsService.update();
   }
 
-  get isSaved():boolean {
-    let isEqual = true;
-    Object.keys(this.settings).forEach(key => {
-      if(this.settings.hasOwnProperty(key) && this.settings[key] !== this.settingsService.settings[key]) {
-        isEqual = false;
-      }
-    });
-    return isEqual;
-  }
-
   get title() {
     return 'Settings';
   }

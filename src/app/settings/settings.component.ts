@@ -38,6 +38,10 @@ export class SettingsComponent extends Page {
     return 'Settings';
   }
 
+  get isTitleCentered() {
+    return true;
+  }
+
   get hasBack() {
     return true;
   }

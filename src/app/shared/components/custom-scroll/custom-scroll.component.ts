@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 
 import { ScrollDelegateService } from '../../services';
 
@@ -16,7 +16,7 @@ export class CustomScrollComponent implements OnInit {
   @ViewChild('scroll') scrollEl:ElementRef;
   @ViewChild('scrollChild') scrollChildEl:ElementRef;
 
-  constructor(private scrollDelegate: ScrollDelegateService) {
+  constructor(private scrollDelegate: ScrollDelegateService, private cd: ChangeDetectorRef) {
 
   }
 
@@ -24,6 +24,7 @@ export class CustomScrollComponent implements OnInit {
     this.onScroll();
     this.scrollDelegate.updater.subscribe(success => {
       this.onScroll();
+      this.cd.detectChanges();
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChange, NgZone, ChangeDetectorRef  } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChange, NgZone } from '@angular/core';
 import { EventService, Event, ScrollDelegateService } from '../../shared';
 
 @Component({
@@ -11,7 +11,7 @@ export class EventListComponent implements OnInit {
 	@Input()
 	public events: Event[];
 
-	constructor(private zone: NgZone, private cd: ChangeDetectorRef, private scrollDelegate:ScrollDelegateService) {
+	constructor(private zone: NgZone, private scrollDelegate:ScrollDelegateService) {
 		this.refreshScrollBind = this.refreshScroll.bind(this);
 	}
 
@@ -26,7 +26,6 @@ export class EventListComponent implements OnInit {
 	private refreshScroll() {
 		setTimeout(()=> {
 			this.scrollDelegate.refresh();
-			this.cd.detectChanges();
 		});
 	}
 

@@ -5,10 +5,10 @@
             <i class="arrow left vertical icon"></i>
         </button>
     </div>
-    <div class="five wide column middle aligned">
-        <span>{{ title | async }}</span>
+    <div class="four wide column middle aligned">
+        <span [class.app-header__title--centered]="isTitleCentered" class="app-header__title">{{ title | async }}</span>
     </div>
-    <div class="five wide column middle aligned app-header__right-block logo-wrapper">
+    <div class="six wide column middle aligned app-header__right-block logo-wrapper">
         <div class="logo app-header__logo"></div>
         <button (click)="goToSettings()" *ngIf="hasMenu" class="ui icon button secondary app-header__button app-header__button--menu menu-button">
             <i class="ellipsis vertical icon"></i>

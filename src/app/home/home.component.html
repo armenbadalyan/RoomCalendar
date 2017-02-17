@@ -1,20 +1,8 @@
 <div class="app-page event-page">
-    <div class="ui padded grid event-page__current-event">
-        <div class="six wide column olive"></div>
-        <div class="ten wide column olive">
-            <div *ngIf="currentEvent">
-              <h3 class="">{{currentEvent.title}}</h3>
-              <div class="">Booked by {{currentEvent.author}}</div>
-              <div class="">{{currentEvent.startDate | date:'EEE, MMM dd'}} {{currentEvent.endDate | timeFilter}}</div>
-            </div>
-            <div *ngIf="!currentEvent">
-                <div class="ui header">The meeting room is available</div>
-            </div>
-        </div>
-    </div>
-    <div class="ui padded grid event-page__mini-header">
-        <div class="six wide column green">Book the room</div>
-        <div class="ten wide column green">Upcoming events</div>
+    <room-status></room-status>
+    <div class="ui padded grid event-page__mini-header" [ngClass]="{'event-page__mini-header--free': !currentEvent, 'event-page__mini-header--busy': currentEvent}">
+        <div class="six wide column">Book the room</div>
+        <div class="ten wide column">Upcoming events</div>
     </div>
     <div class="ui padded grid event-page__list-wrapper">
         <div class="six wide column">

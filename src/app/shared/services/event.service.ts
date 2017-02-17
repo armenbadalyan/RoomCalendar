@@ -14,48 +14,60 @@ export class EventService {
 
   private _laterEvents: BehaviorSubject<Event[]> = new BehaviorSubject([]);
 
+  private pollingStream: Observable<Event[]> = null;
+
   public currentEvent: Observable<Event> = this._currentEvent.asObservable();
 
-  public laterEvents: Observable<Event[]> =  this._laterEvents.asObservable();
+  public laterEvents: Observable<Event[]> = this._laterEvents.asObservable();
 
-  constructor(private gapi:GapiService, private settings:SettingsService) {
-       this._events
-          .map(this.processEvents)
-          .subscribe(this.handleEvents.bind(this));
+  constructor(private gapi: GapiService, private settings: SettingsService) {
+    this._events
+      .map(this.processEvents)
+      .subscribe(this.handleEvents.bind(this));
+
+    this.startPolling();
   }
 
-  getEvents(): void {
-      if(this.settings.isEventLoadAllowed()) {
-        this.gapi.loadEvents(this.settings.selectedCalendarId, (new Date()).toISOString(), this.settings.maxEvents).subscribe((jsonList) => {
-          this._events.next(jsonList);
-        });
-      }
+  startPolling(): void {
+    if (!this.pollingStream) {
+      this.pollingStream =
+        Observable.of(0)
+          .map(() => this.settings.selectedCalendarId)
+          .filter(id => !!id)
+          .switchMap(id => this.gapi.loadEvents(id, (new Date()).toISOString(), this.settings.maxEvents))
+          .repeatWhen(stream => stream.delay(5000)
+          );
+
+      this.pollingStream.subscribe((jsonList) => {
+        this._events.next(jsonList);
+      });
+    }
   }
 
-  processEvents(events:any): Event[] {
+  processEvents(events: any): Event[] {
     return events
-              .map((eventData) => (new Event()).fromJSON(eventData));
+      .map((eventData) => (new Event()).fromJSON(eventData));
   }
 
   handleEvents(events: Event[]): void {
-      let currentTime: Date = new Date();
+    let currentTime: Date = new Date();
 
-      let splitEvents = events.reduce((output, event: Event) => {
-          let startTime: Date = event.startDate,
-              endTime: Date =  event.endDate;
-          if(startTime > currentTime || endTime < currentTime) {
-              output.laterEvents.push(event);
-          } else {
-              output.currentEvent = event;
-          }
-          return output;
-      }, {
-          currentEvent: null,
-          laterEvents: []
+    let splitEvents = events.reduce((output, event: Event) => {
+    let startTime: Date = event.startDate,
+        endTime: Date = event.endDate;
+      if (output.currentEvent || startTime > currentTime || endTime < currentTime) {
+        output.laterEvents.push(event);
+      } else {
+        output.currentEvent = event;
+      }
+      return output;
+    }, {
+        currentEvent: null,
+        laterEvents: []
       });
 
-      this._currentEvent.next(splitEvents.currentEvent);
-      this._laterEvents.next(splitEvents.laterEvents);
+    this._currentEvent.next(splitEvents.currentEvent);
+    this._laterEvents.next(splitEvents.laterEvents);
   }
 
 }

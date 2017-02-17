@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@import "~styles/settings";
 
 .event-page {
 	display: flex;
@@ -6,13 +6,19 @@
 	align-items: stretch;
 	color: $white;
 
-	&__current-event {
-		min-height: 200px;
-	}
-
 	&__mini-header {
 		text-transform: uppercase;
-		font-weight: 600;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+
+		&--free {
+			background-color: $darkGreen;
+		}
+
+		&--busy {
+			background-color: $darkRed;
+		}
 	}
 
 	&__list-wrapper {

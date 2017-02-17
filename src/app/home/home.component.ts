@@ -44,8 +44,6 @@ export class HomeComponent extends Page {
       },
       error => {
       });
-
-    this.eventService.getEvents();
   }
 
   get title() {
@@ -53,6 +51,10 @@ export class HomeComponent extends Page {
       .map(c => {
         return c.title;
       });
+  }
+
+  get isTitleCentered() {
+    return false;
   }
 
   get hasBack() {

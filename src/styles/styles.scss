@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "./variables";
+@import "./settings";
 
 html,
 body {
@@ -25,6 +25,9 @@ body {
 		}
 	}
 
+	@include phone {
+		font-size: 0.77rem;
+	}
 
 }
 
@@ -52,8 +55,16 @@ body {
 	content: none;
 }
 
+/* typography */
+
 img {
 	display: inline-block;
 	max-width: 100%;
 	height: auto;
+}
+
+h1, h2, h3, h4, h5, h6, b, strong,
+.ui.button,
+.ui.form .field>label {
+	font-weight: 500;
 }

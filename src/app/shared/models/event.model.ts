@@ -22,7 +22,7 @@ export class Event implements Serializable<Event>{
 		this.endDate = json.end ? new Date(json.end.dateTime || json.end.date): null;
 		this.endTime = json.end && json.end.dateTime ? new Date(json.end.dateTime) : null;
 
-		this.isMultiDay = this.startDate.toDateString() === this.endDate.toDateString();
+		this.isMultiDay = this.startDate.toDateString() !== this.endDate.toDateString();
 
 		return this;
 	}

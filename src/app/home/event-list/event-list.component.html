@@ -3,7 +3,12 @@
         <div *ngFor="let event of events" class="item event-list__item">
                 <div class="event-list__property event-list__property--title">{{event.title}}</div>
                 <div class="event-list__property">Booked by {{event.author}}</div>
-                <div class="event-list__property">{{event.startDate | dateFilter}}, {{event.endDate | timeFilter}}</div>            
+                <div class="event-list__property">
+                  {{event.startDate | dateFilter}}
+                  <ng-container *ngIf="event.startTime">
+                  , {{event.startTime | timeFilter}}
+                  </ng-container>
+                </div>
         </div>
     </section>
 </div>

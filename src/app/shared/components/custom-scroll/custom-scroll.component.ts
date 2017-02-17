@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 
+import { ScrollDelegateService } from '../../services';
+
 
 @Component({
   selector: 'custom-scroll',
@@ -14,10 +16,15 @@ export class CustomScrollComponent implements OnInit {
   @ViewChild('scroll') scrollEl:ElementRef;
   @ViewChild('scrollChild') scrollChildEl:ElementRef;
 
-  constructor() { }
+  constructor(private scrollDelegate: ScrollDelegateService) {
+
+  }
 
   ngOnInit() {
-    this.update();
+    this.onScroll();
+    this.scrollDelegate.updater.subscribe(success => {
+      this.onScroll();
+    });
   }
 
   private onScroll(): void {
@@ -26,11 +33,6 @@ export class CustomScrollComponent implements OnInit {
 
     this.isTopped = target.scrollTop <= 0;
     this.isBottomed = target.scrollTop + target.clientHeight >= targetInner.offsetHeight;
-  }
-
-  public update(): void {
-		console.log('update 11'); 
-    this.onScroll();
   }
 
 }

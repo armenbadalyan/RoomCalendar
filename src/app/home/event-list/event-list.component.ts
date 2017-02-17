@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChange  } from '@angular/core';
-import { EventService, Event } from '../../shared';
-import { CustomScrollComponent } from '../../core/custom-scroll/custom-scroll.component';
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChange, NgZone, ChangeDetectorRef  } from '@angular/core';
+import { EventService, Event, ScrollDelegateService } from '../../shared';
 
 @Component({
 	selector: 'event-list',
@@ -12,19 +11,25 @@ export class EventListComponent implements OnInit {
 	@Input()
 	public events: Event[];
 
-	@ViewChild(CustomScrollComponent)
-  private customScrollComponent: CustomScrollComponent;
-
-	constructor() { }
+	constructor(private zone: NgZone, private cd: ChangeDetectorRef, private scrollDelegate:ScrollDelegateService) {
+		this.refreshScrollBind = this.refreshScroll.bind(this);
+	}
 
 	ngOnInit() {
-
+		this.zone.runOutsideAngular(this.refreshScrollBind);
 	}
 
 	ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-		setTimeout(() => {
-			this.customScrollComponent.update();
+		this.refreshScrollBind();
+	}
+
+	private refreshScroll() {
+		setTimeout(()=> {
+			this.scrollDelegate.refresh();
+			this.cd.detectChanges();
 		});
 	}
+
+	private refreshScrollBind: any = null;
 
 }

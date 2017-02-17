@@ -5,3 +5,4 @@ export * from './calendar.service';
 export * from './event.service';
 export * from './gapi.service';
 export * from './page.service';
+export * from './scroll-delegate.service';

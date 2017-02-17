@@ -51,7 +51,8 @@ export class UserService {
 		return this.currentUser;
 	}
 
-	processLogout(response: Response) {
+	processLogout = (response: Response):boolean => {
+		this.currentUser = null;
 		return true;
 	}
 

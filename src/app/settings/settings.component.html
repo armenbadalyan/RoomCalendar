@@ -17,8 +17,10 @@
                 </div>
                 <div class="ui three buttons small blue">
                   <button type="button" class="ui button attached" (click)="goToEvents()">Show Events</button>
-                  <button type="button" class="ui button attached" (click)="save()">Save</button>
-                  <button type="button" class="ui button attached" [class.loading]="isLoggingOut" (click)="onLogout()">Save And Logout</button>
+                  <button type="button" [disabled]="isSaved" class="ui button attached" (click)="save()">Save</button>
+                  <button type="button" class="ui button attached" [class.loading]="isLoggingOut" (click)="onLogout()">
+                    <ng-container *ngIf="!isSaved">Save And </ng-container>Logout
+                  </button>
                 </div>
             </form>
         </div>

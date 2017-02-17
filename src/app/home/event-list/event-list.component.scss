@@ -2,14 +2,11 @@
 
 .event-list {
 	&__scroll {
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
 		padding: 1rem;
+
+		&:last-child {
+			padding-bottom: 1rem;
+		}
 	}
 
 	&__item:first-child{

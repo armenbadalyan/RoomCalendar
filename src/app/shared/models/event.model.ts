@@ -26,4 +26,14 @@ export class Event implements Serializable<Event>{
 
 		return this;
 	}
+
+	equals (event: Event) {
+		return event.id == this.id
+			&& event.title == this.title
+			&& event.author == this.author
+			&& event.startDate == this.startDate
+			&& event.startTime == this.startTime
+			&& event.endDate == this.endDate
+			&& event.endTime == this.endTime;
+	}
 }

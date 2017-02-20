@@ -41,15 +41,18 @@ export class EventService {
           .repeatWhen(stream => stream.delay(REPEAT_INTERVAL).merge(this.pollingRefresh));
 
       this.pollingStream
-        .distinctUntilChanged((x, y) => {
-          return this.getEventListKey(x) === this.getEventListKey(y);
-        })
+        .distinctUntilChanged(this.checkDistinct)
         .subscribe(this.handleEvents.bind(this));
     }
   }
 
-  getEventListKey(eventList: Event[]): string {
-    return eventList.reduce((prev, curr) => prev + "," + curr.id, "").substr(1);
+  checkDistinct(xArr: Event[], yArr: Event[]): boolean {
+    if(xArr.length !== yArr.length) {
+      return false;
+    }
+    return xArr.reduce((isChanged, xCurr, i) => {
+      return isChanged && xCurr.equals(yArr[i])
+    }, true);
   }
 
   refresh(): void {

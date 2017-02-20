@@ -5,10 +5,10 @@ import { GapiService } from './gapi.service';
 import { SettingsService } from './settings.service';
 import { Event } from '../models/event.model';
 
+const REPEAT_INTERVAL = 5000;
+
 @Injectable()
 export class EventService {
-
-  private _events: BehaviorSubject<Event[]> = new BehaviorSubject([]);
 
   private _currentEvent: BehaviorSubject<Event> = new BehaviorSubject(null);
 
@@ -16,15 +16,15 @@ export class EventService {
 
   private pollingStream: Observable<Event[]> = null;
 
+  private _pollingRefresh: BehaviorSubject<any> = new BehaviorSubject(false);
+
+  private pollingRefresh: Observable<any> = this._pollingRefresh.asObservable();
+
   public currentEvent: Observable<Event> = this._currentEvent.asObservable();
 
   public laterEvents: Observable<Event[]> = this._laterEvents.asObservable();
 
   constructor(private gapi: GapiService, private settings: SettingsService) {
-    this._events
-      .map(this.processEvents)
-      .subscribe(this.handleEvents.bind(this));
-
     this.startPolling();
   }
 
@@ -37,12 +37,23 @@ export class EventService {
           .switchMap(id => this.gapi.loadEvents(id, (new Date()).toISOString(), this.settings.maxEvents))
           .catch(err => Observable.of(null))
           .filter(result => !!result)
-          .repeatWhen(stream => stream.delay(5000));
+          .map(this.processEvents)
+          .repeatWhen(stream => stream.delay(REPEAT_INTERVAL).merge(this.pollingRefresh));
 
-      this.pollingStream.subscribe(jsonList => {
-        this._events.next(jsonList);
-      });
+      this.pollingStream
+        .distinctUntilChanged((x, y) => {
+          return this.getEventListKey(x) === this.getEventListKey(y);
+        })
+        .subscribe(this.handleEvents.bind(this));
     }
+  }
+
+  getEventListKey(eventList: Event[]): string {
+    return eventList.reduce((prev, curr) => prev + "," + curr.id, "").substr(1);
+  }
+
+  refresh(): void {
+    this._pollingRefresh.next(true);
   }
 
   processEvents(events: any): Event[] {
@@ -67,6 +78,7 @@ export class EventService {
         laterEvents: []
       });
 
+    console.log('new events');
     this._currentEvent.next(splitEvents.currentEvent);
     this._laterEvents.next(splitEvents.laterEvents);
   }

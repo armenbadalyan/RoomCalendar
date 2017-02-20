@@ -42,16 +42,8 @@ export class SettingsComponent extends Page {
     return true;
   }
 
-  get hasBack() {
-    return true;
-  }
-
   get hasMenu() {
     return true;
-  }
-
-  get hasClock() {
-    return false;
   }
 
   goToEvents() {

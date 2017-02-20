@@ -57,15 +57,7 @@ export class HomeComponent extends Page {
     return false;
   }
 
-  get hasBack() {
-    return false;
-  }
-
   get hasMenu() {
-    return true;
-  }
-
-  get hasClock() {
     return true;
   }
 

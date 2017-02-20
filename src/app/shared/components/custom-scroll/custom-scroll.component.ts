@@ -1,6 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
-
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ScrollDelegateService } from '../../services';
+import { Subscription } from 'rxjs/Rx';
 
 
 @Component({
@@ -8,10 +8,11 @@ import { ScrollDelegateService } from '../../services';
   templateUrl: './custom-scroll.component.html',
   styleUrls: ['./custom-scroll.component.scss']
 })
-export class CustomScrollComponent implements OnInit {
+export class CustomScrollComponent implements OnInit, OnDestroy {
 
   public isTopped: Boolean;
   public isBottomed: Boolean;
+  private scrollDelegateSubscription: Subscription;
 
   @ViewChild('scroll') scrollEl:ElementRef;
   @ViewChild('scrollChild') scrollChildEl:ElementRef;
@@ -22,10 +23,14 @@ export class CustomScrollComponent implements OnInit {
 
   ngOnInit() {
     this.onScroll();
-    this.scrollDelegate.updater.subscribe(success => {
+    this.scrollDelegateSubscription = this.scrollDelegate.updater.subscribe(success => {
       this.onScroll();
       this.cd.detectChanges();
     });
+  }
+
+  ngOnDestroy() {
+    this.scrollDelegateSubscription.unsubscribe();
   }
 
   private onScroll(): void {

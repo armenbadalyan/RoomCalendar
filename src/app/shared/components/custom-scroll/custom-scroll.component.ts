@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef } from '@an
 
 import { ScrollDelegateService } from '../../services';
 
+const ALLOWED_DIFF = 1;
 
 @Component({
   selector: 'custom-scroll',
@@ -32,8 +33,8 @@ export class CustomScrollComponent implements OnInit {
     let target:HTMLElement = this.scrollEl.nativeElement,
         targetInner:HTMLElement = this.scrollChildEl.nativeElement;
 
-    this.isTopped = target.scrollTop <= 0;
-    this.isBottomed = target.scrollTop + target.clientHeight >= targetInner.offsetHeight;
+    this.isTopped = target.scrollTop <= ALLOWED_DIFF;
+    this.isBottomed = target.scrollTop + target.clientHeight >= targetInner.offsetHeight - ALLOWED_DIFF;
   }
 
 }

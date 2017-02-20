@@ -3,6 +3,7 @@
 .event-list {
 	&__scroll {
 		padding: 1rem;
+		overflow: hidden;
 
 		&:last-child {
 			padding-bottom: 1rem;

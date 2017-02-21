@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Event } from '../../shared/models/event.model';
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChange, NgZone } from '@angular/core';
+import { EventService, Event, ScrollDelegateService } from '../../shared';
 
 @Component({
 	selector: 'event-list',
@@ -11,10 +11,24 @@ export class EventListComponent implements OnInit {
 	@Input()
 	public events: Event[];
 
-	constructor() { }
+	constructor(private zone: NgZone, private scrollDelegate:ScrollDelegateService) {
+		this.refreshScrollBind = this.refreshScroll.bind(this);
+	}
 
 	ngOnInit() {
-		
+		this.zone.runOutsideAngular(this.refreshScrollBind);
 	}
+
+	ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+		this.refreshScrollBind();
+	}
+
+	private refreshScroll() {
+		setTimeout(()=> {
+			this.scrollDelegate.refresh();
+		});
+	}
+
+	private refreshScrollBind: any = null;
 
 }

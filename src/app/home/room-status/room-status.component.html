@@ -2,7 +2,7 @@
     <div class="six wide column">
     	<div class="room-status__column room-status__column--first">
     		<div class="room-status__icon" [ngClass]="{'room-status__icon--busy': event, 'room-status__icon--free': !event}"></div>
-    	</div>    	
+    	</div>
     </div>
     <div class="ten wide column">
     	<div class="room-status__column room-status__column--second">
@@ -10,7 +10,21 @@
 	            <div class="room-status__busy-title room-status__busy--large">{{event.title}}</div>
 	            <div class="room-status__busy-author">Booked by {{event.author}}</div>
 	            <div class="room-status__busy-inprogress">IN PROGRESS</div>
-	            <div class="room-status__busy-date room-status__busy--large">{{event.startDate | timeFilter }} - {{event.endDate | timeFilter}}</div>
+	            <div class="room-status__busy-date room-status__busy--large">
+                <ng-container *ngIf="!event.startTime">
+                  {{event.startDate | dateFilter}}
+                </ng-container>
+                <ng-container *ngIf="event.startTime">
+                  {{event.startTime | timeFilter }}
+                </ng-container>
+                  -
+                <ng-container *ngIf="event.isMultiDay || !event.endTime">
+                  {{event.endDate | dateFilter}}<ng-container *ngIf="event.endTime">,</ng-container>
+                </ng-container>
+                <ng-container *ngIf="event.endTime">
+                  {{event.endTime | timeFilter}}
+                </ng-container>
+              </div>
 	        </div>
 	        <div *ngIf="!event" class="room-status__available">
 	            <div class="room-status__available-label">Meeting room is</div>

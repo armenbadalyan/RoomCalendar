@@ -31,15 +31,11 @@ export class LoginComponent extends Page {
     return 'Login';
   }
 
-  get hasBack() {
+  get isTitleCentered() {
     return true;
   }
 
   get hasMenu() {
-    return false;
-  }
-
-  get hasClock() {
     return false;
   }
 

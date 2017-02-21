@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventService, Event, PageService, SettingsService, Page, Calendar } from '../shared';
-import { BehaviorSubject } from 'rxjs/Rx';
+import { BehaviorSubject, Subscription } from 'rxjs/Rx';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends Page {
+export class HomeComponent extends Page implements OnDestroy {
 
   private calendar: BehaviorSubject<Calendar> = new BehaviorSubject(null);
+  private laterEventsSubscription: Subscription;
+  private currentEventSubscription: Subscription;
 
   public laterEventsList: Event[];
   public currentEvent: Event;
@@ -29,7 +32,7 @@ export class HomeComponent extends Page {
       this.calendar.next(data.calendar);
     });
 
-    this.eventService.laterEvents
+    this.laterEventsSubscription = this.eventService.laterEvents
       .subscribe(
       events => {
         this.laterEventsList = events;
@@ -37,13 +40,20 @@ export class HomeComponent extends Page {
       error => {
       });
 
-    this.eventService.currentEvent
+    this.currentEventSubscription = this.eventService.currentEvent
       .subscribe(
       event => {
         this.currentEvent = event;
       },
       error => {
       });
+
+    this.eventService.restartPolling();
+  }
+
+  ngOnDestroy() {
+    this.laterEventsSubscription.unsubscribe();
+    this.currentEventSubscription.unsubscribe();
   }
 
   get title() {
@@ -53,15 +63,11 @@ export class HomeComponent extends Page {
       });
   }
 
-  get hasBack() {
+  get isTitleCentered() {
     return false;
   }
 
   get hasMenu() {
-    return true;
-  }
-
-  get hasClock() {
     return true;
   }
 

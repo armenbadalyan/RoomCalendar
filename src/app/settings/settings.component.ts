@@ -1,18 +1,22 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService, SettingsService, CalendarService, PageService, Page, Settings, Calendar  } from '../shared';
+import { Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent extends Page {
+export class SettingsComponent extends Page implements OnDestroy {
 
   private isLoggingOut: boolean = false;
   private isReady: boolean = false;
   private settings: Settings = null;
   private calendarList: Calendar[] = [];
+
+  private calendarsSubscription: Subscription;
+
 
   constructor(
     pageService: PageService,
@@ -21,33 +25,34 @@ export class SettingsComponent extends Page {
     private settingsService: SettingsService) {
 
     super(pageService);
-
-    settingsService.getCalendars().subscribe(calendars => {
-      this.calendarList = calendars;
-      this.isReady = !!this.calendarList.length;
-    });
   }
 
   ngOnInit() {
     super.ngOnInit();
+
+    this.calendarsSubscription = this.settingsService.getCalendars().subscribe(calendars => {
+      this.calendarList = calendars;
+      this.isReady = !!this.calendarList.length;
+    });
+
     this.settings = this.settingsService.settings;
     this.settingsService.update();
+  }
+
+  ngOnDestroy() {
+    this.calendarsSubscription.unsubscribe();
   }
 
   get title() {
     return 'Settings';
   }
 
-  get hasBack() {
+  get isTitleCentered() {
     return true;
   }
 
   get hasMenu() {
     return true;
-  }
-
-  get hasClock() {
-    return false;
   }
 
   goToEvents() {

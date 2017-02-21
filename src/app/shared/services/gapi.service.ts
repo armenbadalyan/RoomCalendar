@@ -2,10 +2,11 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 
-const params = {
+const PARAMS = {
   'clientId': environment.gapi_client_id,
   'scope': environment.gapi_scope,
 };
+const TIMEOUT = 10000;
 
 @Injectable()
 export class GapiService {
@@ -35,18 +36,21 @@ export class GapiService {
   }
 
   private fromPromiseToObservableWithZone(promise: Promise<any>): Observable<any>{
-    return new Observable(observer => {
+    return Observable.create(observer => {
       Observable.fromPromise(promise).subscribe(result => {
         this.zone.run(() => {
           observer.next(result);
           observer.complete();
         });
+      },
+      err => {
+        observer.error();
       });
     });
   }
 
   private initClient(): Observable<any> {
-    return this.fromPromiseToObservableWithZone(window['gapi'].client.init(params));
+    return this.fromPromiseToObservableWithZone(window['gapi'].client.init(PARAMS));
   }
 
   private loadCalendarApi(): Observable<any> {
@@ -68,11 +72,18 @@ export class GapiService {
           observer.complete();
       }
 
-      this.loadScript(environment.gapi_url);
+      try {
+        this.loadScript(environment.gapi_url);
+      }
+      catch(err) {
+        observer.error();
+      }
+
     });
 
     this.getApi = () => observer
       .flatMap(() => this.loadClient())
+      .timeout(TIMEOUT)
       .flatMap(() => this.initClient());
 
     return this.getApi();

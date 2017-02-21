@@ -47,6 +47,8 @@ export class HomeComponent extends Page implements OnDestroy {
       },
       error => {
       });
+
+    this.eventService.restartPolling();
   }
 
   ngOnDestroy() {

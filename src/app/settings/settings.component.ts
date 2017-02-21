@@ -51,16 +51,8 @@ export class SettingsComponent extends Page implements OnDestroy {
     return true;
   }
 
-  get hasBack() {
-    return true;
-  }
-
   get hasMenu() {
     return true;
-  }
-
-  get hasClock() {
-    return false;
   }
 
   goToEvents() {

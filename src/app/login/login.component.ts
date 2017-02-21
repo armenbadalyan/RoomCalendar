@@ -35,15 +35,7 @@ export class LoginComponent extends Page {
     return true;
   }
 
-  get hasBack() {
-    return true;
-  }
-
   get hasMenu() {
-    return false;
-  }
-
-  get hasClock() {
     return false;
   }
 

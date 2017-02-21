@@ -1,9 +1,6 @@
 <div class="ui padded grid app-header">
     <div class="six wide column middle aligned">
-        <clock *ngIf="hasClock" class="no-divider"></clock>
-        <button (click)="goBack()" *ngIf="hasBack" class="ui icon button secondary app-header__button app-header__button--back back-button" >
-            <i class="arrow left vertical icon"></i>
-        </button>
+        <clock class="no-divider"></clock>
     </div>
     <div class="four wide column middle aligned">
         <span [class.app-header__title--centered]="isTitleCentered" class="app-header__title">{{ title | async }}</span>

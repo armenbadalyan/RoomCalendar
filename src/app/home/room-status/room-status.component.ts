@@ -3,16 +3,16 @@ import { Observable } from 'rxjs/Rx';
 import { Event, EventService } from '../../shared';
 
 @Component({
-	selector: 'room-status',
-	templateUrl: './room-status.component.html',
-	styleUrls: ['./room-status.component.scss']
+  selector: 'room-status',
+  templateUrl: './room-status.component.html',
+  styleUrls: ['./room-status.component.scss']
 })
 export class RoomStatusComponent implements OnInit {
 
-	public event:Event = null;
-	public nextEventTime:Date = null;
+	public event: Event = null;
+	public nextEventTime: Date = null;
 
-	public iconClasses = {}
+	public iconClasses = {};
 
 	constructor(private eventService: EventService) { }
 

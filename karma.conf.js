@@ -10,7 +10,8 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-remap-istanbul'),
       require('angular-cli/plugins/karma'),
-      require('karma-spec-reporter')
+      require('karma-spec-reporter'),
+      require('karma-phantomjs-launcher')
     ],
     files: [
       { pattern: './node_modules/jquery/dist/jquery.min.js', watched: false },
@@ -39,7 +40,22 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
+    browsers: ['PhantomJS_custom'],
+    singleRun: false,
+    customLaunchers: {
+      'PhantomJS_custom': {
+        base: 'PhantomJS',
+        options: {
+          windowName: 'my-window',
+          settings: {
+            webSecurityEnabled: false
+          },
+        },
+        flags: ['--load-images=true']
+      }
+    },
+    phantomjsLauncher: {
+      exitOnResourceError: true
+    }
   });
 };

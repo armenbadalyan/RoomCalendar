@@ -3,15 +3,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, Component, ViewChild } from '@angular/core';
 
-import { CustomScrollComponent } from './custom-scroll.component';
+import { ScrollFaderComponent } from './scroll-fader.component';
 import { ScrollDelegateService } from '../../services';
 
 @Component({
-  template: `<div  [ngStyle]="currentStyles"><custom-scroll><span>{{content}}</span></custom-scroll></div>`
+  template: `<div  [ngStyle]="currentStyles"><scroll-fader><span>{{content}}</span></scroll-fader></div>`
 })
 class TestHostComponent {
-  @ViewChild(CustomScrollComponent)
-  scrollComponent: CustomScrollComponent;
+  @ViewChild(ScrollFaderComponent)
+  scrollComponent: ScrollFaderComponent;
   content: string;
   currentStyles: any = {
     'width': '100px',
@@ -27,7 +27,7 @@ describe('CustomScrollComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TestHostComponent, CustomScrollComponent],
+      declarations: [ TestHostComponent, ScrollFaderComponent],
       providers: [
         ScrollDelegateService
       ]

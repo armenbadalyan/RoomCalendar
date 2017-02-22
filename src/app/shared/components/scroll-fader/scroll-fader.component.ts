@@ -5,11 +5,11 @@ import { Subscription } from 'rxjs/Rx';
 const ALLOWED_DIFF = 1;
 
 @Component({
-  selector: 'custom-scroll',
-  templateUrl: './custom-scroll.component.html',
-  styleUrls: ['./custom-scroll.component.scss']
+  selector: 'scroll-fader',
+  templateUrl: './scroll-fader.component.html',
+  styleUrls: ['./scroll-fader.component.scss']
 })
-export class CustomScrollComponent implements OnInit, OnDestroy {
+export class ScrollFaderComponent implements OnInit, OnDestroy {
 
   public isTopped: Boolean;
   public isBottomed: Boolean;

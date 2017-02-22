@@ -10,10 +10,10 @@ import { Subscription } from 'rxjs/Rx';
 })
 export class SettingsComponent extends Page implements OnDestroy {
 
-  private isLoggingOut: boolean = false;
-  private isReady: boolean = false;
-  private settings: Settings = null;
-  private calendarList: Calendar[] = [];
+  public isLoggingOut: Boolean = false;
+  public isReady: Boolean = false;
+  public settings: Settings = null;
+  public calendarList: Calendar[] = [];
 
   private calendarsSubscription: Subscription;
 

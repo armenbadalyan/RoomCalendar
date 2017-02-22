@@ -7,11 +7,11 @@ import { Component, OnInit, OnDestroy, NgZone, ChangeDetectorRef } from '@angula
 })
 export class ClockComponent implements OnInit, OnDestroy {
 
-	time:Date = new Date();
+	time: Date = new Date();
 
-	private timer:number;
+	private timer: number;
 
-	constructor(private zone:NgZone, private  cd: ChangeDetectorRef) {
+	constructor(private zone: NgZone, private  cd: ChangeDetectorRef) {
 		this.runFnBind = this.run.bind(this);
 	}
 

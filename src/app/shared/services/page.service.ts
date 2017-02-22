@@ -6,12 +6,11 @@ import { Page } from '../models';
 export class PageService {
   // Observable string sources
   private pageInitializedSource = new Subject<Page>();
-  
+
   // Observable string streams
   pageInitialized = this.pageInitializedSource.asObservable();
 
   notifyPageInit(page: Page) {
     this.pageInitializedSource.next(page);
   }
-
 }

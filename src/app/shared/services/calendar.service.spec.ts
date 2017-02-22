@@ -5,19 +5,19 @@ import { Calendar } from '../models/calendar.model';
 
 const CALENDAR_LIST = [
   {
-    id: 0,
+    id: "0",
     summary: 'Room-test-1',
     location: 'Somewhere',
     description: 'A calendar room'
   },
   {
-    id: 1,
+    id: "1",
     title: 'Room-test-2',
     location: 'Somewhere',
     description: 'A calendar room 2'
   },
   {
-    id: 0,
+    id: "2",
     summary: 'Room-test-3',
     location: 'Somewhere',
     description: 'A calendar room 3'
@@ -47,7 +47,6 @@ describe ('CalendarService', () => {
   it('should construct', () => {
       expect(calendarService).toBeDefined();
   });
-
 
   it('should get calendars', async(() => {
       calendarService.getCalendars();

@@ -3,57 +3,27 @@ import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SettingsService } from './settings.service';
 import { Calendar, Settings } from '../models';
-
-const CALENDAR_LIST = [
-  {
-    id: '0',
-    summary: 'Room-test-1',
-    location: 'Somewhere',
-    description: 'A calendar room'
-  },
-  {
-    id: '1',
-    title: 'Room-test-2',
-    location: 'Somewhere',
-    description: 'A calendar room 2'
-  },
-  {
-    id: '2',
-    summary: 'Room-test-3',
-    location: 'Somewhere',
-    description: 'A calendar room 3'
-  }
-];
+import { CALENDAR_LIST, CALENDAR_EXISTING_ID, CALENDAR_NON_EXISTING_ID, DEFAULT_MAX_EVENTS, NEW_MAX_EVENTS } from '../../../testing';
 
 const localStorageKey = 'room_calendar_selected_calendar';
 
-class FakeCalendarService {
-
-  private _calendars: BehaviorSubject<Calendar[]> = new BehaviorSubject([]);
-
-  public calendars: Observable<Calendar[]> = this._calendars.asObservable();
-
-  constructor() { }
-
-  getCalendars() {
-    this._calendars.next([
-      new Calendar().fromJSON(CALENDAR_LIST[0]),
-      new Calendar().fromJSON(CALENDAR_LIST[1]),
-      new Calendar().fromJSON(CALENDAR_LIST[2])
-    ]);
-  }
-}
-
 describe ('SettingsService', () => {
-  let settingsService;
+  let settingsService, CalendarServiceStub;
+  let _calendars: BehaviorSubject<Calendar[]>;
 
   beforeEach(() => {
     if (typeof localStorage !== 'undefined') {
-        try {
-            localStorage.removeItem(localStorageKey);
-        } catch (ex) {}
+        localStorage.removeItem(localStorageKey);
     }
-    settingsService = new SettingsService(new FakeCalendarService());
+
+    _calendars = new BehaviorSubject([]);
+
+    CalendarServiceStub = {
+      calendars: _calendars.asObservable(),
+      getCalendars: () => _calendars.next(CALENDAR_LIST)
+    };
+
+    settingsService = new SettingsService(CalendarServiceStub);
   });
 
   it('should construct', () => {
@@ -70,21 +40,17 @@ describe ('SettingsService', () => {
   it('should get Calendars after update', async(() => {
       settingsService.update();
       settingsService.getCalendars().subscribe((calendarList) => {
-        expect(calendarList).toEqual([
-          new Calendar().fromJSON(CALENDAR_LIST[0]),
-          new Calendar().fromJSON(CALENDAR_LIST[1]),
-          new Calendar().fromJSON(CALENDAR_LIST[2])
-        ]);
+        expect(calendarList).toEqual(CALENDAR_LIST);
         expect(settingsService.isReady()).toEqual(true);
       });
   }));
 
   it('should get only set MaxEvents when no calendars exist', async(() => {
       settingsService.settings = new Settings({
-        maxEvents: 100500,
-        selectedCalendarId: '1'
+        maxEvents: NEW_MAX_EVENTS,
+        selectedCalendarId: CALENDAR_EXISTING_ID
       });
-      expect(settingsService.maxEvents).toEqual(100500);
+      expect(settingsService.maxEvents).toEqual(NEW_MAX_EVENTS);
       expect(settingsService.selectedCalendar).toEqual(null);
   }));
 
@@ -93,11 +59,11 @@ describe ('SettingsService', () => {
       settingsService.getCalendars().subscribe((calendarList) => {
         expect(settingsService.selectedCalendarId).toEqual('');
         settingsService.settings = new Settings({
-          maxEvents: 100500,
-          selectedCalendarId: '1'
+          maxEvents: NEW_MAX_EVENTS,
+          selectedCalendarId: CALENDAR_EXISTING_ID
         });
-        expect(settingsService.maxEvents).toEqual(100500);
-        expect(settingsService.selectedCalendarId).toEqual('1');
+        expect(settingsService.maxEvents).toEqual(NEW_MAX_EVENTS);
+        expect(settingsService.selectedCalendarId).toEqual(CALENDAR_EXISTING_ID);
       });
   }));
 
@@ -106,10 +72,10 @@ describe ('SettingsService', () => {
       settingsService.getCalendars().subscribe((calendarList) => {
         expect(localStorage.getItem(localStorageKey)).toEqual(null);
         settingsService.settings = new Settings({
-          maxEvents: 10,
-          selectedCalendarId: '1'
+          maxEvents: DEFAULT_MAX_EVENTS,
+          selectedCalendarId: CALENDAR_EXISTING_ID
         });
-        expect(new Calendar().fromJSON(JSON.parse(localStorage.getItem(localStorageKey))).id).toEqual('1');
+        expect(new Calendar().fromJSON(JSON.parse(localStorage.getItem(localStorageKey))).id).toEqual(CALENDAR_EXISTING_ID);
       });
   }));
 
@@ -117,10 +83,10 @@ describe ('SettingsService', () => {
       settingsService.update();
       settingsService.getCalendars().subscribe((calendarList) => {
         settingsService.settings = new Settings({
-          maxEvents: 100500,
-          selectedCalendarId: '10'
+          maxEvents: NEW_MAX_EVENTS,
+          selectedCalendarId: CALENDAR_NON_EXISTING_ID
         });
-        expect(settingsService.maxEvents).toEqual(100500);
+        expect(settingsService.maxEvents).toEqual(NEW_MAX_EVENTS);
         expect(settingsService.selectedCalendar).toEqual(null);
       });
   }));

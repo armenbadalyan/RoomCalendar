@@ -2,47 +2,22 @@ import { async } from '@angular/core/testing';
 import { Observable } from 'rxjs/Rx';
 import { CalendarService } from './calendar.service';
 import { Calendar } from '../models/calendar.model';
-
-const CALENDAR_LIST = [
-  {
-    id: "0",
-    summary: 'Room-test-1',
-    location: 'Somewhere',
-    description: 'A calendar room'
-  },
-  {
-    id: "1",
-    title: 'Room-test-2',
-    location: 'Somewhere',
-    description: 'A calendar room 2'
-  },
-  {
-    id: "2",
-    summary: 'Room-test-3',
-    location: 'Somewhere',
-    description: 'A calendar room 3'
-  }
-];
-
-class FakeGapiService {
-  constructor() {}
-
-  loadCalendars() {
-    return Observable.create((observer) => {
-      observer.next(CALENDAR_LIST);
-      observer.complete();
-    });
-  }
-};
+import {CALENDAR_LIST_DATA, CALENDAR_LIST } from '../../../testing';
 
 
 describe ('CalendarService', () => {
-  let calendarService;
+  let calendarService, GapiServiceStub;
 
   beforeEach(() => {
-    calendarService = new CalendarService(new FakeGapiService());
-  });
+    GapiServiceStub = {
+      loadCalendars: () => Observable.create((observer) => {
+        observer.next(CALENDAR_LIST_DATA);
+        observer.complete();
+      })
+    };
+    calendarService = new CalendarService(GapiServiceStub);
 
+  });
 
   it('should construct', () => {
       expect(calendarService).toBeDefined();
@@ -51,11 +26,7 @@ describe ('CalendarService', () => {
   it('should get calendars', async(() => {
       calendarService.getCalendars();
       calendarService.calendars.subscribe(list => {
-        expect(list).toEqual([
-          new Calendar().fromJSON(CALENDAR_LIST[0]),
-          new Calendar().fromJSON(CALENDAR_LIST[1]),
-          new Calendar().fromJSON(CALENDAR_LIST[2])
-        ]);
+        expect(list).toEqual(CALENDAR_LIST);
       }, error => {
 
       });

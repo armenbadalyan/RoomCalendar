@@ -29,4 +29,9 @@ describe('PageService', () => {
   it('should construct', () => {
       expect(pageService).toBeDefined();
   });
+
+  it ('should have notify page init method', () => {
+    expect(typeof pageService.notifyPageInit).toBe('function');
+  });
+
 });

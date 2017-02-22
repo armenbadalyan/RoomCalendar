@@ -15,7 +15,7 @@ export class SettingsService {
   private _selectedCalendar: Calendar = null;
   private _calendarList: Calendar[] = [];
 
-	constructor(private calendarService:CalendarService) {
+  constructor (private calendarService: CalendarService) {
     this.extractCurrentCalendar();
     this.calendarService.calendars
     .subscribe(
@@ -48,13 +48,13 @@ export class SettingsService {
   }
 
   get selectedCalendarId(): string {
-    return this._selectedCalendar ? this._selectedCalendar.id : "";
+    return this._selectedCalendar ? this._selectedCalendar.id : '';
   }
 
   private getCalendarById(id: string): Calendar {
-    for(let i=0, l=this._calendarList.length; i<l; i++) {
+    for (let i = 0, l = this._calendarList.length; i <  l; i++) {
       let calendar = this._calendarList[i];
-      if(calendar.id == id) {
+      if  (calendar.id === id) {
         return calendar;
       }
     }
@@ -62,27 +62,27 @@ export class SettingsService {
   }
 
   get selectedCalendarUrl(): string {
-    let url = this.selectedCalendar ? environment.google_base_calendar_url + this.selectedCalendar.id : "";
+    let url = this.selectedCalendar ? environment.google_base_calendar_url + this.selectedCalendar.id : '';
     return encodeURI(url);
   }
 
   private extractCurrentCalendar(): void {
-    if(typeof localStorage != 'undefined') {
+    if (typeof localStorage !== 'undefined') {
         try {
             let calendarJSON = localStorage.getItem(localStorageKey);
-            if(calendarJSON) {
+            if  (calendarJSON) {
               this._selectedCalendar = new Calendar();
               this._selectedCalendar.fromJSON(JSON.parse(calendarJSON));
             }
-        } catch(ex) {}
+        } catch  (ex) {}
     }
   }
 
   public storeCurrentCalendar(): void {
-    if(typeof localStorage != 'undefined' && !!this.selectedCalendar) { 
+    if  (typeof localStorage !== 'undefined' && !!this.selectedCalendar) {
           try {
               localStorage.setItem(localStorageKey, this._selectedCalendar.toString());
-          } catch(ex) { }
+          } catch  (ex) { }
     }
   }
 
@@ -100,7 +100,6 @@ export class SettingsService {
 
   public getCalendars(): Observable<Calendar[]> {
     return this.calendarService.calendars;
-
   }
 
 }

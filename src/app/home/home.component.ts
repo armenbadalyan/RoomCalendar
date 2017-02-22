@@ -47,6 +47,8 @@ export class HomeComponent extends Page implements OnDestroy {
       },
       error => {
       });
+
+    this.eventService.restartPolling();
   }
 
   ngOnDestroy() {
@@ -65,15 +67,7 @@ export class HomeComponent extends Page implements OnDestroy {
     return false;
   }
 
-  get hasBack() {
-    return false;
-  }
-
   get hasMenu() {
-    return true;
-  }
-
-  get hasClock() {
     return true;
   }
 

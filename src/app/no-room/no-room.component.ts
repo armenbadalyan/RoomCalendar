@@ -20,15 +20,7 @@ export class NoRoomComponent extends Page {
     return true;
   }
 
-	get hasBack() {
-		return false;
-	}
-
 	get hasMenu() {
-		return true;
-	}
-
-	get hasClock() {
 		return true;
 	}
 

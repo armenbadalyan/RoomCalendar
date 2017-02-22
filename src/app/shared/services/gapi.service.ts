@@ -2,18 +2,20 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 
-const params = {
+const PARAMS = {
   'clientId': environment.gapi_client_id,
   'scope': environment.gapi_scope,
 };
+const TIMEOUT = 10000;
 
 @Injectable()
 export class GapiService {
 
   private zone: NgZone;
+  private scriptLoaded: boolean = false;
 
   constructor() {
-    this.zone = new NgZone({enableLongStackTrace: false});
+    this.zone = new NgZone({ enableLongStackTrace: false });
   }
 
   private loadScript(url: string): void {
@@ -26,7 +28,7 @@ export class GapiService {
   private loadClient(): Observable<any> {
     return Observable.create((observer) => {
       window['gapi'].load('client', () => {
-        this.zone.run(()=> {
+        this.zone.run(() => {
           observer.next(true);
           observer.complete();
         });
@@ -34,7 +36,7 @@ export class GapiService {
     });
   }
 
-  private fromPromiseToObservableWithZone(promise: Promise<any>): Observable<any>{
+  private fromPromiseToObservableWithZone(promise: Promise<any>): Observable<any> {
     return Observable.create(observer => {
       Observable.fromPromise(promise).subscribe(result => {
         this.zone.run(() => {
@@ -42,14 +44,14 @@ export class GapiService {
           observer.complete();
         });
       },
-      err => {
-        observer.error();
-      });
+        err => {
+          observer.error();
+        });
     });
   }
 
   private initClient(): Observable<any> {
-    return this.fromPromiseToObservableWithZone(window['gapi'].client.init(params));
+    return this.fromPromiseToObservableWithZone(window['gapi'].client.init(PARAMS));
   }
 
   private loadCalendarApi(): Observable<any> {
@@ -67,22 +69,30 @@ export class GapiService {
   getApi(): Observable<any> {
     var observer = Observable.create((observer) => {
       window['_gapiOnLoad'] = (ev) => {
-          observer.next(true);
-          observer.complete();
-      }
-
-      try {
-        this.loadScript(environment.gapi_url);
-      }
-      catch(err) {
-        observer.error();
+        observer.next();
+        observer.complete();
+        this.scriptLoaded = true;
       }
       
+      if (!this.scriptLoaded) {
+        try {
+          this.loadScript(environment.gapi_url);
+        }
+        catch (err) {
+          observer.error();
+        }
+
+      }
+      else {
+        observer.next();
+        observer.complete();
+      }
+
     });
 
-    this.getApi = () => observer      
+    this.getApi = () => observer
       .flatMap(() => this.loadClient())
-      .timeout(5000)
+      .timeout(TIMEOUT)
       .flatMap(() => this.initClient());
 
     return this.getApi();

@@ -8,10 +8,8 @@ export abstract class Page implements OnInit {
 
 	}
 
-	abstract get hasBack():boolean;
 	abstract get title():Observable<string> | string;
 	abstract get hasMenu():boolean;
-	abstract get hasClock():boolean;
 	abstract get isTitleCentered(): boolean;
 
 	ngOnInit() {

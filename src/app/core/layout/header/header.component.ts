@@ -35,39 +35,9 @@ export class HeaderComponent implements OnInit {
 				});
 			}
 
-
-			this.hasBack = page.hasBack;
 			this.hasMenu = page.hasMenu;
-			this.hasClock = page.hasClock;
 			this.isTitleCentered = page.isTitleCentered;
 		});
-
-		/*this.router.events.subscribe(event => {
-
-			let childRoute = this.route.firstChild;
-
-			if (event instanceof NavigationEnd && childRoute ) {
-				console.log('has child route');
-
-				if (childRoute.component instanceof Page) {
-					console.log('is a page');
-
-					this.currentPage = childRoute.component as Page;
-					this.title = this.currentPage.title;
-					this.hasBack = this.currentPage.hasBack;
-					this.hasMenu = this.currentPage.hasMenu;
-				}
-				else {
-					console.log('is not a page');
-				}
-
-			}
-
-		});*/
-	}
-
-	goBack() {
-		this.location.back()
 	}
 
 	goToSettings() {

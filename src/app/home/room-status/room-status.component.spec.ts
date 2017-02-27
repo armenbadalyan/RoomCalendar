@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { RoomStatusComponent } from './room-status.component';
 import { Event, EventService } from '../../shared';
 import { DateFilterPipe, TimeFilterPipe } from '../../shared/pipes';
+import { SINGLE_EVENT } from '../../../testing';
 
 describe('RoomStatusComponent', () => {
   let component: RoomStatusComponent;
@@ -48,19 +49,7 @@ describe('RoomStatusComponent', () => {
   });
 
   it('should update event when CurrentEvent exists', async(() => {
-    let curEvent = new Event().fromJSON({
-      id: '0',
-      title: 'test',
-      creator: {
-        email: 'test@test.com'
-      },
-      start: {
-        dateTime: 'Wed Feb 22 2017 14:00:23 GMT+0500 (+05)'
-      },
-      end: {
-        dateTime: 'Wed Feb 22 2017 15:00:23 GMT+0500 (+05)'
-      }
-    });
+    let curEvent = SINGLE_EVENT;
     _currentEvent.next(curEvent);
     eventService.currentEvent.subscribe((event) => {
       expect(component.event).toEqual(curEvent);

@@ -2,7 +2,7 @@ import { async } from '@angular/core/testing';
 import { Observable } from 'rxjs/Rx';
 import { CalendarService } from './calendar.service';
 import { Calendar } from '../models/calendar.model';
-import {CALENDAR_LIST_DATA, CALENDAR_LIST } from '../../../testing';
+import { CALENDAR_LIST_DATA, CALENDAR_LIST } from '../../../testing';
 
 
 describe ('CalendarService', () => {

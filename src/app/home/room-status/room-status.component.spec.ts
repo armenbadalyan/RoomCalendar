@@ -68,8 +68,13 @@ describe('RoomStatusComponent', () => {
   }));
 
   it('should update nextEventTime', async(() => {
-    let startTime = 'Wed Feb 22 2017 14:00:23 GMT+0500 (+05)',
-        nextEvent = new Event().fromJSON({
+    let startTime = new Date(),
+        endTime = new Date(startTime);
+
+    startTime.setHours(15);
+    endTime.setHours(16);
+
+    let nextEvent = new Event().fromJSON({
           id: '0',
           title: 'test',
           creator: {
@@ -79,7 +84,7 @@ describe('RoomStatusComponent', () => {
             dateTime: startTime
           },
           end: {
-            dateTime: 'Wed Feb 22 2017 15:00:23 GMT+0500 (+05)'
+            dateTime: endTime
           }
         });
     _laterEvents.next([nextEvent]);

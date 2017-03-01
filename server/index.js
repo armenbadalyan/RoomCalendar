@@ -1,9 +1,10 @@
 var express    = require('express');
 var app        = express();
-var port = process.env.PORT || 8080;
 var google = require('googleapis');
+var path    = require( 'path' );
+var port = process.env.PORT || 8080;
 
-process.env.GOOGLE_APPLICATION_CREDENTIALS = './project.json'; 
+process.env.GOOGLE_APPLICATION_CREDENTIALS = './RoomCalendar-24b15190878d.json'; 
 
 app.use('/api', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -19,19 +20,24 @@ app.use('/api', function (req, res, next) {
 
 app.listen(port);
 
-google.auth.getApplicationDefault(function (err, authClient) {
-  if (err) {
+var key = require( path.resolve(process.env.GOOGLE_APPLICATION_CREDENTIALS) );
+var IMPERSONATE_EMAIL = null;
+var jwtClient = new google.auth.JWT(
+  key.client_email,
+  null,
+  key.private_key,
+  [ 'https://www.googleapis.com/auth/calendar.readonly' ],
+  IMPERSONATE_EMAIL
+);
+
+jwtClient.authorize( function( err, tokens ) {
+  if ( err ) {
     throw err;
   }
 
-  if (authClient.createScopedRequired && authClient.createScopedRequired()) {
-    authClient = authClient.createScoped([
-      'https://www.googleapis.com/auth/calendar.readonly'
-    ]);
-    google.options({
-      auth: authClient
-    });
-  }
+  google.options({
+      auth: jwtClient
+  });
 
   var calendar = google.calendar('v3');
 
@@ -42,17 +48,17 @@ google.auth.getApplicationDefault(function (err, authClient) {
   });
 
   app.use('/api/events', function (req, res, next) {
-    console.log(req.query.time);
+      console.log(req.query.time);
       calendar.events.list({
           showDeleted: false,
           singleEvents: true,
           orderBy: 'startTime',
-          calendarId: req.query.calendarId,
-          timeMin: req.query.time,
+          calendarId: req.query.calendarId,//"exadel.com_r3q9h37o34e2ogamdokh9ht8k4@group.calendar.google.com", // 
+          timeMin: req.query.time,//"2017-02-28T10:57:09.556Z",//req.query.time,
           maxResults: req.query.limit || 10,
       }, function (err, result) {
           res.json(result);
       });
   });
-
+  
 });

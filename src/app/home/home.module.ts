@@ -6,8 +6,8 @@ import { HomeComponent } from './home.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { CurrentEventResolver } from './current-event-resolver.service';
 import { CoreModule } from '../core/core.module';
-import { QRCodeModule } from 'angular2-qrcode';
 import { RoomStatusComponent } from './room-status/room-status.component';
+import { QRCodeModule }  from 'ng2-qrcode';
 
 
 const pageRouting: ModuleWithProviders = RouterModule.forChild([
@@ -25,8 +25,8 @@ const pageRouting: ModuleWithProviders = RouterModule.forChild([
 		CommonModule,
 		SharedModule,
 		CoreModule,
-		QRCodeModule,	
-		pageRouting
+		pageRouting,
+		QRCodeModule
 	],
 	declarations: [ HomeComponent, EventListComponent, RoomStatusComponent ],
 	providers: [ CurrentEventResolver ]

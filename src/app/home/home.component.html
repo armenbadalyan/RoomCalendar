@@ -7,7 +7,7 @@
     <div class="ui padded grid event-page__list-wrapper">
         <div class="six wide column">
           <div class="event-page__qrcode" *ngIf="calendarUrl">
-            <qr-code [data]="calendarUrl" [size]="180" [type]="8"></qr-code>
+             <qrcode [qrdata]="calendarUrl" [size]="180" [level]="'M'"></qrcode>
           </div>
         </div>
         <div class="ten wide column">

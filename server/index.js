@@ -20,14 +20,18 @@ app.use('/api', function (req, res, next) {
 
 app.listen(port);
 
-var key = require( path.resolve(process.env.GOOGLE_APPLICATION_CREDENTIALS) );
+var key;
+try {
+  key = require( path.resolve(process.env.GOOGLE_APPLICATION_CREDENTIALS) );
+} catch (ex) { }
+
 var IMPERSONATE_EMAIL = null;
 var jwtClient = new google.auth.JWT(
-  key.client_email,
+  process.env.client_email || key.client_email,
   null,
-  key.private_key,
+  process.env.private_key || key.private_key,
   [ 'https://www.googleapis.com/auth/calendar.readonly' ],
-  IMPERSONATE_EMAIL
+  process.env.impersonate_email || null
 );
 
 jwtClient.authorize( function( err, tokens ) {

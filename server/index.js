@@ -21,9 +21,9 @@ app.use('/api', function (req, res, next) {
 app.listen(port);
 
 var key;
-try {
+/*try {
   key = require( path.resolve(process.env.GOOGLE_APPLICATION_CREDENTIALS) );
-} catch (ex) { }
+} catch (ex) { }*/
 
 var IMPERSONATE_EMAIL = null;
 var jwtClient = new google.auth.JWT(

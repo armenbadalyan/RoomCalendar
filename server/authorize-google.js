@@ -4,13 +4,11 @@ var Promise = require('promise');
 
 var authPromise = new Promise(function(resolve, reject){
 
- var fileName = process.env.GOOGLE_APPLICATION_CREDENTIALS || null,
-     file = fileName ? require(path.resolve(fileName)) : null,
-     client_email = file ? file.client_email : process.env.client_email,
-     private_key = file ? file.private_key : process.env.private_key,
-     impresonate_email = file ? file.impersonate_email : process.env.impersonate_email;
-
-  console.log('file is ' +  !!file);
+  var fileName = process.env.GOOGLE_APPLICATION_CREDENTIALS || null,
+      file = fileName ? require(path.resolve(fileName)) : null,
+      client_email = file ? file.client_email : process.env.client_email,
+      private_key = file ? file.private_key : process.env.private_key,
+      impresonate_email = file ? file.impersonate_email : process.env.impersonate_email;
 
   var jwtClient = new google.auth.JWT(
     client_email || "",

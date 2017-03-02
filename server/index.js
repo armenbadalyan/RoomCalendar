@@ -25,11 +25,12 @@ var key;
   key = require( path.resolve(process.env.GOOGLE_APPLICATION_CREDENTIALS) );
 } catch (ex) { }*/
 
+
 var IMPERSONATE_EMAIL = null;
 var jwtClient = new google.auth.JWT(
   process.env.client_email || key.client_email,
   null,
-  process.env.private_key || key.private_key,
+  (process.env.private_key || key.private_key || "").replace(/\\n/g, '\n'),
   [ 'https://www.googleapis.com/auth/calendar.readonly' ],
   process.env.impersonate_email || null
 );

@@ -3,7 +3,7 @@ import { EventService } from './event.service';
 import { Observable } from 'rxjs/Rx';
 import { EVENTS_LIST_DATA, EVENTS_LIST, CURRENT_EVENT_DATA, CURRENT_EVENT } from '../../../testing';
 
-describe ('ScrollDelegateService', () => {
+describe ('EventService', () => {
   let eventService;
   let SettingsStub, GapiServiceStub;
 

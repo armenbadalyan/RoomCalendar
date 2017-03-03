@@ -25,7 +25,7 @@ class DummyComponent { }
 
 describe('NoRoomComponent', () => {
   let hostComponent: TestHostComponent;
-  let fixture: ComponentFixture<NoRoomComponent>;
+  let fixture: ComponentFixture<TestHostComponent>;
   let location: Location;
   let router: Router;
 

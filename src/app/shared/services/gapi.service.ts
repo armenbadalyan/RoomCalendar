@@ -12,7 +12,7 @@ const TIMEOUT = 10000;
 export class GapiService {
 
   private zone: NgZone;
-  private scriptLoaded: boolean = false;
+  private scriptLoaded: Boolean = false;
 
   constructor() {
     this.zone = new NgZone({ enableLongStackTrace: false });
@@ -67,23 +67,21 @@ export class GapiService {
   }
 
   getApi(): Observable<any> {
-    var observer = Observable.create((observer) => {
+    let observer = Observable.create((observer) => {
       window['_gapiOnLoad'] = (ev) => {
         observer.next();
         observer.complete();
         this.scriptLoaded = true;
-      }
-      
+      };
+
       if (!this.scriptLoaded) {
         try {
           this.loadScript(environment.gapi_url);
-        }
-        catch (err) {
+        } catch (err) {
           observer.error();
         }
 
-      }
-      else {
+      } else {
         observer.next();
         observer.complete();
       }
@@ -111,7 +109,7 @@ export class GapiService {
       .flatMap(() => this.login())
       .flatMap(() => this.loadCalendarApi())
       .flatMap(() => this.loadCalendaList())
-      .map((resp: any) => resp.result.items)
+      .map((resp: any) => resp.result.items);
   }
 
   loadEvents(calendarId: string, timeMin: string, limit: number, orderby = 'startTime'): Observable<any> {
@@ -128,6 +126,6 @@ export class GapiService {
       .flatMap(() => this.login())
       .flatMap(() => this.loadCalendarApi())
       .flatMap(() => this.loadEventList(params))
-      .map((resp: any) => resp.result.items)
+      .map((resp: any) => resp.result.items);
   }
 }

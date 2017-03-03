@@ -18,11 +18,11 @@ app.use('/api', function (req, res, next) {
 });
 
 app.use('/api', function(req, res, next) {
-  AuthorizeGoogle.then(function() {
+  AuthorizeGoogle().then(function() {
     next();
   }, function() {
     res.sendStatus(401);
-  })
+  });
 });
 
 app.listen(port);

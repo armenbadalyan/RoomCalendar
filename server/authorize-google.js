@@ -2,34 +2,40 @@ var path = require('path');
 var google = require('googleapis');
 var Promise = require('promise');
 
-var authPromise = new Promise(function(resolve, reject){
+var authPromise = function () {
+    return new Promise(function (resolve, reject) {
 
-  var fileName = process.env.GOOGLE_APPLICATION_CREDENTIALS || null,
-      file = fileName ? require(path.resolve(fileName)) : null,
-      client_email = file ? file.client_email : process.env.client_email,
-      private_key = file ? file.private_key : process.env.private_key,
-      impresonate_email = file ? file.impersonate_email : process.env.impersonate_email;
+        var fileName = process.env.GOOGLE_APPLICATION_CREDENTIALS || null,
+            file = fileName ? require(path.resolve(fileName)) : null,
+            client_email = file ? file.client_email : process.env.client_email,
+            private_key = file ? file.private_key : process.env.private_key,
+            impresonate_email = file ? file.impersonate_email : process.env.impersonate_email;
 
-  var jwtClient = new google.auth.JWT(
-    client_email || "",
-    null,
-    (private_key || "").replace(/\\n/g, '\n'),
-    [ 'https://www.googleapis.com/auth/calendar.readonly' ],
-    impresonate_email  || null
-  );
+        console.log('client_email: ' + client_email);
+        console.log('private_key: ' + private_key);
+        console.log('impresonate_email: ' + impresonate_email);
 
-  jwtClient.authorize( function( err, tokens ) {
-    if ( err ) {
-      reject(err);
-    }
+        var jwtClient = new google.auth.JWT(
+            client_email || "",
+            null,
+            (private_key || "").replace(/\\n/g, '\n'), ['https://www.googleapis.com/auth/calendar'],
+            impresonate_email  || null
+        );
 
-    google.options({
-        auth: jwtClient
+        jwtClient.authorize(function (err, tokens) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+
+            google.options({
+                auth: jwtClient
+            });
+
+            resolve();
+        });
+
     });
-
-    resolve();
-  });
-  
-});
+};
 
 module.exports = authPromise;

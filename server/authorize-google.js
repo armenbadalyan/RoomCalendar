@@ -18,7 +18,7 @@ var authPromise = function () {
         var jwtClient = new google.auth.JWT(
             client_email || "",
             null,
-            (private_key || "").replace(/\\n/g, '\n'), ['https://www.googleapis.com/auth/calendar'],
+            (private_key || "").replace(/\\n/g, '\n'), ['https://www.googleapis.com/auth/calendar.readonly'],
             impresonate_email  || null
         );
 

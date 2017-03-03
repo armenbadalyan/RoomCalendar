@@ -48,8 +48,6 @@ export class EventService {
           .repeatWhen(stream => {
             return stream.delay(REPEAT_INTERVAL);
           });
-
-      
     }
   }
 
@@ -71,7 +69,6 @@ export class EventService {
 
         this.isPolling = true;
     }
-    
   }
 
   checkDistinct(xArr: Event[], yArr: Event[]): boolean {

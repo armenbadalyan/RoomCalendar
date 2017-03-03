@@ -11,10 +11,6 @@ var authPromise = function () {
             private_key = file ? file.private_key : process.env.private_key,
             impresonate_email = file ? file.impersonate_email : process.env.impersonate_email;
 
-        console.log('client_email: ' + client_email);
-        console.log('private_key: ' + private_key);
-        console.log('impresonate_email: ' + impresonate_email);
-
         var jwtClient = new google.auth.JWT(
             client_email || "",
             null,
@@ -24,7 +20,6 @@ var authPromise = function () {
 
         jwtClient.authorize(function (err, tokens) {
             if (err) {
-                console.log(err);
                 reject(err);
             }
 

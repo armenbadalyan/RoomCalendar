@@ -1,1 +1,1 @@
-export * from './custom-scroll/custom-scroll.component';
+export * from './scroll-fader/scroll-fader.component';

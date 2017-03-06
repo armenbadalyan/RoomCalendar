@@ -16,7 +16,6 @@ export class LoginComponent extends Page {
   formClasses = {
   	error: false,
   	loading: false
-
   };
 
   constructor(pageService:PageService, private userService:UserService, private router:Router) {

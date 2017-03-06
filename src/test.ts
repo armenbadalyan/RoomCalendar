@@ -16,6 +16,11 @@ import {
 declare var __karma__: any;
 declare var require: any;
 
+if (!global.Intl) {
+    global.Intl = require('intl');
+    require('intl/locale-data/jsonp/en.js');
+}
+
 // Prevent Karma from running prematurely.
 __karma__.loaded = function () {};
 

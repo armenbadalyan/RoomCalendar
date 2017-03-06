@@ -24,7 +24,7 @@ export class EventService {
 
   private pollingRefresh: Observable<any> = this._pollingRefresh.asObservable();
 
-  private isPolling: boolean = false;
+  private isPolling: Boolean = false;
 
   public currentEvent: Observable<Event> = this._currentEvent.asObservable();
 
@@ -48,8 +48,6 @@ export class EventService {
           .repeatWhen(stream => {
             return stream.delay(REPEAT_INTERVAL);
           });
-
-      
     }
   }
 
@@ -71,7 +69,6 @@ export class EventService {
 
         this.isPolling = true;
     }
-    
   }
 
   checkDistinct(xArr: Event[], yArr: Event[]): boolean {

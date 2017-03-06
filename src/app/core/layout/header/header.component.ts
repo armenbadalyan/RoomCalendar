@@ -5,43 +5,39 @@ import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'layout-header',
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss']
+  selector: 'layout-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
-	public title: Observable<string>;
-	public hasBack: boolean;
-	public hasMenu: boolean;
-	public hasClock: boolean;
-	public isTitleCentered: boolean;
+  public title: Observable<string>;
+  public hasBack: boolean;
+  public hasMenu: boolean;
+  public hasClock: boolean;
+  public isTitleCentered: boolean;
 
+  constructor(private pageService: PageService, private router: Router) { }
 
-	constructor(private location: Location, private pageService:PageService, private router: Router) { }
+  ngOnInit() {
 
-	ngOnInit() {
+    this.pageService.pageInitialized.subscribe(page => {
+      if (page.title instanceof Observable) {
+        this.title = page.title;
+      } else {
+        this.title = Observable.create(function (observer) {
+          observer.next(page.title);
+          observer.complete();
+        });
+      }
 
-		this.pageService.pageInitialized.subscribe(page => {
+      this.hasMenu = page.hasMenu;
+      this.isTitleCentered = page.isTitleCentered;
+    });
+  }
 
-			if (page.title instanceof Observable) {
-				this.title = page.title;
-
-			}
-			else {
-				this.title = Observable.create(function (observer) {
-					observer.next(page.title);
-					observer.complete();
-				});
-			}
-
-			this.hasMenu = page.hasMenu;
-			this.isTitleCentered = page.isTitleCentered;
-		});
-	}
-
-	goToSettings() {
-		this.router.navigate(['/settings']);
-	}
+  goToSettings() {
+    this.router.navigate(['/settings']);
+  }
 
 }

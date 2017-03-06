@@ -9,7 +9,7 @@ const logoutURL = `${environment.appery_base_url}room_calendar_logout_${environm
 @Injectable()
 export class UserService {
 
-	currentUser: any = null;
+	private currentUser: any = null; 
 
 	constructor(private http: Http) { }
 

@@ -15,7 +15,7 @@ describe ('CalendarService', () => {
         observer.complete();
       })
     };
-    calendarService = new CalendarService(GapiServiceStub);
+    calendarService = new CalendarService(GapiServiceStub, GapiServiceStub);
 
   });
 

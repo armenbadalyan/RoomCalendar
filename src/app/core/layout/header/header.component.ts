@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { PageService, Page } from '../../../shared';
+import { PageService, PageComponent } from 'app/shared';
 import { Observable } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 

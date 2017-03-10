@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService, PageService, Page } from '../shared';
+import { UserService, PageService } from '../shared';
+import { routerTransition } from 'app/shared/animations/router.animations';
+import { PageComponent, CustomComponent } from 'app/shared';
 
-@Component({
+@CustomComponent({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [routerTransition()]
 })
-export class LoginComponent extends Page {
+export class LoginComponent extends PageComponent {
 
   username = '';
   password = '';

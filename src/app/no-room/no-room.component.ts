@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { PageService, Page } from '../shared';
+import { routerTransition, PageService } from 'app/shared';
+import { PageComponent, CustomComponent } from 'app/shared';
 
-@Component({
+@CustomComponent({
 	selector: 'app-no-room',
 	templateUrl: './no-room.component.html',
 	styleUrls: ['./no-room.component.scss']
 })
-export class NoRoomComponent extends Page {
+export class NoRoomComponent extends PageComponent {
 
 	constructor(pageService:PageService) {
 		super(pageService);

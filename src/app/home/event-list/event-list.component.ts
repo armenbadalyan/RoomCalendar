@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChange, NgZone } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnChanges, SimpleChange, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { Event, ScrollDelegateService } from '../../shared';
 
 @Component({
   selector: 'event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss']
+  styleUrls: ['./event-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventListComponent implements OnInit {
 

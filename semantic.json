@@ -30,7 +30,8 @@
     "segment",
     "form",
     "grid",
-    "transition"
+    "transition",
+    "list"
   ],
   "version": "2.2.7"
 }

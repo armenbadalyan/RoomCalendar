@@ -21,9 +21,8 @@ import { DateFilterPipe } from './pipes';
     HttpModule,
     TimeFilterPipe,
     ScrollFaderComponent,
-    PageComponent,
     DateFilterPipe
   ],
-  declarations: [ TimeFilterPipe, ScrollFaderComponent, PageComponent, DateFilterPipe ]
+  declarations: [ TimeFilterPipe, ScrollFaderComponent, DateFilterPipe ]
 })
 export class SharedModule { }

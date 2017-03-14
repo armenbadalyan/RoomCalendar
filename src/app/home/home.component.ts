@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventService, Event, PageService, SettingsService, Calendar } from 'app/shared';
+import { PageComponent, EventService, Event, PageService, SettingsService, Calendar } from 'app/shared';
 import { BehaviorSubject, Subscription } from 'rxjs/Rx';
-import { PageComponent, CustomComponent } from 'app/shared';
 
-@CustomComponent({
+@Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: PageComponent.animations,
+  host: PageComponent.host
 })
 export class HomeComponent extends PageComponent implements OnDestroy {
 

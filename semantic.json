@@ -21,6 +21,7 @@
   "components": [
     "reset",
     "site",
+    "message",
     "button",
     "header",
     "icon",

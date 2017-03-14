@@ -13,7 +13,7 @@ export class Event implements Serializable<Event>{
 
 	fromJSON(json:any) {
 		this.id = json.id;
-		this.title = json.summary;
+		this.title = json.summary || 'No Title';
 		this.author = json.creator ? json.creator.email : null;
 
 		this.startDate = json.start ? new Date(json.start.dateTime || json.start.date): null;

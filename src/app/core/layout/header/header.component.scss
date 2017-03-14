@@ -15,9 +15,11 @@
 	}
 
 	&__logo {
+		background-color: transparent;
 		background-image: url('/assets/exadel-logo-light.png');
     background-repeat: no-repeat;
     background-size: contain;
+		border: none;
     height: 28px;
     width: 128px;
     display: inline-block;
@@ -27,6 +29,12 @@
 		transform: translate(0, -50%);
 		right: 3.6rem;
 		max-width: 18vw;
+
+		&:focus,
+		&:active {
+			outline: 0px solid transparent;
+			border: none;
+		}
 
 		@include phone {
 			height: 14px;

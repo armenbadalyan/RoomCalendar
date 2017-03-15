@@ -25,8 +25,9 @@ export class ScrollFaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.onScroll();
     this.scrollDelegateSubscription = this.scrollDelegate.updater.subscribe(success => {
-      this.onScroll();
-      this.cd.detectChanges();
+      if(this.onScroll()) {
+        this.cd.detectChanges();
+      }
     });
   }
 
@@ -34,12 +35,15 @@ export class ScrollFaderComponent implements OnInit, OnDestroy {
     this.scrollDelegateSubscription.unsubscribe();
   }
 
-  private onScroll(): void {
+  private onScroll(): boolean {
     let target:HTMLElement = this.scrollEl.nativeElement,
-        targetInner:HTMLElement = this.scrollChildEl.nativeElement;
+        targetInner:HTMLElement = this.scrollChildEl.nativeElement,
+        isTopped = this.isTopped,
+        isBottomed = this.isBottomed;
 
     this.isTopped = target.scrollTop <= ALLOWED_DIFF;
     this.isBottomed = target.scrollTop + target.clientHeight >= targetInner.offsetHeight - ALLOWED_DIFF;
-  }
+    return isTopped != this.isTopped || isBottomed != this.isBottomed;
+}
 
 }

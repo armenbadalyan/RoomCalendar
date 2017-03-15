@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { Event, EventService } from '../../shared';
+import { Event, EventService } from 'app/shared';
 
 @Component({
   selector: 'room-status',

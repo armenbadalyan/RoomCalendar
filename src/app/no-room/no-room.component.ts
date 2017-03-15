@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { PageService, Page } from '../shared';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { PageService, Page } from 'app/shared';
 
 @Component({
 	selector: 'app-no-room',
 	templateUrl: './no-room.component.html',
-	styleUrls: ['./no-room.component.scss']
+	styleUrls: ['./no-room.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NoRoomComponent extends Page {
 

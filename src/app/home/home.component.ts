@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventService, Event, PageService, SettingsService, Page, Calendar } from '../shared';
+import { EventService, Event, PageService, SettingsService, Page, Calendar } from 'app/shared';
 import { BehaviorSubject, Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent extends Page implements OnDestroy {
 
@@ -21,7 +22,8 @@ export class HomeComponent extends Page implements OnDestroy {
   constructor(pageService: PageService,
     private settingsService: SettingsService,
     private eventService: EventService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private cd: ChangeDetectorRef) {
     super(pageService);
   }
 
@@ -36,6 +38,7 @@ export class HomeComponent extends Page implements OnDestroy {
       .subscribe(
       events => {
         this.laterEventsList = events;
+        this.cd.markForCheck();
       },
       error => {
       });
@@ -44,6 +47,7 @@ export class HomeComponent extends Page implements OnDestroy {
       .subscribe(
       event => {
         this.currentEvent = event;
+        this.cd.markForCheck();
       },
       error => {
       });

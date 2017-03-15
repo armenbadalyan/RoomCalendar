@@ -1,5 +1,5 @@
 <div class="app-page event-page">
-    <room-status></room-status>
+    <room-status [event]="currentEvent" [laterEvents]="laterEventsList"></room-status>
     <div class="ui padded grid event-page__mini-header" [ngClass]="{'event-page__mini-header--free': !currentEvent, 'event-page__mini-header--busy': currentEvent}">
         <div class="six wide column">Book the room</div>
         <div class="ten wide column">Upcoming events</div>

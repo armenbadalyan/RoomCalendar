@@ -14,8 +14,8 @@ export class HomeComponent extends Page implements OnDestroy {
   private laterEventsSubscription: Subscription;
   private currentEventSubscription: Subscription;
 
-  public laterEventsList: Event[];
-  public currentEvent: Event;
+  public laterEventsList: Event[] = [];
+  public currentEvent: Event = null;
 
 
   constructor(pageService: PageService,

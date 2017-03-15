@@ -6,8 +6,8 @@ import { QRCodeModule } from 'ng2-qrcode';
 import { Subject }    from 'rxjs/Subject';
 import { ActivatedRoute } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { PageService, SettingsService, EventService, Event } from '../shared';
-import { EVENTS_LIST, SINGLE_EVENT } from '../../testing';
+import { PageService, SettingsService, EventService, Event } from 'app/shared';
+import { EVENTS_LIST, SINGLE_EVENT } from 'testing';
 
 @Component({
   selector: 'event-list', 
@@ -22,7 +22,12 @@ class EventListComponent {
   selector: 'room-status', 
   template: ''
 })
-class RoomStatusComponent { }
+class RoomStatusComponent {
+  @Input()
+  public event: Event;
+  @Input()
+  public laterEvents: Event[];
+}
 
 describe('HomeComponent', () => {
   let component: HomeComponent;

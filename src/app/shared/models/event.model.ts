@@ -27,13 +27,17 @@ export class Event implements Serializable<Event>{
 		return this;
 	}
 
+	private compareDates(date_1: Date, date_2: Date): boolean {
+		return (date_1 ? date_1.valueOf() : date_1)  === (date_2 ? date_2.valueOf() : date_2);
+	}
+
 	equals (event: Event) {
 		return event.id == this.id
 			&& event.title == this.title
 			&& event.author == this.author
-			&& event.startDate == this.startDate
-			&& event.startTime == this.startTime
-			&& event.endDate == this.endDate
-			&& event.endTime == this.endTime;
+			&& this.compareDates(event.startDate, this.startDate)
+			&& this.compareDates(event.startTime, this.startTime)
+			&& this.compareDates(event.endDate, this.endDate)
+			&& this.compareDates(event.endTime, this.endTime);
 	}
 }

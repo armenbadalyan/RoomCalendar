@@ -14,7 +14,6 @@
 .c9/
 *.launch
 .settings/
-semantic/dist/
 
 # IDE - VSCode
 .vscode/*
@@ -31,6 +30,8 @@ semantic/dist/
 npm-debug.log
 testem.log
 /typings
+src/assets/svg/dist/
+semantic/dist/
 
 # e2e
 /e2e/*.js

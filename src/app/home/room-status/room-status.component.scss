@@ -39,21 +39,22 @@
 	&__icon {
     background-repeat: no-repeat;
     background-size: contain;
+		display: block;
 
 		&--free {
 			width: 154px;
 			height: 154px;
-			background-image: url("/assets/check-circled.svg");
+			fill: $darkGreen;
 
       @include phone {
         width: 103px;
-        height: 103px;
+        height: 103px; 
       }
 		}
 		&--busy {
 			width: 110px;
 			height: 154px;
-			background-image: url("/assets/sand-watch.svg");
+			fill: $darkRed;
 
       @include phone {
         width: 73px;

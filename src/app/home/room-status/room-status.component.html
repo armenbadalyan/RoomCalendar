@@ -1,8 +1,9 @@
 <div class="ui padded grid room-status" [ngClass]="{'room-status--busy': event, 'room-status--free': !event}">
     <div class="six wide column">
     	<div class="room-status__column room-status__column--first">
-    		<div class="room-status__icon" [ngClass]="{'room-status__icon--busy': event, 'room-status__icon--free': !event}"></div>
-    	</div>
+    		<svg *ngIf="event" class="room-status__icon room-status__icon--busy"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sand-watch"></use></svg>
+        <svg *ngIf="!event" class="room-status__icon room-status__icon--free"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#check-circled"></use></svg>
+      </div>
     </div>
     <div class="ten wide column">
     	<div class="room-status__column room-status__column--second">

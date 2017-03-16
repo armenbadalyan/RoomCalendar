@@ -8,7 +8,8 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
+        "assets/*",
+        "assets/svg/dest/*",
         "favicons"
       ],
       "index": "index.html",

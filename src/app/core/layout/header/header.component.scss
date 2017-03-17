@@ -1,31 +1,92 @@
-@import "../../../../styles/variables";
+@import "~styles/settings";
 
-.app-header {	
+.app-header {
 	justify-content: space-between;
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 64px;	
+	height: 64px;
 	background-color: $black;
 	border-bottom: 1px solid $border-dark;
-}
 
-.app-header .logo-wrapper {
-	text-align: right;
-}
+	&__right-block {
+		text-align: right;
+	}
 
-.app-header .logo {
-	background-image: url('/assets/exadel-logo-light.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 28px;
+	&__logo {
+		position: relative;
+		background: none;
+		border: none;
     width: 128px;
     display: inline-block;
     vertical-align: middle;
-}
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+		right: 3.6rem;
+		max-width: 18vw;
+		padding: 0;
 
-.app-header .menu-button {
-	vertical-align: middle;
-	background-color: $black;
+		&:before {
+			content: '';
+			display: block;
+			padding-bottom: 21.875%;
+		}
+
+		&:focus,
+		&:active {
+			outline: 0px solid transparent;
+			border: none;
+		}
+
+		&-svg {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			fill: $white;
+			pointer-events: none;
+		}
+
+		@include phone {
+			height: 14px;
+			width:  64px;
+			right: 3rem;
+		}
+	}
+
+	&__title {
+		display: block;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
+		&--centered {
+			text-align: center;
+		}
+	}
+
+	& .app-header__button {
+		vertical-align: middle;
+		background-color: $black;
+
+		&--back {
+			@include phone {
+				padding-left: .4em;
+				padding-right: .4em;
+			}
+		}
+
+		&--menu {
+			margin-right: 0;
+
+			@include phone {
+				padding-left: .4em;
+				padding-right: 0em;
+			}
+		}
+	}
 }

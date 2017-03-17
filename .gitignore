@@ -30,6 +30,8 @@
 npm-debug.log
 testem.log
 /typings
+src/assets/svg/dist/
+semantic/dist/
 
 # e2e
 /e2e/*.js
@@ -38,3 +40,4 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+server/node_modules

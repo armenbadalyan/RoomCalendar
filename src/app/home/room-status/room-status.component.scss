@@ -1,0 +1,116 @@
+@import "~styles/settings";
+
+.room-status {
+    min-height: 230px;
+
+    @include phone {
+      min-height: 180px;
+    }
+
+    &--free {
+    	background: #a7f170;
+      background: linear-gradient(to bottom, #adf776 0%, #95de5e 100%);
+    }
+
+    &--busy {
+    	background: #f47272;
+      background: linear-gradient(to bottom, #f77676 0%, #df5e5e 100%);
+    }
+
+    &__column {
+      display: flex;
+    	align-items: center;
+    	width: 100%;
+    	height: 100%;
+
+    	&--first {
+    		justify-content: flex-end;
+
+        @include phone {
+          justify-content: center;
+        }
+    	}
+
+		&--second {
+    		justify-content: flex-start;
+    	}
+    }
+
+	&__icon {
+    background-repeat: no-repeat;
+    background-size: contain;
+		display: block;
+
+		&--free {
+			width: 154px;
+			height: 154px;
+			fill: $darkGreen;
+
+      @include phone {
+        width: 103px;
+        height: 103px; 
+      }
+		}
+		&--busy {
+			width: 110px;
+			height: 154px;
+			fill: $darkRed;
+
+      @include phone {
+        width: 73px;
+        height: 103px;
+      }
+		}
+	}
+
+	&__available {
+		text-transform: uppercase;
+		color: $darkGreen;
+    font-weight: 500;
+	}
+
+	&__available-status {
+		margin: 0.25rem 0;
+		font-size: 2.75rem;
+    line-height: 1em;
+
+    @include phone {
+      font-size: 2.5em;
+    }
+	}
+
+	&__busy {
+		color: $darkRed;
+
+		&--large {
+			font-size: 1.7rem;
+      line-height: 1.2em;
+			font-weight: 400;
+			color: $white;
+
+  		display: -webkit-box;
+      max-height: 3.5em;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-sizing: content-box;
+
+      @include phone {
+        font-size: 1.4rem;
+      }
+		}
+	}
+
+	&__busy-title {
+		margin-bottom: 0.5rem;
+	}
+
+	&__busy-inprogress {
+		font-weight: 500;
+	}
+
+	&__busy-date {
+		margin-top: 0.5rem;
+	}
+}

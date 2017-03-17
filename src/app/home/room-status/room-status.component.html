@@ -1,0 +1,37 @@
+<div class="ui padded grid room-status" [ngClass]="{'room-status--busy': event, 'room-status--free': !event}">
+    <div class="six wide column">
+    	<div class="room-status__column room-status__column--first">
+    		<svg *ngIf="event" class="room-status__icon room-status__icon--busy"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sand-watch"></use></svg>
+        <svg *ngIf="!event" class="room-status__icon room-status__icon--free"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#check-circled"></use></svg>
+      </div>
+    </div>
+    <div class="ten wide column">
+    	<div class="room-status__column room-status__column--second">
+	        <div *ngIf="event" class="room-status__busy">
+	            <div class="room-status__busy-title room-status__busy--large">{{event.title}}</div>
+	            <div class="room-status__busy-author">Booked by {{event.author}}</div>
+	            <div class="room-status__busy-inprogress">IN PROGRESS</div>
+	            <div class="room-status__busy-date room-status__busy--large">
+                <ng-container *ngIf="!event.startTime">
+                  {{event.startDate | dateFilter}}
+                </ng-container>
+                <ng-container *ngIf="event.startTime">
+                  {{event.startTime | timeFilter }}
+                </ng-container>
+                  -
+                <ng-container *ngIf="event.isMultiDay || !event.endTime">
+                  {{event.endDate | dateFilter}}<ng-container *ngIf="event.endTime">,</ng-container>
+                </ng-container>
+                <ng-container *ngIf="event.endTime">
+                  {{event.endTime | timeFilter}}
+                </ng-container>
+              </div>
+	        </div>
+	        <div *ngIf="!event" class="room-status__available">
+	            <div class="room-status__available-label">Meeting room is</div>
+	            <div class="room-status__available-status">Available</div>
+	            <div class="room-status__available-next">{{ nextEventTime ? 'today until ' + (nextEventTime | timeFilter) : 'all day long' }}</div>
+	        </div>
+        </div>
+    </div>
+</div>

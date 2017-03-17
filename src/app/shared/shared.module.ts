@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { NgSemanticModule } from "ng-semantic/ng-semantic";
+import { NgSemanticModule } from 'ng-semantic/ng-semantic';
+import { TimeFilterPipe } from './pipes';
+import { ScrollFaderComponent } from './components';
+import { DateFilterPipe } from './pipes';
 
 @NgModule({
   imports: [
@@ -12,11 +15,14 @@ import { NgSemanticModule } from "ng-semantic/ng-semantic";
     HttpModule
   ],
   exports: [
-  	CommonModule,
-  	NgSemanticModule,
-  	FormsModule,
-  	HttpModule
+    CommonModule,
+    NgSemanticModule,
+    FormsModule,
+    HttpModule,
+    TimeFilterPipe,
+    ScrollFaderComponent,
+    DateFilterPipe
   ],
-  declarations: []
+  declarations: [ TimeFilterPipe, ScrollFaderComponent, DateFilterPipe ]
 })
 export class SharedModule { }

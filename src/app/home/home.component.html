@@ -1,14 +1,16 @@
-<div class="app-page">
-    <div class="ui padded grid current-event">
-        <div class="six wide column olive"></div>
-        <div class="ten wide column olive"></div>
+<div class="app-page event-page">
+    <room-status></room-status>
+    <div class="ui padded grid event-page__mini-header" [ngClass]="{'event-page__mini-header--free': !currentEvent, 'event-page__mini-header--busy': currentEvent}">
+        <div class="six wide column">Book the room</div>
+        <div class="ten wide column">Upcoming events</div>
     </div>
-    <div class="ui padded grid mini-header">
-        <div class="six wide column green">Book the room</div>
-        <div class="ten wide column green">Upcoming events</div>
-    </div>
-    <div class="ui padded grid event-list">
-        <div class="six wide column black"></div>
-        <div class="ten wide column black"></div>
+    <div class="ui padded grid event-page__list-wrapper">
+        <div class="six wide column">
+          <div class="event-page__qrcode" *ngIf="calendarUrl">
+             <qrcode [qrdata]="calendarUrl" [size]="180" [level]="'M'"></qrcode>
+          </div>
+        </div>
+        <div class="ten wide column">
+          <event-list [events]="laterEventsList"></event-list>
     </div>
 </div>

@@ -1,0 +1,7 @@
+const DEFAULT_MAX_EVENTS = 10;
+const NEW_MAX_EVENTS = 100500;
+
+export {
+  DEFAULT_MAX_EVENTS,
+  NEW_MAX_EVENTS
+};

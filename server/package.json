@@ -1,0 +1,19 @@
+{
+  "name": "calendar_google_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.14.1",
+    "googleapis": "git+https://github.com/google/google-api-nodejs-client.git",
+    "promise": "^7.1.1"
+  }
+}

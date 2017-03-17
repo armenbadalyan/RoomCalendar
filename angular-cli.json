@@ -8,8 +8,9 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.ico"
+        "assets/*",
+        "assets/svg/dist/*",
+        "favicons"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -18,16 +19,15 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles/variables.scss",
-        "styles/styles.scss",
-        "../semantic/dist/semantic.min.css"
+        "../semantic/dist/semantic.min.css",
+        "styles/styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../semantic/dist/semantic.min.js"
       ],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../shared';
+import { UserService, PageService, Page } from '../shared';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends Page {
 
   username = '';
   password = '';
@@ -16,18 +16,32 @@ export class LoginComponent implements OnInit {
   formClasses = {
   	error: false,
   	loading: false
-
   };
 
-  constructor(private userService:UserService, private router:Router) { }
+  constructor(pageService:PageService, private userService:UserService, private router:Router) {
+    super(pageService);
+  }
 
   ngOnInit() {
+    super.ngOnInit();
+  }
+
+  get title() {
+    return 'Login';
+  }
+
+  get isTitleCentered() {
+    return true;
+  }
+
+  get hasMenu() {
+    return false;
   }
 
   onSubmit() {
   	this.hasError = false;
   	this.isAuthenticating = true;
-  	
+
 
   	this.userService.login(this.username, this.password)
   	.finally(

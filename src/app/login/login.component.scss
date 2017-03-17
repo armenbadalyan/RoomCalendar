@@ -1,27 +1,47 @@
-@import "../../styles/variables";
+@import "~styles/settings";
 
-.app-page {
+.login-page {
 	text-align: center;
-	.form-container {
-		display: inline-block;
-		width: 50%;
-		background-color: #34373C;
-		.form {
-			
-			>.header {
-				color: $white;
-				text-decoration: none;
-			}
 
-			.input {
-				color: $white;
-				input {
-					background-color: $black;
-					color: $white;
-				}
-			}
-			
+	&__header {
+		color: $white;
+		text-decoration: none;
+	}
+
+	&__form-container {
+		display: block;
+		margin: 0 auto;
+		max-width: 50%;
+		min-width: 420px;
+
+		@include phone {
+			min-width: 0;
+			max-width: 500px;
+			width: auto;
 		}
 	}
-	
+
+	& &__form-container {
+		background-color: $form-bg;
+	}
+
+	& &__input-wrapper {
+		color: $white;
+
+		.login-page__input {
+			background-color: $black;
+			color: $white;
+		}
+	}
+
+	& &__button {
+		background-color: $green;
+
+		&:hover,
+		&:focus {
+			background-color: $darkGreen;
+			color: $green;
+		}
+	}
+
 }

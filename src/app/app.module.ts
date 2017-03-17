@@ -10,9 +10,14 @@ import { LoginModule } from './login/login.module';
 import { AppComponent } from './app.component';
 import {
   SharedModule,
-  RoomGuard,
   AuthGuard,
-  UserService
+  UserService,
+  SettingsService,
+  CalendarService,
+  EventService,
+  GapiService,
+  PageService,
+  ScrollDelegateService
 } from './shared';
 import './shared/rxjs-extensions';
 
@@ -33,7 +38,8 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
   declarations: [
     AppComponent
   ],
-  providers: [ RoomGuard, AuthGuard, UserService ],
+
+  providers: [ AuthGuard, UserService, SettingsService, CalendarService, EventService, GapiService, PageService, ScrollDelegateService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

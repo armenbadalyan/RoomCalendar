@@ -1,13 +1,15 @@
-<div class="ui padded grid  app-header">
+<div class="ui padded grid app-header">
     <div class="six wide column middle aligned">
         <clock class="no-divider"></clock>
     </div>
-    <div class="five wide column middle aligned">
-        <span>Choose meeting room</span>
+    <div class="four wide column middle aligned">
+        <span [class.app-header__title--centered]="isTitleCentered" class="app-header__title">{{ title | async }}</span>
     </div>
-    <div class="five wide column middle aligned logo-wrapper">
-        <div class="logo"></div>
-        <button class="ui icon button secondary menu-button">
+    <div class="six wide column middle aligned app-header__right-block logo-wrapper">
+        <button type="button" (click)="goToHome()" class="logo app-header__logo">
+            <svg role="image" class="app-header__logo-svg"><title>Exadel</title><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#exadel-logo"></use></svg>
+        </button>
+        <button (click)="goToSettings()" *ngIf="hasMenu" class="ui icon button secondary app-header__button app-header__button--menu menu-button">
             <i class="ellipsis vertical icon"></i>
         </button>
     </div>

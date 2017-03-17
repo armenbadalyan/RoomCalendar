@@ -1,0 +1,9 @@
+<div class="scroll-fader" [class.scroll-fader--topped]="isTopped" [class.scroll-fader--bottomed]="isBottomed" >
+  <div #scroll (scroll)="onScroll()" class="scroll-fader__inner">
+    <div class="scroll-fader__content">
+      <div #scrollChild>
+        <ng-content></ng-content> 
+      </div>
+    </div>
+  </div>
+</div>

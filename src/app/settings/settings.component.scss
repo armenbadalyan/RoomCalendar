@@ -1,0 +1,65 @@
+@import "~styles/settings";
+
+.settings-page {
+    &__header {
+      color: $white;
+      text-align: center;
+    }
+    &__form-container {
+  		display: block;
+  		margin: 0 auto;
+  		max-width: 50%;
+  		min-width: 420px;
+
+  		@include phone {
+  			min-width: 0;
+  			max-width: 500px;
+  			width: auto;
+  		}
+    }
+    & &__form-container {
+      background-color: $form-bg;
+    }
+    & &__loader {
+			background-color: $black;
+      opacity: 1 !important;
+    }
+    & &__input[type="text"],
+    & &__input[type="number"] {
+			background-color: $black;
+			color: $white;
+    }
+    & &__select {
+      appearance: none;
+      line-height: 1em;
+      cursor: pointer;
+			background-color: $black;
+			color: $white;
+
+      &-wrapper {
+        position: relative;
+      }
+
+      &-icon {
+        position: absolute;
+        color: $white;
+        font-size: 1.5em;
+        line-height: 1em;
+        right: 10px;
+        top: 50%;
+        transform: translate(0, -50%);
+        pointer-events: none;
+        margin-right: 0;
+      }
+    }
+
+    & &__button {
+      background-color: $green;
+
+      &:hover,
+      &:focus {
+        background-color: $darkGreen;
+  			color: $green;
+      }
+    }
+}

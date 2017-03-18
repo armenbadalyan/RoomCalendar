@@ -1,11 +1,19 @@
 import { browser, element, by } from 'protractor';
 
-export class RoomCardPage {
+export class EventPage {
   navigateTo() {
     return browser.get('/');
   }
+}
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+export class SettingsPage {
+  navigateTo() {
+    return browser.get('/#settings');
+  }
+}
+
+export class LoginPage {
+  navigateTo() {
+    return browser.get('/#login');
   }
 }

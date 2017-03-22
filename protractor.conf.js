@@ -2,7 +2,7 @@
 // https://github.com/angular/protractor/blob/master/lib/config.ts
 
 /*global jasmine */
-var SpecReporter = require('jasmine-spec-reporter');
+var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 exports.config = {
   allScriptsTimeout: 11000,
@@ -28,5 +28,26 @@ exports.config = {
   },
   onPrepare: function() {
     jasmine.getEnv().addReporter(new SpecReporter());
+    
+    const environment = require('./src/environments/environment.e2e.ts').environment;
+    const express = require('express');
+    const ngApimock = require('ng-apimock')();
+    const mockRequest = require('ng-apimock/lib/utils').ngApimockRequest;
+    const app = express();
+    const port = environment.PORT;
+
+    ngApimock.run({
+      "src": "./mocks/src/", 
+      "outputDir": "./mocks/dist", 
+      "done": function() { 
+      }
+    });
+    
+    app.use(mockRequest);
+    app.use('/mocking', express.static('./mocks/dist/')); 
+    app.set('port', port);
+    app.listen(port, function() {
+      console.log('app running on port', app.get('port'));
+    });
   }
 };

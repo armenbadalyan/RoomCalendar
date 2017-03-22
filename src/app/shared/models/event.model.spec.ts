@@ -59,4 +59,17 @@ describe ('Event Model', () => {
     expect(event.isMultiDay).toBe(true);
   });
 
+  it('should set title when it is not defined', () => {
+    let event = new Event();
+    event.fromJSON({
+      'start': {
+        'date': '2017-02-18'
+      },
+      'end': {
+        'date': '2017-05-19'
+      }
+    });
+    expect(event.title).toBe('No Title');
+  });
+
 });

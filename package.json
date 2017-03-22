@@ -6,6 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "proxy": "ng serve --proxy-config proxy.conf.js --environment='test'",
     "build": "ng build",
     "prod": "ng build --prod --aot",
     "aot": "ng build --aot",
@@ -84,6 +85,7 @@
     "map-stream": "0.0.6",
     "merge-stream": "1.0.1",
     "mkdirp": "0.5.1",
+    "ng-apimock": "1.2.3",
     "phantomjs": "2.1.7",
     "protractor": "5.1.1",
     "require-dot-file": "0.4.0",

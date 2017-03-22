@@ -1,0 +1,14 @@
+{
+  "expression": ".*\/room_calendar_logout_.*",
+  "method": "POST",
+  "name": "logout",
+  "responses": {
+    "successful": {
+      "status": 200,
+      "default": true,
+      "data": {
+        "success": "true"
+      }
+    }
+  }
+}

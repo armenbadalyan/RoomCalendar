@@ -1,0 +1,21 @@
+{
+  "expression": ".*\/room_calendar_login_.*",
+  "method": "POST",
+  "name": "login",
+  "responses": {
+    "successful": {
+      "status": 200,
+      "default": true,
+      "data": {
+        "user": {
+          "_id": 1,
+          "username": "test"
+        },
+        "token": "123"
+      }
+    },
+    "failed": {
+      "status": 400
+    }
+  }
+}

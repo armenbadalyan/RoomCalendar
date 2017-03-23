@@ -16,6 +16,7 @@ import {
   CalendarService,
   EventService,
   GapiService,
+  GapiServerService,
   PageService,
   ScrollDelegateService
 } from './shared';
@@ -39,7 +40,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([], { useHash: tru
     AppComponent
   ],
 
-  providers: [ AuthGuard, UserService, SettingsService, CalendarService, EventService, GapiService, PageService, ScrollDelegateService],
+  providers: [ AuthGuard, UserService, SettingsService, CalendarService, EventService, GapiService, GapiServerService, PageService, ScrollDelegateService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@ var path = require('path');
 var google = require('googleapis');
 var Promise = require('promise');
 
-var authPromise = function () {
+var authPromise = function (impersonate_override_email) {
     return new Promise(function (resolve, reject) {
 
         var fileName = process.env.GOOGLE_APPLICATION_CREDENTIALS || null,
@@ -14,8 +14,8 @@ var authPromise = function () {
         var jwtClient = new google.auth.JWT(
             client_email || "",
             null,
-            (private_key || "").replace(/\\n/g, '\n'), ['https://www.googleapis.com/auth/calendar.readonly'],
-            impresonate_email  || null
+            (private_key || "").replace(/\\n/g, '\n'), ['https://www.googleapis.com/auth/calendar'],
+            impersonate_override_email || impresonate_email  || null
         );
 
         jwtClient.authorize(function (err, tokens) {

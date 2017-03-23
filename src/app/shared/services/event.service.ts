@@ -106,7 +106,6 @@ export class EventService {
         laterEvents: []
       });
 
-    console.log('new events');
     this._currentEvent.next(splitEvents.currentEvent);
     this._laterEvents.next(splitEvents.laterEvents);
   }

@@ -22,7 +22,6 @@ export class EventListComponent implements OnInit {
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
     this.refreshScrollBind();
-		console.log('changes');
   }
 
   private refreshScroll() {

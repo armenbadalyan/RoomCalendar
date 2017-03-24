@@ -32,6 +32,8 @@ var calendar = google.calendar('v3');
 app.get('/api/calendars', function (req, res) {
   calendar.calendarList.list({}, function (err, result) {
     if(!result || typeof result.items == 'undefined') {
+      console.log('err during request');
+      console.log(err);
       res.sendStatus(400);
       return;
     }
@@ -43,7 +45,7 @@ app.get('/api/events', function (req, res) {
   var query = req.query;
 
   if(typeof query.calendarId == 'undefined' || typeof query.time == "undefined" || typeof query.limit == 'undefined') {
-    console.log('undefined');
+    console.log('undefined parametrs');
     res.sendStatus(400);
     return;
   }
@@ -57,6 +59,8 @@ app.get('/api/events', function (req, res) {
       maxResults: query.limit || 10,
   }, function (err, result) {
       if(!result || typeof result.items == 'undefined') {
+        console.log('err during request');
+        console.log(err);
         res.sendStatus(400);
         return;
       }

@@ -39,4 +39,15 @@
       color: $green;
     }
   }
+
+  &__message {
+    text-transform: none;
+    font-size: 0.75em;
+    color: $darkGreen;
+    margin-top: 15px;
+
+    &--error {
+      color: $darkRed;
+    }
+  }
 }

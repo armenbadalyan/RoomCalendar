@@ -2,17 +2,16 @@
 <button type="button" class="ui button quick-booking__opener" (click)="popup.show()">Quickly book</button>
 
 <popup #popup>
-  <form novalidate #quickBookForm="ngForm" class="ui form quick-booking" (ngSubmit)="book()">
+  <form novalidate #quickBookForm="ngForm" class="ui form quick-booking" (ngSubmit)="book(quickBookForm)">
     <div class="field" [class.error]="quickBookEventTitle.invalid && quickBookEventTitle.touched">
-      <input #quickBookEventTitle="ngModel" name="title" type="text" [(ngModel)]="eventTitle"  placeholder="Title" required/>
+      <input #quickBookEventTitle="ngModel" name="title" type="text" [(ngModel)]="bookingModel.eventTitle"  placeholder="Title" required/>
     </div>
     <div class="field" [class.error]="quickBookEmail.invalid && quickBookEmail.touched">
-      <input #quickBookEmail="ngModel" name="creator" id="creator" type="text" [(ngModel)]="email" placeholder="Email" required/>
-      <p>{{quickBookEmail.errors?.email}}</p>
+      <input #quickBookEmail="ngModel" email name="creator" id="creator" type="text" [(ngModel)]="bookingModel.email" placeholder="Email" required/>
     </div>
     <div class="field" [class.error]="quickBookTimeInterval.invalid && quickBookTimeInterval.touched">
       <div class="quick-booking__select-wrapper">
-        <select class="quick-booking__select" #quickBookTimeInterval="ngModel" name="interval" required [(ngModel)]="timeInterval">
+        <select class="quick-booking__select" #quickBookTimeInterval="ngModel" name="interval" required [(ngModel)]="bookingModel.timeInterval">
           <option *ngIf="!availableTimes.length">No times available</option>
           <option *ngFor="let time of availableTimes"  [ngValue]="time.value">{{time.title}}</option>
         </select>
@@ -21,10 +20,8 @@
     </div>
     <div class="field">
       <button [disabled]="!quickBookForm.valid" type="submit" class="ui button fluid quick-booking__submit">Book</button> 
-      <div class="error">
-        <div class="ui message error">
-          Error occured. Please try again later.
-        </div>
+      <div class="quick-booking__message" [class.quick-booking__message--error]="message.isError" *ngIf="message.text">
+          {{message.text}}
       </div>
     </div>
   </form>

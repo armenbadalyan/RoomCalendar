@@ -12,6 +12,9 @@ export class RoomStatusComponent/* implements OnInit*/ {
   @Input()
   public event: Event = null;
 
+  @Input()
+  public calendarId: String = null;
+
 	@Input()
 	set laterEvents(events: Event[]) {
 			let now = new Date();

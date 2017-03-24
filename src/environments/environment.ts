@@ -11,9 +11,10 @@ export const environment = {
   gapi_scope: 'https://www.googleapis.com/auth/calendar.readonly',
   google_base_calendar_url: 'https://calendar.google.com/calendar/render?cid=',
 
-  gapi_server_url: 'https://room-calendar-google-api.herokuapp.com',
+  gapi_server_url: 'http://localhost:8080',//'https://room-calendar-google-api.herokuapp.com',
   gapi_server_events_url: '/api/events',
   gapi_server_calendars_url: '/api/calendars',
+  gapi_server_insert_url: '/api/insert',
 
   use_client: false
 };

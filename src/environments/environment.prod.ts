@@ -9,6 +9,7 @@ export const environment = {
   gapi_server_url: 'https://room-calendar-google-api.herokuapp.com',
   gapi_server_events_url: '/api/events',
   gapi_server_calendars_url: '/api/calendars',
+  gapi_server_insert_url: '/api/insert',
 
   use_client: false
 };

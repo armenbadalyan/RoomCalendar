@@ -1,0 +1,42 @@
+@import "~styles/settings";
+
+.quick-booking {
+  &__select {
+    -webkit-appearance: none;
+    line-height: 1em;
+    cursor: pointer;
+    background-color: $white;
+    color: $black;
+
+    .ui.form & {
+      -webkit-appearance: none;
+    }
+
+    &-wrapper {
+      position: relative;
+    }
+
+    &-icon {
+      position: absolute;
+      color: $white;
+      font-size: 1.5em;
+      line-height: 1em;
+      right: 10px;
+      top: 50%;
+      transform: translate(0, -50%);
+      pointer-events: none;
+      margin-right: 0;
+      color: $black;
+    }
+  }
+
+  &__submit{
+    background-color: $green;
+
+    &:hover,
+    &:focus {
+      background-color: $darkGreen;
+      color: $green;
+    }
+  }
+}

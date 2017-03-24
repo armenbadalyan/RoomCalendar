@@ -17,6 +17,7 @@ export class HomeComponent extends Page implements OnDestroy {
 
   public laterEventsList: Event[] = [];
   public currentEvent: Event = null;
+  public calendarId: String;
 
 
   constructor(pageService: PageService,
@@ -32,6 +33,7 @@ export class HomeComponent extends Page implements OnDestroy {
 
     this.route.data.subscribe((data: { calendar: Calendar }) => {
       this.calendar.next(data.calendar);
+      this.calendarId = data.calendar.id;
     });
 
     this.laterEventsSubscription = this.eventService.laterEvents

@@ -1,0 +1,9 @@
+<div class="popup-container" [class.popup-container--opened]="isOpened" (window:keydown.escape)="hide()">
+  <div class="popup-container__bgr" (click)="hide()"></div>
+  <div class="popup-container__content-wrapper">
+    <button type="button" (click)="hide()" class="popup-container__close"><i class="remove icon popup-container__close-icon"></i></button>
+    <div class="popup-container__content">
+      <ng-content></ng-content> 
+    </div>
+  </div>
+</div>

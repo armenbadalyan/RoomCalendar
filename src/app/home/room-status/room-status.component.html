@@ -30,7 +30,10 @@
 	            <div class="room-status__available-label">Meeting room is</div>
 	            <div class="room-status__available-status">Available</div>
 	            <div class="room-status__available-next">{{ nextEventTime ? 'today until ' + (nextEventTime | timeFilter) : 'all day long' }}</div>
-	        </div>
+              <div class="room-status__booking">
+                <quick-booking [calendarId]="calendarId" [nextEvent]="nextEventTime"></quick-booking>
+              </div>
+          </div>
         </div>
     </div>
 </div>

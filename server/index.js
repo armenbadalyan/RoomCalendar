@@ -4,6 +4,7 @@ var app        = express();
 var google = require('googleapis');
 var port = process.env.PORT || 8080;
 var AuthorizeGoogle = require('./authorize-google.js');
+var MailSender = require('./send-email.js');
 
 app.use('/api', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -18,6 +19,7 @@ app.use('/api', function (req, res, next) {
 });
 
 app.use('/api', function(req, res, next) {
+
   AuthorizeGoogle().then(function() {
     next();
   }, function() {
@@ -100,6 +102,18 @@ app.get('/api/insert', function (req, res) {
             error: err
           });
         } else {
+
+            var mailSender = new MailSender();
+            mailSender.send({
+              to: query.creator,
+              subject: 'New Calendar Entry',
+              text: 'New "' + query.title + '" event has been added to calendar with id "' + query.calendarId + '" from your account.'
+            }).then(function(success) {
+              console.log(success);
+            }, function(error) {
+              console.log(error);
+            });
+
             res.json({
               success: true,
               event: result

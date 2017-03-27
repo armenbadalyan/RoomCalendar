@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement, Component } from '@angular/core';
+import { DebugElement, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { RoomStatusComponent } from './room-status.component';
@@ -16,6 +16,17 @@ class TestHostComponent {
   currentEvent: Event = null;
 }
 
+@Component({
+  selector: 'quick-booking', 
+  template: ''
+})
+class QuickBookingComponent {
+  @Input()
+  public calendarId: string;
+  @Input()
+  public nextEvent: Date;
+}
+
 describe('RoomStatusComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
@@ -26,7 +37,7 @@ describe('RoomStatusComponent', () => {
     _laterEvents = new BehaviorSubject([]);
 
     TestBed.configureTestingModule({
-      declarations: [ TestHostComponent, RoomStatusComponent, DateFilterPipe, TimeFilterPipe ]
+      declarations: [ TestHostComponent, RoomStatusComponent, QuickBookingComponent, DateFilterPipe, TimeFilterPipe ]
     })
     .compileComponents();
   }));

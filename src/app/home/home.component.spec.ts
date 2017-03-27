@@ -26,6 +26,8 @@ class RoomStatusComponent {
   @Input()
   public event: Event;
   @Input()
+  public calendarId: string;
+  @Input()
   public laterEvents: Event[];
 }
 

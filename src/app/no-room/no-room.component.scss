@@ -1,8 +1,9 @@
-.app-page {
+.no-room-page {
 	text-align: center;
 
-	.message {
+	&__message {
 		width: 50%;
 		display: inline-block;
+		color: #fff;
 	}
 }

@@ -9,7 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from '@angular/common';
 
 import { NoRoomComponent } from './no-room.component';
-import { PageService } from '../shared';
+import { PageService } from 'app/shared';
 
 let PageServiceStub;
 

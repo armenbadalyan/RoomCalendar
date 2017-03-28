@@ -2,6 +2,7 @@
 
 .room-status {
     min-height: 230px;
+		transition: background .5s ease;
 
     @include phone {
       min-height: 180px;

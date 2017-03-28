@@ -11,6 +11,7 @@
 		font-weight: 500;
 		display: flex;
 		align-items: center;
+		transition: background .5s ease;
 
 		&--free {
 			background-color: $darkGreen;

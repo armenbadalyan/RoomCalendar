@@ -1,14 +1,16 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService, SettingsService, CalendarService, PageService, Page, Settings, Calendar  } from '../shared';
+import { PageComponent, UserService, SettingsService, CalendarService, PageService, Settings, Calendar  } from 'app/shared';
 import { Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
+  animations: PageComponent.animations,
+  host: PageComponent.host
 })
-export class SettingsComponent extends Page implements OnDestroy {
+export class SettingsComponent extends PageComponent implements OnDestroy {
 
   public isLoggingOut: Boolean = false;
   public isReady: Boolean = false;

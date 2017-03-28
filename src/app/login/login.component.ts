@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService, PageService, Page } from '../shared';
+import { UserService, PageService, PageComponent } from 'app/shared';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: PageComponent.animations,
+  host: PageComponent.host
 })
-export class LoginComponent extends Page {
+export class LoginComponent extends PageComponent {
 
   username = '';
   password = '';

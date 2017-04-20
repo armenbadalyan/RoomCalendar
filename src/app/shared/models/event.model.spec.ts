@@ -72,4 +72,29 @@ describe ('Event Model', () => {
     expect(event.title).toBe('No Title');
   });
 
+  it('should compare events with the same data correctly', () => {
+    let event_1 = new Event();
+    let event_2 = new Event();
+    let date = new Date();
+    event_1.fromJSON({
+      'summary': 'Test',
+      'start': {
+        'date': new Date(date).toISOString()
+      },
+      'end': {
+        'date': new Date(date).toISOString()
+      }
+    });
+    event_2.fromJSON({
+      'summary': 'Test',
+      'start': {
+        'date': new Date(date).toISOString()
+      },
+      'end': {
+        'date': new Date(date).toISOString()
+      }
+    });
+    expect(event_1.equals(event_2)).toBe(true);
+  });
+
 });

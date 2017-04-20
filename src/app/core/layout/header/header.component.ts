@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import { Location } from '@angular/common';
 import { PageService, Page } from '../../../shared';
 import { Observable } from 'rxjs/Rx';
@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'layout-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
 
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
   public hasClock: boolean;
   public isTitleCentered: boolean;
 
-  constructor(private pageService: PageService, private router: Router) { }
+  constructor(private pageService: PageService, private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
 
@@ -33,6 +34,8 @@ export class HeaderComponent implements OnInit {
 
       this.hasMenu = page.hasMenu;
       this.isTitleCentered = page.isTitleCentered;
+
+      this.cd.markForCheck();
     });
   }
 

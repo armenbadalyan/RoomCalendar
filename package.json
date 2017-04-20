@@ -31,6 +31,7 @@
     "@angular/platform-browser-dynamic": "4.0.0",
     "@angular/platform-server": "4.0.0",
     "@angular/router": "4.0.0",
+    "codelyzer": "^2.1.1",
     "core-js": "2.4.1",
     "jquery": "3.1.1",
     "ng-semantic": "https://github.com/vladotesanovic/ngSemantic/tarball/master",
@@ -39,6 +40,7 @@
     "qrcodejs2": "0.0.2",
     "rxjs": "5.2.0",
     "ts-helpers": "1.1.2",
+    "tslint": "^5.0.0",
     "typescript": "2.2.1",
     "typings": "2.1.0",
     "zone.js": "0.8.4"
@@ -94,7 +96,6 @@
     "require-dot-file": "0.4.0",
     "run-sequence": "1.2.2",
     "ts-node": "2.1.0",
-    "tslint": "3.9.0",
     "wrench-sui": "0.0.3",
     "yamljs": "0.2.8"
   }

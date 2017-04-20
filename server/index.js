@@ -68,3 +68,45 @@ app.get('/api/events', function (req, res) {
       res.json(result.items || []);
   });
 });
+
+app.get('/api/insert', function (req, res) {
+  var query = req.query;
+
+  if(typeof query.creator == 'undefined' || typeof query.calendarId == 'undefined') {
+    res.sendStatus(400);
+    return;
+  }
+
+  AuthorizeGoogle(query.creator).then(function() {
+    calendar.events.insert({
+        'calendarId': query.calendarId,
+        'resource': {
+          'summary': query.title || 'No Name',
+          'description': query.description || '',
+          'start': {
+            'dateTime':  query.startTime
+          },
+          'end': {
+            'dateTime':  query.endTime
+          },
+          'reminders': {
+            'useDefault': true
+          }
+        }
+      }, function(err, result) {
+        if(err) {
+          res.json({
+            success: false,
+            error: err
+          });
+        } else {
+            res.json({
+              success: true,
+              event: result
+            });
+        }
+    });
+  });
+
+  
+});

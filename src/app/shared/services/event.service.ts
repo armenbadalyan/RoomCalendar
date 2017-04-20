@@ -4,8 +4,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { GapiService } from './gapi.service';
+import { GapiServerService } from './gapi-server.service';
 import { SettingsService } from './settings.service';
 import { Event } from '../models/event.model';
+import { environment } from '../../../environments/environment';
 
 const REPEAT_INTERVAL = 5000;
 
@@ -30,7 +32,7 @@ export class EventService {
 
   public laterEvents: Observable<Event[]> = this._laterEvents.asObservable();
 
-  constructor(private gapi: GapiService, private settings: SettingsService) {
+  constructor(private gapi: GapiService, private settings: SettingsService, private gapiServer: GapiServerService) {
     this.preparePollingStream();
     this.startPolling()
   }
@@ -41,7 +43,7 @@ export class EventService {
         Observable.of(0)
           .map(() => this.settings.selectedCalendarId)
           .filter(id => !!id)
-          .switchMap(id => this.gapi.loadEvents(id, (new Date()).toISOString(), this.settings.maxEvents))
+          .switchMap(this.loadEvents.bind(this))
           .catch(err => Observable.of(false))
           .filter(result => result)
           .map(this.processEvents)
@@ -49,6 +51,11 @@ export class EventService {
             return stream.delay(REPEAT_INTERVAL);
           });
     }
+  }
+
+  private loadEvents(id): Observable<any> {
+    return (environment.use_client ? this.gapi : this.gapiServer)
+          .loadEvents(id, (new Date()).toISOString(), this.settings.maxEvents);
   }
 
   restartPolling():void {

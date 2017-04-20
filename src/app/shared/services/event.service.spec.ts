@@ -18,7 +18,7 @@ describe ('EventService', () => {
         observer.complete();
       })
     };
-    eventService = new EventService(GapiServiceStub, SettingsStub);
+    eventService = new EventService(GapiServiceStub, SettingsStub, GapiServiceStub);
   });
 
   it('should construct', () => {

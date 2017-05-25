@@ -1,9 +1,13 @@
 require('dotenv').config();
-var express    = require('express');
-var app        = express();
+
+var express = require('express');
+var app = express();
 var google = require('googleapis');
+var calendar = google.calendar('v3');
 var port = process.env.PORT || 8080;
-var AuthorizeGoogle = require('./authorize-google.js');
+var authorizeGoogle = require('./authorize-google.js');
+
+app.listen(port);
 
 app.use('/api', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -18,27 +22,22 @@ app.use('/api', function (req, res, next) {
 });
 
 app.use('/api', function(req, res, next) {
-  AuthorizeGoogle().then(function() {
+  authorizeGoogle.checkAuth().then(function() {
     next();
   }, function() {
     res.sendStatus(401);
   });
 });
 
-app.listen(port);
-
-var calendar = google.calendar('v3');
-
 app.get('/api/calendars', function (req, res) {
-  calendar.calendarList.list({}, function (err, result) {
-    if(!result || typeof result.items == 'undefined') {
-      console.log('err during request');
-      console.log(err);
-      res.sendStatus(400);
-      return;
-    }
-    res.json(result.items || []);
-  });
+  loadCalendars()
+    .then(function(items) {
+      res.json(items);
+    })
+    .catch(function(err) {
+      handleError(err);
+      res.sendStatus(400); 
+    });
 });
 
 app.get('/api/events', function (req, res) {
@@ -50,23 +49,14 @@ app.get('/api/events', function (req, res) {
     return;
   }
 
-  calendar.events.list({
-      showDeleted: false,
-      singleEvents: true,
-      orderBy: 'startTime',
-      calendarId: query.calendarId,
-      timeMin: query.time,
-      maxResults: query.limit || 10,
-  }, function (err, result) {
-      if(!result || typeof result.items == 'undefined') {
-        console.log('err during request');
-        console.log(err);
-        res.sendStatus(400);
-        return;
-      }
-
-      res.json(result.items || []);
-  });
+  loadEvents(query.calendarId, query.limit)
+    .then(function(items) {
+      res.json(items);
+    })
+    .catch(function(err) {
+      handleError(err);
+      res.sendStatus(400); 
+    });
 });
 
 app.get('/api/insert', function (req, res) {
@@ -77,8 +67,11 @@ app.get('/api/insert', function (req, res) {
     return;
   }
 
-  AuthorizeGoogle(query.creator).then(function() {
-    calendar.events.insert({
+  authorizeGoogle.authPromise({
+      impersonate_email: query.creator
+    }).then(function(jwtClient) {
+      calendar.events.insert({
+        'auth': jwtClient, 
         'calendarId': query.calendarId,
         'resource': {
           'summary': query.title || 'No Name',
@@ -105,8 +98,47 @@ app.get('/api/insert', function (req, res) {
               event: result
             });
         }
+      });
+  });
+});
+
+function handleError(err) {
+  if(err.code === 401) {
+    authorizeGoogle.resetToken();
+    console.log('err during request');
+    console.log(err);
+  }
+}
+
+function loadCalendars() {
+  return new Promise(function(resolve, reject) {
+    calendar.calendarList.list({
+      auth: null
+    }, function (err, result) {
+      if(!result || typeof result.items == 'undefined') {
+        reject(err);
+      } else {
+        resolve(result.items || []);
+      }
     });
   });
+}
 
-  
-});
+function loadEvents(calendarId, limit) {
+  return new Promise(function(resolve, reject) {
+    calendar.events.list({
+        showDeleted: false,
+        singleEvents: true,
+        orderBy: 'startTime',
+        calendarId: query.calendarId,
+        timeMin: query.time,
+        maxResults: query.limit || 10,
+    }, function (err, result) {
+        if(!result || typeof result.items == 'undefined') {
+          reject(err);
+        } else {
+          resolve(result.items || []);
+        }
+    });
+  });
+}

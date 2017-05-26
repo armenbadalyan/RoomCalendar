@@ -7,12 +7,16 @@ var calendar = google.calendar('v3');
 var port = process.env.PORT || 8080;
 var authorizeGoogle = require('./authorize-google.js');
 var winston = require('winston');
+require('winston-daily-rotate-file')
 
 winston.configure({
     transports: [
-        new (winston.transports.File)({ 
+        new winston.transports.DailyRotateFile({ 
           json: false,
-          filename: 'roomcalendar.log' 
+          datePattern: '.yyyy-MM-dd',
+          filename: 'roomcalendar.log',
+          maxsize: 104857600,
+          maxFiles: 1
         })
     ]
 });

@@ -15,6 +15,7 @@
     "express": "^4.14.1",
     "googleapis": "git+https://github.com/google/google-api-nodejs-client.git",
     "promise": "^7.1.1",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
   }
 }

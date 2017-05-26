@@ -15,8 +15,8 @@ winston.configure({
           json: false,
           datePattern: '.yyyy-MM-dd',
           filename: 'roomcalendar.log',
-          maxsize: 104857600,
-          maxFiles: 1
+          maxsize: 10485760,
+          maxFiles: 10
         })
     ]
 });

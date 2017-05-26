@@ -6,6 +6,13 @@ var google = require('googleapis');
 var calendar = google.calendar('v3');
 var port = process.env.PORT || 8080;
 var authorizeGoogle = require('./authorize-google.js');
+var winston = require('winston');
+
+winston.configure({
+    transports: [
+        new (winston.transports.File)({ filename: 'roomcalendar.log' })
+    ]
+});
 
 app.listen(port);
 
@@ -22,6 +29,11 @@ app.use('/api', function (req, res, next) {
 });
 
 app.use('/api', function(req, res, next) {
+  var ip = req.headers['x-forwarded-for'] ||
+           req.connection.remoteAddress || 
+           req.socket.remoteAddress ||
+           req.connection.socket.remoteAddress;
+  winston.info('new request from ip ' + ip);
   authorizeGoogle.checkAuth().then(function() {
     next();
   }, function() {

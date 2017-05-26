@@ -1,7 +1,7 @@
 var path = require('path');
 var google = require('googleapis');
 var Promise = require('promise');
-
+var winston = require('winston');
 var appJwt = null;
 
 function getDataSource() {
@@ -36,6 +36,7 @@ function resetToken() {
 }
 
 function authPromise(options) {
+    winston.info('New authorization happends');
     return new Promise(function (resolve, reject) {
 
         var source = getDataSource();
@@ -59,6 +60,7 @@ function checkAuth(options, forceUpdate) {
     options = options || {};
 
     if(!forceUpdate && checkTokenValid()) {
+        winston.info('Current JWT token is used');
         return Promise.resolve(appJwt);
     }
     

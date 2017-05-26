@@ -45,6 +45,7 @@ app.use('/api', function(req, res, next) {
 });
 
 app.get('/api/calendars', function (req, res) {
+  winston.info('index.js | /api/calendars | request calendars');
   loadCalendars()
     .then(function(items) {
       res.json(items);
@@ -56,6 +57,7 @@ app.get('/api/calendars', function (req, res) {
 });
 
 app.get('/api/events', function (req, res) {
+  winston.info('index.js | /api/calendars | request events');
   var query = req.query;
 
   if(typeof query.calendarId == 'undefined' || typeof query.time == "undefined" || typeof query.limit == 'undefined') {
@@ -122,6 +124,7 @@ function handleError(err) {
     authorizeGoogle.resetToken();
     console.log('err during request');
     console.log(err);
+    winston.error('index.js | handleError | ' + err);
   }
 }
 

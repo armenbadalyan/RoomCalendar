@@ -49,7 +49,7 @@ app.get('/api/events', function (req, res) {
     return;
   }
 
-  loadEvents(query.calendarId, query.limit)
+  loadEvents(query.calendarId, query.limit, query.time)
     .then(function(items) {
       res.json(items);
     })
@@ -124,15 +124,15 @@ function loadCalendars() {
   });
 }
 
-function loadEvents(calendarId, limit) {
+function loadEvents(calendarId, limit, time) {
   return new Promise(function(resolve, reject) {
     calendar.events.list({
         showDeleted: false,
         singleEvents: true,
         orderBy: 'startTime',
-        calendarId: query.calendarId,
-        timeMin: query.time,
-        maxResults: query.limit || 10,
+        calendarId: calendarId,
+        timeMin: time,
+        maxResults: limit || 10,
     }, function (err, result) {
         if(!result || typeof result.items == 'undefined') {
           reject(err);

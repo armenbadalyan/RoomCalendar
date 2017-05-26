@@ -10,7 +10,10 @@ var winston = require('winston');
 
 winston.configure({
     transports: [
-        new (winston.transports.File)({ filename: 'roomcalendar.log' })
+        new (winston.transports.File)({ 
+          json: false,
+          filename: 'roomcalendar.log' 
+        })
     ]
 });
 
@@ -33,7 +36,7 @@ app.use('/api', function(req, res, next) {
            req.connection.remoteAddress || 
            req.socket.remoteAddress ||
            req.connection.socket.remoteAddress;
-  winston.info('new request from ip ' + ip);
+  winston.info('index.js | /api | new request from ip ' + ip);
   authorizeGoogle.checkAuth().then(function() {
     next();
   }, function() {

@@ -36,7 +36,7 @@ function resetToken() {
 }
 
 function authPromise(options) {
-    winston.info('New authorization happends');
+    winston.info('authorize-google.js | authPromise | New authorization happends');
     return new Promise(function (resolve, reject) {
 
         var source = getDataSource();
@@ -60,7 +60,7 @@ function checkAuth(options, forceUpdate) {
     options = options || {};
 
     if(!forceUpdate && checkTokenValid()) {
-        winston.info('Current JWT token is used');
+        winston.info('authorize-google.js | checkAuth | Current JWT token is used');
         return Promise.resolve(appJwt);
     }
     

@@ -2,13 +2,12 @@ require('dotenv').config();
 var request = require("request");
 var schedule = require('node-schedule');
 
-var PROBES = process.env.PROBES;
+var probes = JSON.parse(process.env.PROBES) || [];
 var dbId = process.env.dbId;
 var postUrl = process.env.probesUrl;
 
 function probesProcess() {
   schedule.scheduleJob('00 * * * *', function(){
-    var probes = JSON.parse(PROBES) || [];
     probes.forEach(function (probe) {
       getProbeData(probe).then(function(data) {
         console.log(data)

@@ -7,11 +7,13 @@ var calendar = google.calendar('v3');
 var port = process.env.PORT || 8080;
 var authorizeGoogle = require('./authorize-google.js');
 var winston = require('winston');
-require('winston-daily-rotate-file')
+require('winston-daily-rotate-file');
+
+var probesService = require('./probes-service');
 
 winston.configure({
     transports: [
-        new winston.transports.DailyRotateFile({ 
+        new winston.transports.DailyRotateFile({
           json: false,
           datePattern: '.yyyy-MM-dd',
           filename: 'roomcalendar.log',
@@ -37,7 +39,7 @@ app.use('/api', function (req, res, next) {
 
 app.use('/api', function(req, res, next) {
   var ip = req.headers['x-forwarded-for'] ||
-           req.connection.remoteAddress || 
+           req.connection.remoteAddress ||
            req.socket.remoteAddress ||
            req.connection.socket.remoteAddress;
   winston.info('index.js | /api | new request from ip ' + ip);
@@ -56,7 +58,7 @@ app.get('/api/calendars', function (req, res) {
     })
     .catch(function(err) {
       handleError(err);
-      res.sendStatus(400); 
+      res.sendStatus(400);
     });
 });
 
@@ -76,7 +78,7 @@ app.get('/api/events', function (req, res) {
     })
     .catch(function(err) {
       handleError(err);
-      res.sendStatus(400); 
+      res.sendStatus(400);
     });
 });
 
@@ -92,7 +94,7 @@ app.get('/api/insert', function (req, res) {
       impersonate_email: query.creator
     }).then(function(jwtClient) {
       calendar.events.insert({
-        'auth': jwtClient, 
+        'auth': jwtClient,
         'calendarId': query.calendarId,
         'resource': {
           'summary': query.title || 'No Name',
@@ -164,3 +166,5 @@ function loadEvents(calendarId, limit, time) {
     });
   });
 }
+
+probesService.probesProcess();
